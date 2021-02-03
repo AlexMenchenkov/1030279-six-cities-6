@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Page from '/src/components/page/page.jsx';
+import MainPage from '/src/components/main-page/main-page.jsx';
 
 
 ReactDOM.render(
     // eslint-disable-next-line react/react-in-jsx-scope
-    <Page
-      title={`Keks`}
+    <MainPage
+      title={`Cool`}
     />,
     document.getElementById(`root`)
 );

@@ -9,7 +9,7 @@ let data = [
     price: 120,
     rate: `80%`,
     type: `Apartment`,
-    name: `Beautiful &amp; luxurious apartment at great location`,
+    title: `Beautiful &amp; luxurious apartment at great location`,
   },
   {
     img: `img/room.jpg`,
@@ -17,7 +17,7 @@ let data = [
     price: 80,
     rate: `80%`,
     type: `Private room`,
-    name: `Wood and stone place`,
+    title: `Wood and stone place`,
   },
   {
     img: `img/apartment-01.jpg`,
@@ -25,7 +25,7 @@ let data = [
     price: 132,
     rate: `80%`,
     type: `Apartment`,
-    name: `Canal View Prinsengracht`,
+    title: `Canal View Prinsengracht`,
   },
   {
     img: `img/apartment-03.jpg`,
@@ -33,7 +33,7 @@ let data = [
     price: 180,
     rate: `100%`,
     type: `Apartment`,
-    name: `Nice, cozy, warm big bed apartment`,
+    title: `Nice, cozy, warm big bed apartment`,
   },
 ];
 

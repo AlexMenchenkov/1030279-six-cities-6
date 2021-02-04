@@ -8,7 +8,7 @@ export const CardPlace = (props) => {
     price,
     rate,
     type,
-    name,
+    title,
   } = props;
 
   return <article className="cities__place-card place-card">
@@ -44,7 +44,7 @@ export const CardPlace = (props) => {
         </div>
       </div>
       <h2 className="place-card__name">
-        <a href="#">{name}</a>
+        <a href="#">{title}</a>
       </h2>
       <p className="place-card__type">{type}</p>
     </div>
@@ -58,7 +58,7 @@ export const propTypes = {
   price: PropTypes.number.isRequired,
   rate: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 CardPlace.propTypes = propTypes;

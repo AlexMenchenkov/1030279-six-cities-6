@@ -1,19 +1,14 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
-const CardPlace = (props) => {
+export const CardPlace = (props) => {
   const {
-    // eslint-disable-next-line react/prop-types
     img,
-    // eslint-disable-next-line react/prop-types
     isPremium,
-    // eslint-disable-next-line react/prop-types
     price,
-    // eslint-disable-next-line react/prop-types
     rate,
-    // eslint-disable-next-line react/prop-types
     type,
-    // eslint-disable-next-line react/prop-types
-    description,
+    name,
   } = props;
 
   return <article className="cities__place-card place-card">
@@ -48,11 +43,21 @@ const CardPlace = (props) => {
         </div>
       </div>
       <h2 className="place-card__name">
-        <a href="#">{description}</a>
+        <a href="#">{name}</a>
       </h2>
       <p className="place-card__type">{type}</p>
     </div>
   </article>;
 };
 
-export default CardPlace;
+// Нашел такое решение не дублирования пропсов
+export const propTypes = {
+  img: PropTypes.string.isRequired,
+  isPremium: PropTypes.bool.isRequired,
+  price: PropTypes.number.isRequired,
+  rate: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+};
+
+CardPlace.propTypes = propTypes;

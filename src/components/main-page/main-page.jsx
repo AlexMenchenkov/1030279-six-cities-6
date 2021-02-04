@@ -1,8 +1,8 @@
 import React from "react";
-import CardPlace from '/src/components/card-place/card-place.jsx';
+import PropTypes from "prop-types";
+import {CardPlace, propTypes} from '/src/components/card-place/card-place.jsx';
 
 const MainPage = (props) => {
-  // eslint-disable-next-line react/prop-types
   const {data} = props;
 
   return <div className="page page--gray page--main">
@@ -88,21 +88,19 @@ const MainPage = (props) => {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {// eslint-disable-next-line react/prop-types
-                data.map((option, index) => {
-                  return (
-                    // eslint-disable-next-line react/jsx-key
-                    <CardPlace
-                      key={index}
-                      img={option.img}
-                      isPremium={option.isPremium}
-                      price={option.price}
-                      rate={option.rate}
-                      type={option.type}
-                      name={option.name}
-                    />
-                  );
-                })}
+              {data.map((option, index) => {
+                return (
+                  <CardPlace
+                    key={index}
+                    img={option.img}
+                    isPremium={option.isPremium}
+                    price={option.price}
+                    rate={option.rate}
+                    type={option.type}
+                    name={option.name}
+                  />
+                );
+              })}
             </div>
           </section>
           <div className="cities__right-section">
@@ -112,6 +110,14 @@ const MainPage = (props) => {
       </div>
     </main>
   </div>;
+};
+
+MainPage.propTypes = {
+  data: PropTypes.arrayOf(
+      PropTypes.shape({
+        propTypes,
+      }),
+  ).isRequired,
 };
 
 export default MainPage;

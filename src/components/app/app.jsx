@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import MainPage from '/src/components/main-page/main-page.jsx';
-import {propTypes} from '/src/components/card-place/card-place.jsx';
+import {propTypesCard} from '/src/components/card-place/card-place.jsx';
 
 const App = (props) => {
   const {data} = props;
@@ -13,7 +13,7 @@ const App = (props) => {
 App.propTypes = {
   data: PropTypes.arrayOf(
       PropTypes.shape({
-        propTypes,
+        propTypesCard,
       }),
   ).isRequired,
 };

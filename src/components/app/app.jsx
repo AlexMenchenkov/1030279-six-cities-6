@@ -4,7 +4,7 @@ import MainPage from '/src/components/main-page/main-page.jsx';
 import Login from '/src/components/login/login.jsx';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {propTypesCard} from '/src/components/card-place/card-place.jsx';
-
+import Favorites from '/src/components/app/favorites/favorites.jsx';
 
 const App = (props) => {
   const {data} = props;
@@ -12,16 +12,23 @@ const App = (props) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact>
-          <
-            MainPage data={data}
-          />
-        </Route>
-        <Route path="/login" exact>
-          <
-            Login
-          />
-        </Route>
+        <Route path="/" exact
+          render={() => (
+            <
+              MainPage data={data}
+            />
+          )}
+        />
+        <Route path="/login" exact
+          render={() => (
+            <Login/>
+          )}
+        />
+        <Route path="/favorites" exact
+          render={() => (
+            <Favorites/>
+          )}
+        />
       </Switch>
     </BrowserRouter>
   );

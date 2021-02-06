@@ -52,7 +52,7 @@ export const CardPlace = (props) => {
 };
 
 // Нашел такое решение не дублирования пропсов
-export const propTypes = {
+export const propTypesCard = {
   img: PropTypes.string.isRequired,
   isPremium: PropTypes.bool.isRequired,
   price: PropTypes.number.isRequired,
@@ -61,4 +61,4 @@ export const propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-CardPlace.propTypes = propTypes;
+CardPlace.propTypes = propTypesCard;

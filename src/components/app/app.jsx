@@ -5,6 +5,8 @@ import Login from '/src/components/login/login.jsx';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {getPropTypesCard} from '/src/components/card-place/card-place.jsx';
 import Favorites from '/src/components/app/favorites/favorites.jsx';
+import Page404 from '/src/components/page-404/page-404.jsx';
+import Room from '/src/components/room/room.jsx';
 
 const App = (props) => {
   const {data} = props;
@@ -29,6 +31,14 @@ const App = (props) => {
             <Favorites/>
           )}
         />
+        <Route path="/room" exact
+          render={() => (
+            <Room/>
+          )}
+        />
+        <Route>
+          <Page404/>
+        </Route>
       </Switch>
     </BrowserRouter>
   );

@@ -51,14 +51,18 @@ export const CardPlace = (props) => {
   </article>;
 };
 
-// Нашел такое решение не дублирования пропсов
-export const propTypesCard = {
-  img: PropTypes.string.isRequired,
-  isPremium: PropTypes.bool.isRequired,
-  price: PropTypes.number.isRequired,
-  rate: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+// можно так делать?
+export const propTypesCard = () => {
+  return (
+    {
+      img: PropTypes.string.isRequired,
+      isPremium: PropTypes.bool.isRequired,
+      price: PropTypes.number.isRequired,
+      rate: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+    }
+  );
 };
 
 CardPlace.propTypes = propTypesCard;

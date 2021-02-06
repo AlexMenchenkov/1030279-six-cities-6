@@ -51,6 +51,7 @@ export const CardPlace = (props) => {
   </article>;
 };
 
+// можно так делать?
 export const propTypesCard = () => {
   return (
     {

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import MainPage from '/src/components/main-page/main-page.jsx';
+import Login from '/src/components/login/login.jsx';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {propTypesCard} from '/src/components/card-place/card-place.jsx';
 
@@ -16,9 +17,9 @@ const App = (props) => {
             MainPage data={data}
           />
         </Route>
-        <Route path="/about" exact>
+        <Route path="/login" exact>
           <
-            MainPage data={data}
+            Login
           />
         </Route>
       </Switch>

@@ -52,7 +52,7 @@ export const CardPlace = (props) => {
 };
 
 // можно так делать?
-export const propTypesCard = () => {
+export const getPropTypesCard = () => {
   return (
     {
       img: PropTypes.string.isRequired,
@@ -65,4 +65,4 @@ export const propTypesCard = () => {
   );
 };
 
-CardPlace.propTypes = propTypesCard;
+CardPlace.propTypes = getPropTypesCard;

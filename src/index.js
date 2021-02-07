@@ -39,10 +39,15 @@ let data = [
     type: `Apartment`,
     title: `Nice, cozy, warm big bed apartment`,
   },
+  {
+    img: `img/room.jpg`,
+    isPremium: false,
+    price: 80,
+    rate: `80%`,
+    type: `Private room`,
+    title: `Wood and stone place`,
+  },
 ];
-
-// Точечно, но в данной реализации, когда мало элементов мне кажется можно так сделать
-data[4] = data[1];
 
 ReactDOM.render(
     <App

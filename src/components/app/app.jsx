@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import MainPage from '/src/components/main-page/main-page.jsx';
+import Main from '/src/components/main/main.jsx';
 import {getPropTypesCard} from '/src/components/card-place/card-place.jsx';
 
 const App = (props) => {
   const {data} = props;
   return <
-    MainPage data={data}
+    Main data={data}
   />;
 };
 

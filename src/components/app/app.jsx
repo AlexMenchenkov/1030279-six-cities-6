@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
 import MainScreen from '/src/components/mainScreen/mainScreen.jsx';
 import {getPropTypesCard} from '/src/components/card-place/card-place.jsx';

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {CardPlace, getPropTypesCard} from '/src/components/card-place/card-place.jsx';
 
-const MainPage = (props) => {
+const Main = (props) => {
   const {data} = props;
 
   return <div className="page page--gray page--main">
@@ -113,7 +113,7 @@ const MainPage = (props) => {
   </div>;
 };
 
-MainPage.propTypes = {
+Main.propTypes = {
   data: PropTypes.arrayOf(
       PropTypes.shape({
         getPropTypesCard,
@@ -121,5 +121,5 @@ MainPage.propTypes = {
   ).isRequired,
 };
 
-export default MainPage;
+export default Main;
 

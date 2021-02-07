@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import MainPage from '/src/components/main-page/main-page.jsx';
+import Main from '/src/components/main/main.jsx';
 import Login from '/src/components/login/login.jsx';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {getPropTypesCard} from '/src/components/card-place/card-place.jsx';
@@ -16,7 +16,7 @@ const App = ({data}) => {
         <Route path="/" exact
           render={() => (
             <
-              MainPage data={data}
+              Main data={data}
             />
           )}
         />

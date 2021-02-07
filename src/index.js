@@ -42,6 +42,7 @@ let data = [
   {
     img: `img/room.jpg`,
     isPremium: false,
+    offerId: 5,
     price: 80,
     rate: `80%`,
     type: `Private room`,

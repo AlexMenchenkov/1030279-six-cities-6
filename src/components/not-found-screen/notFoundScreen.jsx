@@ -1,7 +1,7 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React from 'react';
+import {Link} from 'react-router-dom';
 
-const Screen404 = () => {
+const NotFoundScreen = () => {
   return (
     <header className="header">
       <div className="container">
@@ -14,4 +14,4 @@ const Screen404 = () => {
   );
 };
 
-export default Screen404;
+export default NotFoundScreen;

@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import {CardPlace, getPropTypesCard} from '/src/components/card-place/card-place.jsx';
 
-const Main = (props) => {
+const MainScreen = (props) => {
   const {data} = props;
 
   return <div className="page page--gray page--main">
@@ -88,17 +88,11 @@ const Main = (props) => {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {data.map((option, index) => {
+              {data.map((room) => {
                 return (
                   <CardPlace
-                    key={index}
-                    img={option.img}
-                    isPremium={option.isPremium}
-                    price={option.price}
-                    rate={option.rate}
-                    type={option.type}
-                    title={option.title}
-                    offerId={option.offerId}
+                    key={room.id}
+                    room={room}
                   />
                 );
               })}
@@ -113,7 +107,7 @@ const Main = (props) => {
   </div>;
 };
 
-Main.propTypes = {
+MainScreen.propTypes = {
   data: PropTypes.arrayOf(
       PropTypes.shape({
         getPropTypesCard,
@@ -121,5 +115,5 @@ Main.propTypes = {
   ).isRequired,
 };
 
-export default Main;
+export default MainScreen;
 

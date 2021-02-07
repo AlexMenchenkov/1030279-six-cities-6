@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
-import Main from '/src/components/main/main.jsx';
+import MainScreen from '/src/components/mainScreen/mainScreen.jsx';
 import Login from '/src/components/login/login.jsx';
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {getPropTypesCard} from '/src/components/card-place/card-place.jsx';
 import Favorites from '/src/components/favorites/favorites.jsx';
-import Screen404 from '/src/components/screen-404/screen-404.jsx';
+import NotFoundScreen from '/src/components/not-found-screen/notFoundScreen.jsx';
 import Room from '/src/components/room/room.jsx';
 
 const App = ({data}) => {
@@ -16,7 +16,7 @@ const App = ({data}) => {
         <Route path="/" exact
           render={() => (
             <
-              Main data={data}
+              MainScreen data={data}
             />
           )}
         />
@@ -39,7 +39,7 @@ const App = ({data}) => {
           )}
         />
         <Route>
-          <Screen404/>
+          <NotFoundScreen/>
         </Route>
       </Switch>
     </BrowserRouter>

@@ -1,35 +1,27 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from "react-router-dom";
+import {Link} from 'react-router-dom';
 
 export const CardPlace = (props) => {
-  const {
-    img,
-    isPremium,
-    price,
-    rate,
-    type,
-    title,
-    offerId,
-  } = props;
+  const {room} = props;
 
   return <article className="cities__place-card place-card">
-    {isPremium ?
+    {room.isPremium ?
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
       : ``
     }
     <div className="cities__image-wrapper place-card__image-wrapper">
-      <Link to={`/offer/${offerId}`}>
-        <img className="place-card__image" src={img} width="260" height="200"
+      <Link to={`/offer/${room.id}`}>
+        <img className="place-card__image" src={room.img} width="260" height="200"
           alt="Place image"/>
       </Link>
     </div>
     <div className="place-card__info">
       <div className="place-card__price-wrapper">
         <div className="place-card__price">
-          <b className="place-card__price-value">&euro;{price}</b>
+          <b className="place-card__price-value">&euro;{room.price}</b>
           <span className="place-card__price-text">&#47;&nbsp;night</span>
         </div>
         <button className="place-card__bookmark-button button" type="button">
@@ -41,19 +33,18 @@ export const CardPlace = (props) => {
       </div>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
-          <span style={{width: rate}}> </span>
+          <span style={{width: room.rate}}> </span>
           <span className="visually-hidden">Rating</span>
         </div>
       </div>
       <h2 className="place-card__name">
-        <a href="#">{title}</a>
+        <a href="#">{room.title}</a>
       </h2>
-      <p className="place-card__type">{type}</p>
+      <p className="place-card__type">{room.type}</p>
     </div>
   </article>;
 };
 
-// можно так делать?
 export const getPropTypesCard = () => {
   return (
     {
@@ -63,7 +54,7 @@ export const getPropTypesCard = () => {
       rate: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      offerId: PropTypes.number.isRequired,
+      id: PropTypes.number.isRequired,
     }
   );
 };

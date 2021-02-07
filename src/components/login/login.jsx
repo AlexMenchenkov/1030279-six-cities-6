@@ -1,5 +1,5 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React from 'react';
+import {Link} from 'react-router-dom';
 // import PropTypes from 'prop-types';
 // import MainPage from "src/components/main-page/main-page.jsx";
 

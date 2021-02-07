@@ -34,7 +34,7 @@ const App = ({data}) => {
           render={(props) => (
             <
               Room
-              offerId={props}
+              id={props}
             />
           )}
         />

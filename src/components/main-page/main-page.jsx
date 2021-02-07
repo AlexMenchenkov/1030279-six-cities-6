@@ -98,6 +98,7 @@ const MainPage = (props) => {
                     rate={option.rate}
                     type={option.type}
                     title={option.title}
+                    offerId={option.offerId}
                   />
                 );
               })}

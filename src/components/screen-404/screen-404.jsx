@@ -1,6 +1,6 @@
 import React from "react";
 
-const Page404 = () => {
+const Screen404 = () => {
   return (
     <header className="header">
       <div className="container">
@@ -10,4 +10,4 @@ const Page404 = () => {
   );
 };
 
-export default Page404;
+export default Screen404;

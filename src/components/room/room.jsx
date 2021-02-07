@@ -62,14 +62,14 @@ const Room = (props) => {
                 </h1>
                 <button className="property__bookmark-button button" type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
+                    <use xlinkHref="#icon-bookmark"/>
                   </svg>
                   <span className="visually-hidden">To bookmarks</span>
                 </button>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `80%`}}></span>
+                  <span style={{width: `80%`}}/>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">4.8</span>
@@ -162,7 +162,7 @@ const Room = (props) => {
                     <div className="reviews__info">
                       <div className="reviews__rating rating">
                         <div className="reviews__stars rating__stars">
-                          <span style={{width: `80%`}}></span>
+                          <span style={{width: `80%`}}/>
                           <span className="visually-hidden">Rating</span>
                         </div>
                       </div>
@@ -181,7 +181,7 @@ const Room = (props) => {
                       type="radio"/>
                     <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
                       <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"></use>
+                        <use xlinkHref="#icon-star"/>
                       </svg>
                     </label>
 
@@ -189,7 +189,7 @@ const Room = (props) => {
                       type="radio"/>
                     <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
                       <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"></use>
+                        <use xlinkHref="#icon-star"/>
                       </svg>
                     </label>
 
@@ -197,7 +197,7 @@ const Room = (props) => {
                       type="radio"/>
                     <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
                       <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"></use>
+                        <use xlinkHref="#icon-star"/>
                       </svg>
                     </label>
 
@@ -205,7 +205,7 @@ const Room = (props) => {
                       type="radio"/>
                     <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
                       <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"></use>
+                        <use xlinkHref="#icon-star"/>
                       </svg>
                     </label>
 
@@ -213,12 +213,12 @@ const Room = (props) => {
                       type="radio"/>
                     <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
                       <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"></use>
+                        <use xlinkHref="#icon-star"/>
                       </svg>
                     </label>
                   </div>
                   <textarea className="reviews__textarea form__textarea" id="review" name="review"
-                    placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
+                    placeholder="Tell how was your stay, what you like and what can be improved"/>
                   <div className="reviews__button-wrapper">
                     <p className="reviews__help">
                       To submit review please make sure to set <span className="reviews__star">rating</span> and
@@ -230,7 +230,7 @@ const Room = (props) => {
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <section className="property__map map"/>
         </section>
         <div className="container">
           <section className="near-places places">
@@ -251,14 +251,14 @@ const Room = (props) => {
                     <button className="place-card__bookmark-button place-card__bookmark-button--active button"
                       type="button">
                       <svg className="place-card__bookmark-icon" width="18" height="19">
-                        <use xlinkHref="#icon-bookmark"></use>
+                        <use xlinkHref="#icon-bookmark"/>
                       </svg>
                       <span className="visually-hidden">In bookmarks</span>
                     </button>
                   </div>
                   <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">
-                      <span style={{width: ` 80%`}}></span>
+                      <span style={{width: ` 80%`}}/>
                       <span className="visually-hidden">Rating</span>
                     </div>
                   </div>
@@ -284,14 +284,14 @@ const Room = (props) => {
                     </div>
                     <button className="place-card__bookmark-button button" type="button">
                       <svg className="place-card__bookmark-icon" width="18" height="19">
-                        <use xlinkHref="#icon-bookmark"></use>
+                        <use xlinkHref="#icon-bookmark"/>
                       </svg>
                       <span className="visually-hidden">To bookmarks</span>
                     </button>
                   </div>
                   <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">
-                      <span style={{width: `80%`}}></span>
+                      <span style={{width: `80%`}}/>
                       <span className="visually-hidden">Rating</span>
                     </div>
                   </div>
@@ -317,14 +317,14 @@ const Room = (props) => {
                     </div>
                     <button className="place-card__bookmark-button button" type="button">
                       <svg className="place-card__bookmark-icon" width="18" height="19">
-                        <use xlinkHref="#icon-bookmark"></use>
+                        <use xlinkHref="#icon-bookmark"/>
                       </svg>
                       <span className="visually-hidden">To bookmarks</span>
                     </button>
                   </div>
                   <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">
-                      <span style={{width: `100%`}}></span>
+                      <span style={{width: `100%`}}/>
                       <span className="visually-hidden">Rating</span>
                     </div>
                   </div>

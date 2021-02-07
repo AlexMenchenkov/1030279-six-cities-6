@@ -88,16 +88,16 @@ const MainScreen = (props) => {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {data.map((option, index) => {
+              {data.map((room) => {
                 return (
                   <CardPlace
-                    key={index}
-                    img={option.img}
-                    isPremium={option.isPremium}
-                    price={option.price}
-                    rate={option.rate}
-                    type={option.type}
-                    title={option.title}
+                    key={room.id}
+                    img={room.img}
+                    isPremium={room.isPremium}
+                    price={room.price}
+                    rate={room.rate}
+                    type={room.type}
+                    title={room.title}
                   />
                 );
               })}

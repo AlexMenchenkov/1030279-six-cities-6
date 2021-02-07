@@ -1,9 +1,11 @@
 import {OffersType} from './consts.js';
+
 export const offers = [
   {
     img: `img/apartment-01.jpg`,
     isPremium: true,
     price: 120,
+    id: 1,
     rate: 80,
     type: OffersType.APARTMENT,
     title: `Beautiful &amp; luxurious apartment at great location`,
@@ -12,6 +14,7 @@ export const offers = [
     img: `img/room.jpg`,
     isPremium: false,
     price: 80,
+    id: 2,
     rate: 80,
     type: OffersType.ROOM,
     title: `Wood and stone place`,
@@ -20,6 +23,7 @@ export const offers = [
     img: `img/apartment-01.jpg`,
     isPremium: false,
     price: 132,
+    id: 3,
     rate: 80,
     type: OffersType.APARTMENT,
     title: `Canal View Prinsengracht`,
@@ -28,6 +32,7 @@ export const offers = [
     img: `img/apartment-03.jpg`,
     isPremium: true,
     price: 180,
+    id: 4,
     rate: 100,
     type: OffersType.APARTMENT,
     title: `Nice, cozy, warm big bed apartment`,
@@ -36,6 +41,7 @@ export const offers = [
     img: `img/room.jpg`,
     isPremium: false,
     price: 80,
+    id: 5,
     rate: 80,
     type: OffersType.ROOM,
     title: `Wood and stone place`,

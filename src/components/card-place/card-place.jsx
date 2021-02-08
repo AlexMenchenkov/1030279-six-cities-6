@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 export const CardPlace = (props) => {
   const {
@@ -14,10 +15,10 @@ export const CardPlace = (props) => {
       : ``
     }
     <div className="cities__image-wrapper place-card__image-wrapper">
-      <a href="#">
+      <Link to={`/offer/${offer.id}`}>
         <img className="place-card__image" src={offer.img} width="260" height="200"
           alt="Place image"/>
-      </a>
+      </Link>
     </div>
     <div className="place-card__info">
       <div className="place-card__price-wrapper">

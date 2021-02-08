@@ -1,7 +1,6 @@
 import React from 'react';
 
-// eslint-disable-next-line no-unused-vars
-const Room = (props) => {
+const Room = () => {
   return (
     <div className="page">
       <header className="header">

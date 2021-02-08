@@ -5,7 +5,7 @@ import offers from './data.js';
 
 ReactDOM.render(
     <App
-      data={offers}
+      offers={offers}
     />,
     document.getElementById(`root`)
 );

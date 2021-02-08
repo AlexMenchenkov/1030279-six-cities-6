@@ -4,14 +4,14 @@ import MainScreen from '/src/components/mainScreen/mainScreen.jsx';
 import {getPropTypesCard} from '/src/components/card-place/card-place.jsx';
 
 const App = (props) => {
-  const {data} = props;
+  const {offers} = props;
   return <
-    MainScreen data={data}
+    MainScreen offers={offers}
   />;
 };
 
 App.propTypes = {
-  data: PropTypes.arrayOf(
+  offers: PropTypes.arrayOf(
       PropTypes.shape({
         getPropTypesCard,
       }),

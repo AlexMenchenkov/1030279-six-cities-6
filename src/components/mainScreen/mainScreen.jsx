@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {CardPlace, getPropTypesCard} from '/src/components/card-place/card-place.jsx';
 
 const MainScreen = (props) => {
-  const {data} = props;
+  const {offers} = props;
 
   return <div className="page page--gray page--main">
     <header className="header">
@@ -88,11 +88,11 @@ const MainScreen = (props) => {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {data.map((room) => {
+              {offers.map((offer) => {
                 return (
                   <CardPlace
-                    key={room.id}
-                    room={room}
+                    key={offer.id}
+                    offer={offer}
                   />
                 );
               })}
@@ -108,7 +108,7 @@ const MainScreen = (props) => {
 };
 
 MainScreen.propTypes = {
-  data: PropTypes.arrayOf(
+  offers: PropTypes.arrayOf(
       PropTypes.shape({
         getPropTypesCard,
       }),

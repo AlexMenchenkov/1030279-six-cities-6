@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {CardPlace, getPropTypesCard} from '/src/components/card-place/card-place.jsx';
+import {CardPlace} from '/src/components/card-place/card-place.jsx';
+import {propTypesCard} from '/src/consts.js';
 
 const MainScreen = (props) => {
   const {offers} = props;
@@ -109,9 +110,9 @@ const MainScreen = (props) => {
 
 MainScreen.propTypes = {
   offers: PropTypes.arrayOf(
-      PropTypes.shape({
-        getPropTypesCard,
-      }),
+      PropTypes.shape(
+          propTypesCard,
+      ),
   ).isRequired,
 };
 

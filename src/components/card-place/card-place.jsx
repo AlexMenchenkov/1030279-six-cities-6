@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import {propTypesCard} from '/src/consts.js';
 
 export const CardPlace = (props) => {
   const {
@@ -47,15 +48,8 @@ export const CardPlace = (props) => {
   </article>;
 };
 
-export const getPropTypesCard = {
-  img: PropTypes.string.isRequired,
-  isPremium: PropTypes.bool.isRequired,
-  price: PropTypes.number.isRequired,
-  rate: PropTypes.number.isRequired,
-  type: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-};
-
 CardPlace.propTypes = {
-  offer: PropTypes.shape(getPropTypesCard),
+  offer: PropTypes.shape(
+      propTypesCard,
+  ),
 };

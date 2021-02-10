@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '/src/components/app/app.jsx';
-import offers from './data.js';
+import offers from '/src/mocks/offers.js';
 
 ReactDOM.render(
     <App

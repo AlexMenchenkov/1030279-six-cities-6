@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '/src/components/header/header.jsx';
+import Footer from '/src/components/footer/footer.jsx';
 
 const Favorites = () => {
   return (
@@ -137,11 +138,7 @@ const Favorites = () => {
           </section>
         </div>
       </main>
-      <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
-          <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
-        </a>
-      </footer>
+      <Footer/>
     </div>
   );
 };

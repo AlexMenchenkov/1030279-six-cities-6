@@ -6,9 +6,11 @@ import {propTypesCard} from '/src/consts.js';
 export const CardPlace = (props) => {
   const {
     offer,
+    onHoverCard,
+    id,
   } = props;
 
-  return <article className="cities__place-card place-card">
+  return <article onMouseOver={onHoverCard} id={id} className="cities__place-card place-card">
     {offer.isPremium ?
       <div className="place-card__mark">
         <span>Premium</span>
@@ -49,6 +51,8 @@ export const CardPlace = (props) => {
 };
 
 CardPlace.propTypes = {
+  onHoverCard: PropTypes.func,
+  id: PropTypes.number,
   offer: PropTypes.shape(
       propTypesCard,
   ),

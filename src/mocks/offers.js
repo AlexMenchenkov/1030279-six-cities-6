@@ -47,5 +47,3 @@ export const offers = [
     title: `Wood and stone place`,
   },
 ];
-
-export default offers;

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MainScreen from '/src/components/mainScreen/mainScreen.jsx';
+import MainScreen from '/src/components/main-screen/main-screen.jsx';
 import {propTypesCard} from '/src/consts.js';
 import Favorites from '/src/components/favorites/favorites.jsx';
 import NotFoundScreen from '/src/components/not-found-screen/notFoundScreen.jsx';
@@ -27,7 +27,7 @@ const App = ({offers}) => {
         />
         <Route path="/favorites" exact
           render={() => (
-            <Favorites/>
+            <Favorites offers={offers}/>
           )}
         />
         <Route path="/offer/:id" exact

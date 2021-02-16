@@ -14,3 +14,21 @@ export const propTypesCard = {
   type: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
+
+export const propTypesReview = {
+  year: PropTypes.string.isRequired,
+  month: PropTypes.string.isRequired,
+  textComment: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired,
+  rating: PropTypes.string.isRequired,
+  fullDate: PropTypes.string.isRequired,
+};
+
+export const starsData = [
+  `terribly`,
+  `badly`,
+  `not bad`,
+  `good`,
+  `perfect`,
+];

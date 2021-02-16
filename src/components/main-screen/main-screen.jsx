@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import CardsList from '/src/components/cards-list/cards-list.jsx';
 import {propTypesCard} from '/src/consts.js';
 import Header from '/src/components/header/header.jsx';
-import Footer from '/src/components/footer/footer.jsx';
 
 const MainScreen = (props) => {
   const {offers} = props;
@@ -78,7 +77,6 @@ const MainScreen = (props) => {
         </div>
       </div>
     </main>
-    <Footer/>
   </div>;
 };
 

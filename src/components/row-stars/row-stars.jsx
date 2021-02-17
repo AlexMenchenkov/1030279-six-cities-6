@@ -12,7 +12,7 @@ class RowStars extends Component {
   }
 
   handlerClick(event) {
-    const rate = event.currentTarget.value;
+    const {value: rate} = event.currentTarget;
     this.setState({rate});
   }
 

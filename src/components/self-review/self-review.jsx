@@ -11,7 +11,7 @@ class SelfReview extends Component {
   }
 
   handleChange(event) {
-    const textReview = event.target.value;
+    const {value: textReview} = event.target;
     this.setState({textReview});
   }
 

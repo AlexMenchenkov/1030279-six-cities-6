@@ -25,6 +25,8 @@ export const propTypesReview = {
   fullDate: PropTypes.string.isRequired,
 };
 
+export const ONE = 1;
+
 export const starsData = [
   `terribly`,
   `badly`,

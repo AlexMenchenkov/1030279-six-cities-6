@@ -1,38 +1,32 @@
 import PropTypes from "prop-types";
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import Star from '/src/components/star/star.jsx';
-import {ONE} from '/src/consts.js';
+import {ONE, ZERO} from '/src/consts.js';
 
-class RowStars extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {rate: 0};
-    this.props = props;
-    this.handlerClick = this.handlerClick.bind(this);
-  }
+const RowStars = (props) => {
+  // eslint-disable-next-line no-unused-vars
+  const [rate, setRate] = useState(ZERO);
+  const {starsData} = props;
+  let maxStarId = starsData.length + ONE;
 
-  handlerClick(event) {
-    const {value: rate} = event.currentTarget;
-    this.setState({rate});
-  }
+  const handlerClick = (event) => {
+    const {value} = event.target;
+    setRate(value);
+  };
 
-  render() {
-    const {starsData} = this.props;
-    let starId = starsData.length + ONE;
-    return (
-      starsData.map((title, index) => {
-        return (
-          <Star
-            title={title}
-            key={index}
-            id={--starId}
-            onClickStar={this.handlerClick}
-          />
-        );
-      })
-    );
-  }
-}
+  return (
+    starsData.map((title, index) => {
+      return (
+        <Star
+          title={title}
+          key={index}
+          id={--maxStarId}
+          onClickStar={handlerClick}
+        />
+      );
+    })
+  );
+};
 
 RowStars.propTypes = {
   starsData: PropTypes.array.isRequired,

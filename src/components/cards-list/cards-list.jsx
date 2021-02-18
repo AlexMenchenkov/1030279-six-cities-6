@@ -1,38 +1,32 @@
 import PropTypes from "prop-types";
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {CardPlace} from '/src/components/card-place/card-place.jsx';
 import {propTypesCard} from '/src/consts.js';
 
-class CardsList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {hoverElement: 1};
-    this.props = props;
-    this.handleHover = this.handleHover.bind(this);
-  }
+const CardsList = (props) => {
+  const {offers} = props;
+  // eslint-disable-next-line no-unused-vars
+  const [hoverElement, setHoverTarget] = useState(null);
 
-  handleHover(event) {
+  const handleHover = (event) => {
     const {id} = event.currentTarget;
-    this.setState({hoverElement: id});
-  }
+    setHoverTarget(id);
+  };
 
-  render() {
-    const {offers} = this.props;
-    return (<>
-      {offers.map((offer) => {
-        return (
-          <CardPlace
-            offer={offer}
-            key={offer.id}
-            id={offer.id}
-            onHoverCard={this.handleHover}
-          />
-        );
-      })}
-    </>
-    );
-  }
-}
+  return (<>
+    {offers.map((offer) => {
+      return (
+        <CardPlace
+          offer={offer}
+          key={offer.id}
+          id={offer.id}
+          onHoverCard={handleHover}
+        />
+      );
+    })}
+  </>
+  );
+};
 
 CardsList.propTypes = {
   offers: PropTypes.arrayOf(

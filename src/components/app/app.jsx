@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MainScreen from '/src/components/mainScreen/mainScreen.jsx';
-import {getPropTypesCard} from '/src/components/card-place/card-place.jsx';
+import MainScreen from '/src/components/main-screen/main-screen.jsx';
+import {propTypesCard} from '/src/consts.js';
 import Favorites from '/src/components/favorites/favorites.jsx';
 import NotFoundScreen from '/src/components/not-found-screen/notFoundScreen.jsx';
 import Room from '/src/components/room/room.jsx';
@@ -27,7 +27,7 @@ const App = ({offers}) => {
         />
         <Route path="/favorites" exact
           render={() => (
-            <Favorites/>
+            <Favorites offers={offers}/>
           )}
         />
         <Route path="/offer/:id" exact
@@ -48,9 +48,9 @@ const App = ({offers}) => {
 
 App.propTypes = {
   offers: PropTypes.arrayOf(
-      PropTypes.shape({
-        getPropTypesCard,
-      }),
+      PropTypes.shape(
+          propTypesCard,
+      ),
   ).isRequired,
 };
 

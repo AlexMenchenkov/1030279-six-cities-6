@@ -1,16 +1,17 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import Header from '/src/components/header/header.jsx';
 
 const NotFoundScreen = () => {
-  return (
-    <header className="header">
-      <div className="container">
-      </div>
-      <h1 style={{textAlign: `center`}}>404 Page not found</h1>
-      <div style={{textAlign: `center`}}>
-        <Link to={`/`} >На главную</Link>
-      </div>
-    </header>
+  return (<>
+    <Header/>
+    <div className="container">
+    </div>
+    <h1 style={{textAlign: `center`}}>404 Page not found</h1>
+    <div style={{textAlign: `center`}}>
+      <Link to={`/`} >На главную</Link>
+    </div>
+  </>
   );
 };
 

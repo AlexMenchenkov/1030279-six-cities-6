@@ -1,0 +1,32 @@
+export const reviews = [
+  {
+    avatar: `img/avatar-max.jpg`,
+    name: `Max`,
+    rating: `50%`,
+    textComment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+    month: `April`,
+    year: `2019`,
+    fullDate: `2019-04-24`,
+    id: 1,
+  },
+  {
+    avatar: `img/avatar-max.jpg`,
+    name: `Teo`,
+    rating: `90%`,
+    textComment: `National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`,
+    month: `May`,
+    year: `2020`,
+    fullDate: `2020-05-24`,
+    id: 2,
+  },
+  {
+    avatar: `img/avatar-max.jpg`,
+    name: `Tony`,
+    rating: `10%`,
+    textComment: `National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`,
+    month: `June`,
+    year: `2017`,
+    fullDate: `2017-07-24`,
+    id: 3,
+  },
+];

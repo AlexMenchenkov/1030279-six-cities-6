@@ -1,4 +1,4 @@
-import {OffersType} from './consts.js';
+import {OffersType} from '/src/consts.js';
 
 export const offers = [
   {
@@ -47,5 +47,3 @@ export const offers = [
     title: `Wood and stone place`,
   },
 ];
-
-export default offers;

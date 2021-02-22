@@ -35,3 +35,8 @@ export const starsData = [
   `good`,
   `perfect`,
 ];
+
+export const iconData = {
+  iconUrl: `img/pin.svg`,
+  iconSize: [30, 30]
+};

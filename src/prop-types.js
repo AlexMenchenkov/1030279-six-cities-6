@@ -19,6 +19,12 @@ export const propTypesReview = {
   fullDate: PropTypes.string.isRequired,
 };
 
+export const OffersType = {
+  APARTMENT: `Apartment`,
+  ROOM: `Private room`,
+  HOUSE: `House`,
+};
+
 const coordsMap = {
   lat: PropTypes.number.isRequired,
   lng: PropTypes.number.isRequired,

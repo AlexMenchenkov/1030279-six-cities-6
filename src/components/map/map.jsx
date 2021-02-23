@@ -1,13 +1,12 @@
+import PropTypes from "prop-types";
 import React, {useRef, useEffect} from 'react';
-import {iconData} from '/src/consts.js';
 import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
-import {cityDataDefault} from '/src/mocks/points.js';
+import {propTypesMap} from '/src/prop-types.js';
 
 const Map = (props) => {
   const mapRef = useRef();
-  const {zoom, ...cityDefault} = cityDataDefault;
-  const {cityData = cityDefault} = props;
+  const {points, iconData, cityDataDefault: {zoom, lat, lng, width}} = props;
   const icon = leaflet.icon({
     ...iconData,
   });
@@ -15,8 +14,8 @@ const Map = (props) => {
   useEffect(() => {
     mapRef.current = leaflet.map(`map`, {
       center: {
-        lat: cityData.lat,
-        lng: cityData.lng,
+        lat,
+        lng,
       },
       zoom,
       zoomControl: false,
@@ -28,29 +27,44 @@ const Map = (props) => {
       })
       .addTo(mapRef.current);
 
-    leaflet.marker({
-      lat: cityData.lat,
-      lng: cityData.lng,
-      title: `dsfsdf`,
-    },
-    {
-      icon,
-    })
+    points.forEach((point) => {
+
+      leaflet.marker({
+        lat: point.lat,
+        lng: point.lng,
+      },
+      {
+        icon,
+      })
       .addTo(mapRef.current)
-      .bindPopup(cityData.title);
+      .bindPopup(point.title);
 
-    return () => {
-      mapRef.current.remove();
-    };
-
+      return () => {
+        mapRef.current.remove();
+      };
+    });
   }, []);
 
   return (<>
     <div className="cities__right-section">
-      <div id="map" style={{width: `500px`}} ref={mapRef} />
+      <div id="map" style={{width}} ref={mapRef} />
     </div>
   </>
   );
+};
+
+Map.propTypes = {
+  iconData: PropTypes.shape(
+      propTypesMap.icon,
+  ),
+  cityDataDefault: PropTypes.shape(
+      propTypesMap.city,
+  ),
+  points: PropTypes.arrayOf(
+      PropTypes.shape(
+          propTypesMap.points,
+      ),
+  ).isRequired,
 };
 
 export default Map;

@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CardsList from '/src/components/cards-list/cards-list.jsx';
-import {propTypesCard} from '/src/consts.js';
+import {propTypesCard, propTypesMap} from '/src/prop-types.js';
 import Header from '/src/components/header/header.jsx';
+import Map from '/src/components/map/map.jsx';
 
 const MainScreen = (props) => {
-  const {offers} = props;
+  const {offers, iconData, cityDataDefault, points} = props;
 
   return <div className="page page--gray page--main">
     <Header/>
@@ -71,9 +72,11 @@ const MainScreen = (props) => {
               <CardsList offers={offers}/>
             </div>
           </section>
-          <div className="cities__right-section">
-            <section className="cities__map map"/>
-          </div>
+          <Map
+            points={points}
+            iconData={iconData}
+            cityDataDefault={cityDataDefault}
+          />
         </div>
       </div>
     </main>
@@ -84,6 +87,17 @@ MainScreen.propTypes = {
   offers: PropTypes.arrayOf(
       PropTypes.shape(
           propTypesCard,
+      ),
+  ).isRequired,
+  iconData: PropTypes.shape(
+      propTypesMap.icon,
+  ),
+  cityDataDefault: PropTypes.shape(
+      propTypesMap.city,
+  ),
+  points: PropTypes.arrayOf(
+      PropTypes.shape(
+          propTypesMap.points,
       ),
   ).isRequired,
 };

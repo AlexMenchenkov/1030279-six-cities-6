@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import Star from '/src/components/star/star.jsx';
 import {ONE, ZERO} from '/src/consts.js';

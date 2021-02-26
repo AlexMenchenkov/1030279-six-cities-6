@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {propTypesCard} from '/src/consts.js';
+import {propTypesCard} from '/src/prop-types.js';
 
 export const CardPlace = (props) => {
   const {

@@ -1,4 +1,4 @@
-import {OffersType} from '/src/consts.js';
+import {OffersType} from '/src/prop-types.js';
 
 export const offers = [
   {

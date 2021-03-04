@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from 'react';
 import Review from '/src/components/review/review.jsx';
-import {propTypesReview} from '/src/consts.js';
+import {propTypesReview} from '/src/prop-types.js';
 import SelfReview from '/src/components/self-review/self-review.jsx';
 import {starsData} from '/src/consts.js';
 

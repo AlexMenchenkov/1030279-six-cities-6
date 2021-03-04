@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MainScreen from '/src/components/main-screen/main-screen.jsx';
-import {propTypesCard} from '/src/consts.js';
+import {propTypesCard} from '/src/prop-types.js';
 import Favorites from '/src/components/favorites/favorites.jsx';
 import NotFoundScreen from '/src/components/not-found-screen/notFoundScreen.jsx';
 import Room from '/src/components/room/room.jsx';
 import Login from '/src/components/login/login.jsx';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {cityDataDefault} from '/src/mocks/points.js';
+import {iconData} from '/src/consts.js';
+import {points} from '/src/mocks/points.js';
 
 const App = ({offers}) => {
 
@@ -16,7 +19,11 @@ const App = ({offers}) => {
         <Route path="/" exact
           render={() => (
             <
-              MainScreen offers={offers}
+              MainScreen
+              offers={offers}
+              cityDataDefault={cityDataDefault}
+              iconData={iconData}
+              points={points}
             />
           )}
         />

@@ -9,6 +9,15 @@ export const starsData = [
   `perfect`,
 ];
 
+export const cities = [
+  `Paris`,
+  `Cologne`,
+  `Brussels`,
+  `Amsterdam`,
+  `Hamburg`,
+  `Dusseldorf`,
+];
+
 export const iconData = {
   iconUrl: `./img/pin.svg`,
   iconSize: [30, 30]

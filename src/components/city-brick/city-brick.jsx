@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import {connect} from 'react-redux';
 import {ActionCreator} from '/src/store/action.js';
@@ -24,6 +25,12 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.changeCity(event.target.innerText));
   },
 });
+
+CityBrick.propTypes = {
+  city: PropTypes.string.isRequired,
+  onClickCity: PropTypes.func.isRequired,
+  cityChecked: PropTypes.string.isRequired,
+};
 
 export {CityBrick};
 export default connect(mapStateToProps, mapDispatchToProps)(CityBrick);

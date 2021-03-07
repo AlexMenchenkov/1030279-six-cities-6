@@ -36,7 +36,6 @@ export const propTypesMap = {
     iconSize: PropTypes.array.isRequired,
   },
   city: {
-    ...coordsMap,
     zoom: PropTypes.number.isRequired,
     width: PropTypes.string.isRequired,
   },

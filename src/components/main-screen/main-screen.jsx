@@ -5,9 +5,16 @@ import {propTypesCard, propTypesMap} from '/src/prop-types.js';
 import Header from '/src/components/header/header.jsx';
 import Map from '/src/components/map/map.jsx';
 import CityPanel from '/src/components/city-panel/city-panel.jsx';
+import {connect} from 'react-redux';
 
 const MainScreen = (props) => {
-  const {offers, iconData, cityDataDefault, points} = props;
+  const {offers, iconData, cityDataDefault, points, cityChecked} = props;
+  const getOffersFromApi = offers.filter((offer) => offer[cityChecked]);
+  const count = getOffersFromApi.map((offer) => offer[cityChecked].count);
+  const coord = {
+    lat: getOffersFromApi.map((offer) => offer[cityChecked].lat),
+    lng: getOffersFromApi.map((offer) => offer[cityChecked].lng),
+  };
 
   return <div className="page page--gray page--main">
     <Header/>
@@ -20,7 +27,7 @@ const MainScreen = (props) => {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">312 places to stay in Amsterdam</b>
+            <b className="places__found">{count} places to stay in Amsterdam</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex="0">
@@ -37,13 +44,14 @@ const MainScreen = (props) => {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              <CardsList offers={offers}/>
+              <CardsList offers={getOffersFromApi} cityChecked={cityChecked}/>
             </div>
           </section>
           <Map
             points={points}
             iconData={iconData}
             cityDataDefault={cityDataDefault}
+            coord={coord}
           />
         </div>
       </div>
@@ -53,10 +61,11 @@ const MainScreen = (props) => {
 
 MainScreen.propTypes = {
   offers: PropTypes.arrayOf(
-      PropTypes.shape(
+      PropTypes.objectOf(PropTypes.shape(
           propTypesCard,
-      ),
+      )),
   ).isRequired,
+  cityChecked: PropTypes.string.isRequired,
   iconData: PropTypes.shape(
       propTypesMap.icon,
   ),
@@ -70,5 +79,10 @@ MainScreen.propTypes = {
   ).isRequired,
 };
 
-export default MainScreen;
+const mapStateToProps = (state) => ({
+  cityChecked: state.cityChecked,
+});
+
+export {MainScreen};
+export default connect(mapStateToProps)(MainScreen);
 

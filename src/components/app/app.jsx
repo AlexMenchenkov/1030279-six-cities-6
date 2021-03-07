@@ -55,9 +55,9 @@ const App = ({offers}) => {
 
 App.propTypes = {
   offers: PropTypes.arrayOf(
-      PropTypes.shape(
+      PropTypes.objectOf(PropTypes.shape(
           propTypesCard,
-      ),
+      )),
   ).isRequired,
 };
 

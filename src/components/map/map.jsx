@@ -6,12 +6,15 @@ import {propTypesMap} from '/src/prop-types.js';
 
 const Map = (props) => {
   const mapRef = useRef();
-  const {points, iconData, cityDataDefault: {zoom, lat, lng, width}} = props;
+  // eslint-disable-next-line react/prop-types
+  const {points, iconData, cityDataDefault: {zoom, width}, coord} = props;
+  const {lat, lng} = coord;
   const icon = leaflet.icon({
     ...iconData,
   });
 
   useEffect(() => {
+    // document.getElementById(`map`).outerHTML = ``;
     mapRef.current = leaflet.map(`map`, {
       center: {
         lat,
@@ -43,7 +46,7 @@ const Map = (props) => {
         mapRef.current.remove();
       };
     });
-  }, []);
+  }, [coord]);
 
   return (<>
     <div className="cities__right-section">

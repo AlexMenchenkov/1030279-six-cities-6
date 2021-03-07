@@ -1,9 +1,7 @@
 import {ActionType} from '/src/store/action.js';
-// import questions from '../mocks/questions';
-// import {FIRST_GAME_STEP, MAX_MISTAKE_COUNT} from '../const';
 
 const initialState = {
-  cityChecked: `Amsterdam`,
+  cityChecked: `Paris`,
 };
 
 const reducer = (state = initialState, action) => {

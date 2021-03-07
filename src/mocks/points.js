@@ -22,8 +22,6 @@ export const points = [
 ];
 
 export const cityDataDefault = {
-  lat: 52.38333,
-  lng: 4.9,
   zoom: 12,
   width: `500px`,
 };

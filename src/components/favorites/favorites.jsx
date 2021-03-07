@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Header from '/src/components/header/header.jsx';
 import Footer from '/src/components/footer/footer.jsx';
-import {CardPlace} from '/src/components/card-place/card-place.jsx';
+import CardPlace from '/src/components/card-place/card-place.jsx';
 import {propTypesCard} from '/src/prop-types.js';
 
 const Favorites = (props) => {

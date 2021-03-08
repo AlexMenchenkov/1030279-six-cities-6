@@ -14,7 +14,9 @@ const Map = (props) => {
   });
 
   useEffect(() => {
-    // document.getElementById(`map`).outerHTML = ``;
+    if (document.getElementById(`map`).hasChildNodes()) {
+      mapRef.current.remove();
+    }
     mapRef.current = leaflet.map(`map`, {
       center: {
         lat,
@@ -22,7 +24,7 @@ const Map = (props) => {
       },
       zoom,
       zoomControl: false,
-      marker: true
+      marker: true,
     });
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
@@ -63,6 +65,9 @@ Map.propTypes = {
   cityDataDefault: PropTypes.shape(
       propTypesMap.city,
   ),
+  coord: PropTypes.object.isRequired,
+  lat: PropTypes.number,
+  lng: PropTypes.number,
   points: PropTypes.arrayOf(
       PropTypes.shape(
           propTypesMap.points,

@@ -13,6 +13,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         cityChecked: nextCity,
       };
+    case ActionType.LOAD_CITIES:
+      const nextCities = action.payload;
+
+      return {
+        ...state,
+        dataCities: nextCities,
+      };
   }
 
   return state;

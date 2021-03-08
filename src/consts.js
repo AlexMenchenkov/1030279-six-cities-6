@@ -27,3 +27,12 @@ export const iconData = {
   iconUrl: `./img/pin.svg`,
   iconSize: [30, 30]
 };
+
+export const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
+
+export const APIRoute = {
+  CITIES: `/hotels`,
+};

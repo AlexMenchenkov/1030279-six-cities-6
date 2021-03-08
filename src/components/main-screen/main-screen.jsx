@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import CardsList from '/src/components/cards-list/cards-list.jsx';
 import {propTypesCard, propTypesMap} from '/src/prop-types.js';
@@ -6,15 +6,22 @@ import Header from '/src/components/header/header.jsx';
 import Map from '/src/components/map/map.jsx';
 import CityPanel from '/src/components/city-panel/city-panel.jsx';
 import {connect} from 'react-redux';
+import {fetchCityList} from '/src/store/api-actions.js';
 
 const MainScreen = (props) => {
-  const {offers, iconData, cityDataDefault, cityChecked} = props;
+  const {offers, iconData, cityDataDefault, cityChecked, onLoadData, isDataLoaded} = props;
   const getOffersFromApi = offers.filter((offer) => offer[cityChecked]);
   const count = getOffersFromApi.map((offer) => offer[cityChecked].count);
   const coord = {
     lat: getOffersFromApi.map((offer) => offer[cityChecked].lat),
     lng: getOffersFromApi.map((offer) => offer[cityChecked].lng),
   };
+
+  useEffect(() => {
+    if (!isDataLoaded) {
+      onLoadData();
+    }
+  }, [isDataLoaded]);
 
   const points = getOffersFromApi.map((offer) => offer[cityChecked].points);
 
@@ -78,8 +85,15 @@ MainScreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   cityChecked: state.cityChecked,
+  isDataLoaded: state.isDataLoaded,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadData() {
+    dispatch(fetchCityList());
+  },
 });
 
 export {MainScreen};
-export default connect(mapStateToProps)(MainScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
 

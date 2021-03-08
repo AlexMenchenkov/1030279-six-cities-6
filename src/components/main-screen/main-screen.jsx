@@ -8,13 +8,15 @@ import CityPanel from '/src/components/city-panel/city-panel.jsx';
 import {connect} from 'react-redux';
 
 const MainScreen = (props) => {
-  const {offers, iconData, cityDataDefault, points, cityChecked} = props;
+  const {offers, iconData, cityDataDefault, cityChecked} = props;
   const getOffersFromApi = offers.filter((offer) => offer[cityChecked]);
   const count = getOffersFromApi.map((offer) => offer[cityChecked].count);
   const coord = {
     lat: getOffersFromApi.map((offer) => offer[cityChecked].lat),
     lng: getOffersFromApi.map((offer) => offer[cityChecked].lng),
   };
+
+  const points = getOffersFromApi.map((offer) => offer[cityChecked].points);
 
   return <div className="page page--gray page--main">
     <Header/>
@@ -72,11 +74,6 @@ MainScreen.propTypes = {
   cityDataDefault: PropTypes.shape(
       propTypesMap.city,
   ),
-  points: PropTypes.arrayOf(
-      PropTypes.shape(
-          propTypesMap.points,
-      ),
-  ).isRequired,
 };
 
 const mapStateToProps = (state) => ({

@@ -13,6 +13,11 @@ export const offers = [
       count: 433,
       lat: 48.864716,
       lng: 2.349014,
+      points: {
+        lat: 48.864716,
+        lng: 2.359014,
+        title: `Paris`,
+      },
     },
   },
   {
@@ -27,7 +32,12 @@ export const offers = [
       count: 4323,
       lat: 50.935173,
       lng: 6.953101,
-    }
+      points: {
+        lat: 50.935173,
+        lng: 6.943101,
+        title: `Cologne`,
+      },
+    },
   },
   {
     Brussels: {
@@ -41,7 +51,12 @@ export const offers = [
       count: 1423,
       lat: 50.85045,
       lng: 4.34878,
-    }
+      points: {
+        lat: 50.85045,
+        lng: 4.35878,
+        title: `Brussels`,
+      },
+    },
   },
   {
     Amsterdam: {
@@ -55,7 +70,12 @@ export const offers = [
       count: 43,
       lat: 52.377956,
       lng: 4.897070,
-    }
+      points: {
+        lat: 52.377956,
+        lng: 4.887070,
+        title: `Amsterdam`,
+      },
+    },
   },
   {
     Hamburg: {
@@ -69,7 +89,12 @@ export const offers = [
       count: 32,
       lat: 53.551086,
       lng: 9.993682,
-    }
+      points: {
+        lat: 53.551086,
+        lng: 9.983682,
+        title: `Hamburg`,
+      },
+    },
   },
   {
     Dusseldorf: {
@@ -83,6 +108,11 @@ export const offers = [
       count: 88,
       lat: 51.233334,
       lng: 6.783333,
-    }
+      points: {
+        lat: 51.233334,
+        lng: 6.793333,
+        title: `Dusseldorf`,
+      },
+    },
   },
 ];

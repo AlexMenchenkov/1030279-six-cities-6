@@ -1,12 +1,21 @@
 import PropTypes from 'prop-types';
 
+export const coordsMap = {
+  lat: PropTypes.number.isRequired,
+  lng: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+};
+
 export const propTypesCard = {
   img: PropTypes.string.isRequired,
   isPremium: PropTypes.bool.isRequired,
   price: PropTypes.number.isRequired,
   rate: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  ...coordsMap,
+  points: PropTypes.shape(
+      coordsMap,
+  ),
 };
 
 export const propTypesReview = {
@@ -25,11 +34,6 @@ export const OffersType = {
   HOUSE: `House`,
 };
 
-const coordsMap = {
-  lat: PropTypes.number.isRequired,
-  lng: PropTypes.number.isRequired,
-};
-
 export const propTypesMap = {
   icon: {
     iconUrl: PropTypes.string.isRequired,
@@ -38,9 +42,5 @@ export const propTypesMap = {
   city: {
     zoom: PropTypes.number.isRequired,
     width: PropTypes.string.isRequired,
-  },
-  points: {
-    ...coordsMap,
-    title: PropTypes.string.isRequired,
   },
 };

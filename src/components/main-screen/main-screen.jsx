@@ -10,7 +10,7 @@ import {fetchCityList} from '/src/store/api-actions.js';
 import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
 
 const MainScreen = (props) => {
-  const {isDataLoaded, onLoadData} = props;
+  const {offers, iconData, cityChecked, isDataLoaded, onLoadData} = props;
 
   useEffect(() => {
     if (!isDataLoaded) {
@@ -23,7 +23,6 @@ const MainScreen = (props) => {
       <LoadingScreen />
     );
   }
-  const {offers, iconData, cityChecked} = props;
   const filteredCities = offers.filter((offer) => offer.city.name === cityChecked);
 
   return <div className="page page--gray page--main">

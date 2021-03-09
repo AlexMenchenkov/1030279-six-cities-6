@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '/src/components/app/app.jsx';
-import {offers} from '/src/mocks/offers.js';
 import {createAPI} from '/src/api/api.js';
 import {ActionCreator} from '/src/store/action.js';
 import {AuthorizationStatus} from '/src/consts.js';
@@ -27,9 +26,7 @@ const store = createStore(
 
 ReactDOM.render(
     <Provider store={store}>
-      <App
-        offers={offers}
-      />,
+      <App/>
     </Provider>,
     document.getElementById(`root`)
 );

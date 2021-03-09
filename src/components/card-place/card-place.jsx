@@ -14,7 +14,7 @@ const CardPlace = (props) => {
   } = props;
 
   return <article onMouseOver={onHoverCard} id={id} className={`${classCard ? classCard + `__card ` : `cities__place-card`} place-card`}>
-    {offer.isPremium ?
+    {offer.is_premium ?
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
@@ -22,7 +22,7 @@ const CardPlace = (props) => {
     }
     <div className={classCard + `__image-wrapper place-card__image-wrapper`}>
       <Link to={`/offer/${offer.id}`}>
-        <img className="place-card__image" src={offer.img} width={width} height={height}
+        <img className="place-card__image" src={offer.preview_image} width={width} height={height}
           alt="Place image"/>
       </Link>
     </div>
@@ -41,7 +41,7 @@ const CardPlace = (props) => {
       </div>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
-          <span style={{width: offer.rate}}> </span>
+          <span style={{width: offer.rating * 10}}> </span>
           <span className="visually-hidden">Rating</span>
         </div>
       </div>

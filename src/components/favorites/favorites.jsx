@@ -77,7 +77,7 @@ Favorites.propTypes = {
       PropTypes.shape(
           propTypesCard,
       ),
-  ).isRequired,
+  ),
 };
 
 export default Favorites;

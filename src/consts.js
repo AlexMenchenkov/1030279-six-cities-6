@@ -18,11 +18,6 @@ export const cities = [
   `Dusseldorf`,
 ];
 
-export const cityDataDefault = {
-  zoom: 12,
-  width: `500px`,
-};
-
 export const iconData = {
   iconUrl: `./img/pin.svg`,
   iconSize: [30, 30]
@@ -34,5 +29,5 @@ export const AuthorizationStatus = {
 };
 
 export const APIRoute = {
-  CITIES: `/hotels`,
+  OFFERS: `/hotels`,
 };

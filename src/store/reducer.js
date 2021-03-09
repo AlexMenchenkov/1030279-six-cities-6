@@ -2,23 +2,26 @@ import {ActionType} from '/src/store/action.js';
 
 const initialState = {
   cityChecked: `Paris`,
+  isDataLoaded: false,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
-      const nextCity = action.payload;
-
       return {
         ...state,
-        cityChecked: nextCity,
+        cityChecked: action.payload,
       };
-    case ActionType.LOAD_CITIES:
-      const nextCities = action.payload;
-
+    case ActionType.LOAD_OFFERS:
       return {
         ...state,
-        dataCities: nextCities,
+        offers: action.payload,
+        isDataLoaded: true,
+      };
+    case ActionType.REQUIRED_AUTHORIZATION:
+      return {
+        ...state,
+        statusAuth: action.payload,
       };
   }
 

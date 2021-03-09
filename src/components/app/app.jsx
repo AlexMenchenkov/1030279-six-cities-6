@@ -7,9 +7,9 @@ import NotFoundScreen from '/src/components/not-found-screen/notFoundScreen.jsx'
 import Room from '/src/components/room/room.jsx';
 import Login from '/src/components/login/login.jsx';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import {iconData, cityDataDefault} from '/src/consts.js';
+import {iconData} from '/src/consts.js';
 
-const App = ({offers}) => {
+const App = () => {
 
   return (
     <BrowserRouter>
@@ -18,8 +18,6 @@ const App = ({offers}) => {
           render={() => (
             <
               MainScreen
-              offers={offers}
-              cityDataDefault={cityDataDefault}
               iconData={iconData}
             />
           )}
@@ -31,7 +29,7 @@ const App = ({offers}) => {
         />
         <Route path="/favorites" exact
           render={() => (
-            <Favorites offers={offers}/>
+            <Favorites/>
           )}
         />
         <Route path="/offer/:id" exact
@@ -55,7 +53,7 @@ App.propTypes = {
       PropTypes.objectOf(PropTypes.shape(
           propTypesCard,
       )),
-  ).isRequired,
+  ),
 };
 
 export default App;

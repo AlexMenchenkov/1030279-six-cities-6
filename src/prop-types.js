@@ -35,12 +35,6 @@ export const OffersType = {
 };
 
 export const propTypesMap = {
-  icon: {
-    iconUrl: PropTypes.string.isRequired,
-    iconSize: PropTypes.array.isRequired,
-  },
-  city: {
-    zoom: PropTypes.number.isRequired,
-    width: PropTypes.string.isRequired,
-  },
+  iconUrl: PropTypes.string.isRequired,
+  iconSize: PropTypes.array.isRequired,
 };

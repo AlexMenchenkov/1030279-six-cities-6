@@ -4,7 +4,7 @@ import CardPlace from '/src/components/card-place/card-place.jsx';
 import {propTypesCard} from '/src/prop-types.js';
 
 const CardsList = (props) => {
-  const {offers, cityChecked} = props;
+  const {offers} = props;
   // eslint-disable-next-line no-unused-vars
   const [hoverElement, setHoverTarget] = useState(null);
 
@@ -17,9 +17,9 @@ const CardsList = (props) => {
     {offers.map((offer) => {
       return (
         <CardPlace
-          offer={offer[cityChecked]}
-          key={offer[cityChecked].id}
-          id={offer[cityChecked].id}
+          offer={offer}
+          key={offer.id}
+          id={offer.id}
           onHoverCard={handleHover}
         />
       );

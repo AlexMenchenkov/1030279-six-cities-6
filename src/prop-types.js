@@ -1,21 +1,54 @@
 import PropTypes from 'prop-types';
 
-export const coordsMap = {
-  lat: PropTypes.number.isRequired,
-  lng: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
+const coordsMap = {
+  latitude: PropTypes.number,
+  longitude: PropTypes.number,
+  zoom: PropTypes.number,
+};
+
+const hostProps = {
+  // eslint-disable-next-line camelcase
+  avatar_url: PropTypes.string,
+  id: PropTypes.number,
+  // eslint-disable-next-line camelcase
+  is_pro: PropTypes.bool,
+  name: PropTypes.string,
+};
+
+const cityProps = {
+  location: PropTypes.shape(
+      coordsMap,
+  ),
+  name: PropTypes.string,
 };
 
 export const propTypesCard = {
-  img: PropTypes.string.isRequired,
-  isPremium: PropTypes.bool.isRequired,
-  price: PropTypes.number.isRequired,
-  rate: PropTypes.number.isRequired,
-  type: PropTypes.string.isRequired,
-  ...coordsMap,
-  points: PropTypes.shape(
+  bedrooms: PropTypes.number,
+  city: PropTypes.shape(
+      cityProps,
+  ),
+  description: PropTypes.string,
+  goods: PropTypes.array,
+  host: PropTypes.shape(
+      hostProps,
+  ),
+  id: PropTypes.number,
+  images: PropTypes.array,
+  // eslint-disable-next-line camelcase
+  is_favorite: PropTypes.bool,
+  // eslint-disable-next-line camelcase
+  is_premium: PropTypes.bool,
+  location: PropTypes.shape(
       coordsMap,
   ),
+  // eslint-disable-next-line camelcase
+  max_adults: PropTypes.number,
+  // eslint-disable-next-line camelcase
+  preview_image: PropTypes.string,
+  price: PropTypes.number,
+  rating: PropTypes.number,
+  title: PropTypes.string,
+  type: PropTypes.string,
 };
 
 export const propTypesReview = {

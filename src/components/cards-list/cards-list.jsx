@@ -30,10 +30,10 @@ const CardsList = (props) => {
 
 CardsList.propTypes = {
   offers: PropTypes.arrayOf(
-      PropTypes.objectOf(PropTypes.shape(
+      PropTypes.shape(
           propTypesCard,
-      )),
-  ).isRequired,
+      ),
+  ),
   cityChecked: PropTypes.string.isRequired,
 };
 

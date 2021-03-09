@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, {useRef, useEffect} from 'react';
 import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
-import {coordsMap, propTypesMap} from '/src/prop-types.js';
+import {propTypesCard, propTypesMap} from '/src/prop-types.js';
 
 const Map = (props) => {
   const mapRef = useRef();
@@ -64,16 +64,13 @@ const Map = (props) => {
 };
 
 Map.propTypes = {
+  offers: PropTypes.arrayOf(
+      PropTypes.shape(
+          propTypesCard,
+      ),
+  ),
   iconData: PropTypes.shape(
       propTypesMap,
-  ),
-  coord: PropTypes.object.isRequired,
-  lat: PropTypes.number,
-  lng: PropTypes.number,
-  points: PropTypes.arrayOf(
-      PropTypes.shape(
-          coordsMap,
-      ),
   ).isRequired,
 };
 

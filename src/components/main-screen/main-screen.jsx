@@ -10,7 +10,7 @@ import {fetchCityList} from '/src/store/api-actions.js';
 import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
 
 const MainScreen = (props) => {
-  const {offers, iconData, cityChecked, onLoadData, isDataLoaded} = props;
+  const {isDataLoaded, onLoadData} = props;
 
   useEffect(() => {
     if (!isDataLoaded) {
@@ -23,7 +23,7 @@ const MainScreen = (props) => {
       <LoadingScreen />
     );
   }
-
+  const {offers, iconData, cityChecked} = props;
   const filteredCities = offers.filter((offer) => offer.city.name === cityChecked);
 
   return <div className="page page--gray page--main">
@@ -69,16 +69,16 @@ const MainScreen = (props) => {
 
 MainScreen.propTypes = {
   offers: PropTypes.arrayOf(
-      PropTypes.objectOf(PropTypes.shape(
+      PropTypes.shape(
           propTypesCard,
-      )),
-  ).isRequired,
+      ),
+  ),
   cityChecked: PropTypes.string.isRequired,
   iconData: PropTypes.shape(
       propTypesMap,
-  ),
-  onLoadData: PropTypes.func,
-  isDataLoaded: PropTypes.bool,
+  ).isRequired,
+  onLoadData: PropTypes.func.isRequired,
+  isDataLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({

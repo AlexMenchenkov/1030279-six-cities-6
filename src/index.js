@@ -18,10 +18,11 @@ const store = createStore(
     reducer,
     composeWithDevTools(
         applyMiddleware(thunk.withExtraArgument(api)),
+        // @TODO далее добавлю
         // applyMiddleware(redirect)
     ),
 );
-
+// @TODO далее добавлю
 // store.dispatch(checkAuth());
 
 ReactDOM.render(

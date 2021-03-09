@@ -7,9 +7,7 @@ import NotFoundScreen from '/src/components/not-found-screen/notFoundScreen.jsx'
 import Room from '/src/components/room/room.jsx';
 import Login from '/src/components/login/login.jsx';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import {cityDataDefault} from '/src/mocks/points.js';
-import {iconData} from '/src/consts.js';
-import {points} from '/src/mocks/points.js';
+import {iconData, cityDataDefault} from '/src/consts.js';
 
 const App = ({offers}) => {
 
@@ -23,7 +21,6 @@ const App = ({offers}) => {
               offers={offers}
               cityDataDefault={cityDataDefault}
               iconData={iconData}
-              points={points}
             />
           )}
         />
@@ -55,9 +52,9 @@ const App = ({offers}) => {
 
 App.propTypes = {
   offers: PropTypes.arrayOf(
-      PropTypes.shape(
+      PropTypes.objectOf(PropTypes.shape(
           propTypesCard,
-      ),
+      )),
   ).isRequired,
 };
 

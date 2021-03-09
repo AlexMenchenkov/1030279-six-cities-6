@@ -33,6 +33,7 @@ const SelfReview = (props) => {
   );
 };
 
+
 SelfReview.propTypes = {
   starsData: PropTypes.array.isRequired,
 };

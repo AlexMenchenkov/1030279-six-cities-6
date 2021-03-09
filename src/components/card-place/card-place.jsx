@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {propTypesCard} from '/src/prop-types.js';
 
-export const CardPlace = (props) => {
+const CardPlace = (props) => {
   const {
     offer,
     onHoverCard,
@@ -63,3 +63,5 @@ CardPlace.propTypes = {
       propTypesCard.isRequired,
   ),
 };
+
+export default CardPlace;

@@ -14,8 +14,6 @@ const CardPlace = (props) => {
     height,
   } = props;
 
-
-
   return <article onMouseOver={onHoverCard} id={id} className={`${classCard ? classCard + `__card ` : `cities__place-card`} place-card`}>
     {offer.isPremium ?
       <div className="place-card__mark">

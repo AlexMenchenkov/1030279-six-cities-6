@@ -7,11 +7,9 @@ const coordsMap = {
 };
 
 const hostProps = {
-  // eslint-disable-next-line camelcase
-  avatar_url: PropTypes.string,
+  avatarUrl: PropTypes.string,
   id: PropTypes.number,
-  // eslint-disable-next-line camelcase
-  is_pro: PropTypes.bool,
+  isPro: PropTypes.bool,
   name: PropTypes.string,
 };
 
@@ -34,17 +32,13 @@ export const propTypesCard = {
   ),
   id: PropTypes.number,
   images: PropTypes.array,
-  // eslint-disable-next-line camelcase
-  is_favorite: PropTypes.bool,
-  // eslint-disable-next-line camelcase
-  is_premium: PropTypes.bool,
+  isFavorite: PropTypes.bool,
+  isPremium: PropTypes.bool,
   location: PropTypes.shape(
       coordsMap,
   ),
-  // eslint-disable-next-line camelcase
-  max_adults: PropTypes.number,
-  // eslint-disable-next-line camelcase
-  preview_image: PropTypes.string,
+  maxAdults: PropTypes.number,
+  previewImage: PropTypes.string,
   price: PropTypes.number,
   rating: PropTypes.number,
   title: PropTypes.string,

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {propTypesCard} from '/src/prop-types.js';
+import {FACTOR_RATE} from '/src/consts.js';
 
 const CardPlace = (props) => {
   const {
@@ -13,7 +14,7 @@ const CardPlace = (props) => {
     height,
   } = props;
 
-  const FACTOR_RATE = 10;
+
 
   return <article onMouseOver={onHoverCard} id={id} className={`${classCard ? classCard + `__card ` : `cities__place-card`} place-card`}>
     {offer.isPremium ?

@@ -13,6 +13,8 @@ const CardPlace = (props) => {
     height,
   } = props;
 
+  const factorRate = 10;
+
   return <article onMouseOver={onHoverCard} id={id} className={`${classCard ? classCard + `__card ` : `cities__place-card`} place-card`}>
     {offer.is_premium ?
       <div className="place-card__mark">
@@ -41,7 +43,7 @@ const CardPlace = (props) => {
       </div>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
-          <span style={{width: offer.rating * 10}}> </span>
+          <span style={{width: offer.rating * factorRate}}> </span>
           <span className="visually-hidden">Rating</span>
         </div>
       </div>

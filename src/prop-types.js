@@ -1,21 +1,48 @@
 import PropTypes from 'prop-types';
 
-export const coordsMap = {
-  lat: PropTypes.number.isRequired,
-  lng: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
+const coordsMap = {
+  latitude: PropTypes.number,
+  longitude: PropTypes.number,
+  zoom: PropTypes.number,
+};
+
+const hostProps = {
+  avatarUrl: PropTypes.string,
+  id: PropTypes.number,
+  isPro: PropTypes.bool,
+  name: PropTypes.string,
+};
+
+const cityProps = {
+  location: PropTypes.shape(
+      coordsMap,
+  ),
+  name: PropTypes.string,
 };
 
 export const propTypesCard = {
-  img: PropTypes.string.isRequired,
-  isPremium: PropTypes.bool.isRequired,
-  price: PropTypes.number.isRequired,
-  rate: PropTypes.number.isRequired,
-  type: PropTypes.string.isRequired,
-  ...coordsMap,
-  points: PropTypes.shape(
+  bedrooms: PropTypes.number,
+  city: PropTypes.shape(
+      cityProps,
+  ),
+  description: PropTypes.string,
+  goods: PropTypes.array,
+  host: PropTypes.shape(
+      hostProps,
+  ),
+  id: PropTypes.number,
+  images: PropTypes.array,
+  isFavorite: PropTypes.bool,
+  isPremium: PropTypes.bool,
+  location: PropTypes.shape(
       coordsMap,
   ),
+  maxAdults: PropTypes.number,
+  previewImage: PropTypes.string,
+  price: PropTypes.number,
+  rating: PropTypes.number,
+  title: PropTypes.string,
+  type: PropTypes.string,
 };
 
 export const propTypesReview = {
@@ -35,12 +62,6 @@ export const OffersType = {
 };
 
 export const propTypesMap = {
-  icon: {
-    iconUrl: PropTypes.string.isRequired,
-    iconSize: PropTypes.array.isRequired,
-  },
-  city: {
-    zoom: PropTypes.number.isRequired,
-    width: PropTypes.string.isRequired,
-  },
+  iconUrl: PropTypes.string.isRequired,
+  iconSize: PropTypes.array.isRequired,
 };

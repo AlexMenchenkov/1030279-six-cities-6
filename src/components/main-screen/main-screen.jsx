@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import CardsList from '/src/components/cards-list/cards-list.jsx';
 import {propTypesCard, propTypesMap} from '/src/prop-types.js';
@@ -6,17 +6,24 @@ import Header from '/src/components/header/header.jsx';
 import Map from '/src/components/map/map.jsx';
 import CityPanel from '/src/components/city-panel/city-panel.jsx';
 import {connect} from 'react-redux';
+import {fetchCityList} from '/src/store/api-actions.js';
+import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
 
 const MainScreen = (props) => {
-  const {offers, iconData, cityDataDefault, cityChecked} = props;
-  const getOffersFromApi = offers.filter((offer) => offer[cityChecked]);
-  const count = getOffersFromApi.map((offer) => offer[cityChecked].count);
-  const coord = {
-    lat: getOffersFromApi.map((offer) => offer[cityChecked].lat),
-    lng: getOffersFromApi.map((offer) => offer[cityChecked].lng),
-  };
+  const {offers, iconData, cityChecked, isDataLoaded, onLoadData} = props;
 
-  const points = getOffersFromApi.map((offer) => offer[cityChecked].points);
+  useEffect(() => {
+    if (!isDataLoaded) {
+      onLoadData();
+    }
+  }, [isDataLoaded]);
+
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+  const filteredCities = offers.filter((offer) => offer.city.name === cityChecked);
 
   return <div className="page page--gray page--main">
     <Header/>
@@ -29,7 +36,7 @@ const MainScreen = (props) => {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{count} places to stay in Amsterdam</b>
+            <b className="places__found">{2} places to stay in Amsterdam</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex="0">
@@ -46,14 +53,12 @@ const MainScreen = (props) => {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              <CardsList offers={getOffersFromApi} cityChecked={cityChecked}/>
+              <CardsList offers={filteredCities} cityChecked={cityChecked}/>
             </div>
           </section>
           <Map
-            points={points}
+            offers={filteredCities}
             iconData={iconData}
-            cityDataDefault={cityDataDefault}
-            coord={coord}
           />
         </div>
       </div>
@@ -63,23 +68,30 @@ const MainScreen = (props) => {
 
 MainScreen.propTypes = {
   offers: PropTypes.arrayOf(
-      PropTypes.objectOf(PropTypes.shape(
+      PropTypes.shape(
           propTypesCard,
-      )),
-  ).isRequired,
+      ),
+  ),
   cityChecked: PropTypes.string.isRequired,
   iconData: PropTypes.shape(
-      propTypesMap.icon,
-  ),
-  cityDataDefault: PropTypes.shape(
-      propTypesMap.city,
-  ),
+      propTypesMap,
+  ).isRequired,
+  onLoadData: PropTypes.func.isRequired,
+  isDataLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   cityChecked: state.cityChecked,
+  isDataLoaded: state.isDataLoaded,
+  offers: state.offers,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadData() {
+    dispatch(fetchCityList());
+  },
 });
 
 export {MainScreen};
-export default connect(mapStateToProps)(MainScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
 

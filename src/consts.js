@@ -1,5 +1,6 @@
 export const ONE = 1;
 export const ZERO = 0;
+export const FACTOR_RATE = 10;
 
 export const starsData = [
   `terribly`,
@@ -18,12 +19,16 @@ export const cities = [
   `Dusseldorf`,
 ];
 
-export const cityDataDefault = {
-  zoom: 12,
-  width: `500px`,
-};
-
 export const iconData = {
   iconUrl: `./img/pin.svg`,
   iconSize: [30, 30]
+};
+
+export const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
+
+export const APIRoute = {
+  OFFERS: `/hotels`,
 };

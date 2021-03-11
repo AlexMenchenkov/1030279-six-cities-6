@@ -2,25 +2,30 @@ import PropTypes from "prop-types";
 import React, {useRef, useEffect} from 'react';
 import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
-import {coordsMap, propTypesMap} from '/src/prop-types.js';
+import {propTypesCard, propTypesMap} from '/src/prop-types.js';
 
 const Map = (props) => {
   const mapRef = useRef();
-  // eslint-disable-next-line react/prop-types
-  const {points, iconData, cityDataDefault: {zoom, width}, coord} = props;
-  const {lat, lng} = coord;
+  const {offers, iconData} = props;
+  const points = offers.map((offer) => offer.location);
+  const location = offers.map((offer) => offer.city.location);
+  const coordinatesCity = location.filter(((offer) => ({id}) => !offer.has(id) && offer.add(id))(new Set()));
+
+  const [latitude] = coordinatesCity.map((offer) => offer.latitude);
+  const [longitude] = coordinatesCity.map((offer) => offer.longitude);
+  const [zoom] = coordinatesCity.map((offer) => offer.zoom);
   const icon = leaflet.icon({
     ...iconData,
   });
+  const widthMap = {
+    width: `500px`,
+  };
 
   useEffect(() => {
-    if (document.getElementById(`map`).hasChildNodes()) {
-      mapRef.current.remove();
-    }
     mapRef.current = leaflet.map(`map`, {
       center: {
-        lat,
-        lng,
+        lat: latitude,
+        lng: longitude,
       },
       zoom,
       zoomControl: false,
@@ -35,43 +40,37 @@ const Map = (props) => {
     points.forEach((point) => {
 
       leaflet.marker({
-        lat: point.lat,
-        lng: point.lng,
+        lat: point.latitude,
+        lng: point.longitude,
       },
       {
         icon,
       })
       .addTo(mapRef.current)
       .bindPopup(point.title);
-
-      return () => {
-        mapRef.current.remove();
-      };
     });
-  }, [coord]);
+
+    return () => {
+      mapRef.current.remove();
+    };
+  }, [coordinatesCity]);
 
   return (<>
     <div className="cities__right-section">
-      <div id="map" style={{width}} ref={mapRef} />
+      <div id="map" style={widthMap} ref={mapRef} />
     </div>
   </>
   );
 };
 
 Map.propTypes = {
-  iconData: PropTypes.shape(
-      propTypesMap.icon,
-  ),
-  cityDataDefault: PropTypes.shape(
-      propTypesMap.city,
-  ),
-  coord: PropTypes.object.isRequired,
-  lat: PropTypes.number,
-  lng: PropTypes.number,
-  points: PropTypes.arrayOf(
+  offers: PropTypes.arrayOf(
       PropTypes.shape(
-          coordsMap,
+          propTypesCard,
       ),
+  ),
+  iconData: PropTypes.shape(
+      propTypesMap,
   ).isRequired,
 };
 

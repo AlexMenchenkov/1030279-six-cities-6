@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {propTypesCard} from '/src/prop-types.js';
+import {FACTOR_RATE} from '/src/consts.js';
 
 const CardPlace = (props) => {
   const {
@@ -22,7 +23,7 @@ const CardPlace = (props) => {
     }
     <div className={classCard + `__image-wrapper place-card__image-wrapper`}>
       <Link to={`/offer/${offer.id}`}>
-        <img className="place-card__image" src={offer.img} width={width} height={height}
+        <img className="place-card__image" src={offer.previewImage} width={width} height={height}
           alt="Place image"/>
       </Link>
     </div>
@@ -41,7 +42,7 @@ const CardPlace = (props) => {
       </div>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
-          <span style={{width: offer.rate}}> </span>
+          <span style={{width: offer.rating * FACTOR_RATE}}> </span>
           <span className="visually-hidden">Rating</span>
         </div>
       </div>

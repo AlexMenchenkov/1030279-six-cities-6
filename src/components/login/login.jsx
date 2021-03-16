@@ -1,10 +1,17 @@
 import React, {useRef} from 'react';
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import Header from '/src/components/header/header';
 import {login} from '/src/store/api-actions';
+import {AppRoute, AuthorizationStatus} from '/src/consts.js';
+import {Redirect} from "react-router-dom";
 
-const Login = ({onAuthSubmit}) => {
+const Login = ({onAuthSubmit, statusAuth}) => {
+  if (statusAuth === AuthorizationStatus.AUTH) {
+    return (
+      <Redirect to={AppRoute.ROOT}/>
+    );
+  }
+
   const emailRef = useRef();
   const passwordRef = useRef();
 
@@ -18,7 +25,6 @@ const Login = ({onAuthSubmit}) => {
 
   return (
     <div className="page page--gray page--login">
-      <Header/>
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
@@ -48,10 +54,15 @@ const Login = ({onAuthSubmit}) => {
     </div>
   );
 };
+
 Login.propTypes = {
   onAuthSubmit: PropTypes.func.isRequired,
+  statusAuth: PropTypes.string.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  statusAuth: state.statusAuth,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onAuthSubmit(authData) {
@@ -60,4 +71,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {Login};
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

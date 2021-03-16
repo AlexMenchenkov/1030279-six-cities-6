@@ -1,7 +1,7 @@
 import {APIRoute, AppRoute, AuthorizationStatus} from '/src/consts.js';
 import {ActionCreator} from './action';
 
-const dataMapping = (data) => {
+const dataMappingOffers = (data) => {
   // eslint-disable-next-line camelcase
   const renameData = ({is_favorite, is_premium, max_adults, preview_image, host: {avatar_url, is_pro, id, name}, ...object}) =>
     // eslint-disable-next-line camelcase
@@ -9,10 +9,18 @@ const dataMapping = (data) => {
   return data.map((offer) => renameData(offer));
 };
 
+const dataMappingUser = (data) => {
+  // eslint-disable-next-line camelcase
+  const renameData = ({avatar_url, is_pro, ...object}) =>
+    // eslint-disable-next-line camelcase
+    ({avatarUrl: avatar_url, isPro: is_pro, ...object});
+  return renameData(data);
+};
+
 export const fetchCityList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFERS)
     .then(({data}) => {
-      const offers = dataMapping(data);
+      const offers = dataMappingOffers(data);
       dispatch(ActionCreator.loadOffers(offers));
     })
 );
@@ -25,6 +33,7 @@ export const checkAuth = () => (dispatch, _getState, api) => (
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
+    .then((response) => dispatch(ActionCreator.loadUserData(dataMappingUser(response.data))))
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.ROOT)))
 );

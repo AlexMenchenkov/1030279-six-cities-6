@@ -1,8 +1,9 @@
 export const ActionType = {
   CHANGE_CITY: `header/changeCity`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
-  LOAD_OFFERS: `data/loadOffers`,
-  REDIRECT_TO_ROUTE: `game/redirectToRoute`,
+  LOAD_OFFERS: `user/loadOffers`,
+  REDIRECT_TO_ROUTE: `main/redirectToRoute`,
+  USER_DATA: `user/redirectToRoute`,
 };
 
 export const ActionCreator = {
@@ -21,5 +22,9 @@ export const ActionCreator = {
   redirectToRoute: (url) => ({
     type: ActionType.REDIRECT_TO_ROUTE,
     payload: url,
+  }),
+  loadUserData: (data) => ({
+    type: ActionType.USER_DATA,
+    payload: data,
   })
 };

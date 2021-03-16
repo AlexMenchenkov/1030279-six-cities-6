@@ -26,22 +26,22 @@ const App = () => {
             <Favorites/>
           )}
         />
-        <Route path={AppRoute.OFFER} exact
-          render={(props) => (
+        <Route path={AppRoute.ROOT} exact
+          render={() => (
             <
-              Room
-              id={props}
+              MainScreen
+              iconData={iconData}
             />
           )}
         />
         <PrivateRoute
           exact
-          path={AppRoute.ROOT}
-          render={() => {
+          path={AppRoute.OFFER}
+          render={(props) => {
             return (
               <
-                MainScreen
-                iconData={iconData}
+                Room
+                id={props}
               />
             );
           }}

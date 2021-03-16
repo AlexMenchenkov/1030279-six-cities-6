@@ -3,7 +3,7 @@ export const ActionType = {
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
   LOAD_OFFERS: `user/loadOffers`,
   REDIRECT_TO_ROUTE: `main/redirectToRoute`,
-  USER_DATA: `user/redirectToRoute`,
+  USER_DATA: `user/saveUserData`,
 };
 
 export const ActionCreator = {
@@ -23,7 +23,7 @@ export const ActionCreator = {
     type: ActionType.REDIRECT_TO_ROUTE,
     payload: url,
   }),
-  loadUserData: (data) => ({
+  saveUserData: (data) => ({
     type: ActionType.USER_DATA,
     payload: data,
   })

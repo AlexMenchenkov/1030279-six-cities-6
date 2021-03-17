@@ -3,6 +3,7 @@ import {ActionType} from '/src/store/action.js';
 const initialState = {
   cityChecked: `Paris`,
   isDataLoaded: false,
+  statusAuth: `NO_AUTH`,
 };
 
 const reducer = (state = initialState, action) => {
@@ -22,6 +23,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         statusAuth: action.payload,
+      };
+    case ActionType.USER_DATA:
+      return {
+        ...state,
+        data: action.payload,
       };
   }
 

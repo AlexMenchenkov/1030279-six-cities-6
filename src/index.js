@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from '/src/components/app/app.jsx';
-import {createAPI} from '/src/api/api.js';
-import {ActionCreator} from '/src/store/action.js';
-import {AuthorizationStatus} from '/src/consts.js';
+import App from '/src/components/app/app';
+import {createAPI} from '/src/api/api';
+import {ActionCreator} from '/src/store/action';
+import {AuthorizationStatus} from '/src/consts';
+import {checkAuth} from '/src/store/api-actions';
+import {redirect} from '/src/store/middlewares/redirect';
 import {reducer} from './store/reducer';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
@@ -18,12 +20,11 @@ const store = createStore(
     reducer,
     composeWithDevTools(
         applyMiddleware(thunk.withExtraArgument(api)),
-        // @TODO далее добавлю
-        // applyMiddleware(redirect)
+        applyMiddleware(redirect),
     ),
 );
-// @TODO далее добавлю
-// store.dispatch(checkAuth());
+
+store.dispatch(checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>

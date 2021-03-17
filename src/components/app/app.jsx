@@ -6,15 +6,27 @@ import Favorites from '/src/components/favorites/favorites.jsx';
 import NotFoundScreen from '/src/components/not-found-screen/notFoundScreen.jsx';
 import Room from '/src/components/room/room.jsx';
 import Login from '/src/components/login/login.jsx';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import {iconData} from '/src/consts.js';
+import {Router as BrowserRouter, Route, Switch} from 'react-router-dom';
+import {iconData, AppRoute} from '/src/consts.js';
+import PrivateRoute from '/src/components/private-router/private-router';
+import browserHistory from '/src/browser-history.js';
 
 const App = () => {
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route path="/" exact
+        <Route path={AppRoute.LOGIN} exact
+          render={() => (
+            <Login/>
+          )}
+        />
+        <Route path={AppRoute.FAVORITES} exact
+          render={() => (
+            <Favorites/>
+          )}
+        />
+        <Route path={AppRoute.ROOT} exact
           render={() => (
             <
               MainScreen
@@ -22,23 +34,17 @@ const App = () => {
             />
           )}
         />
-        <Route path="/login" exact
-          render={() => (
-            <Login/>
-          )}
-        />
-        <Route path="/favorites" exact
-          render={() => (
-            <Favorites/>
-          )}
-        />
-        <Route path="/offer/:id" exact
-          render={(props) => (
-            <
-              Room
-              id={props}
-            />
-          )}
+        <PrivateRoute
+          exact
+          path={AppRoute.OFFER}
+          render={(props) => {
+            return (
+              <
+                Room
+                id={props}
+              />
+            );
+          }}
         />
         <Route>
           <NotFoundScreen/>

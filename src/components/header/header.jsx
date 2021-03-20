@@ -3,8 +3,9 @@ import React from 'react';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {AuthorizationStatus} from '/src/consts';
+import {logout} from '/src/store/api-actions.js';
 
-const Header = ({email, statusAuth}) => {
+const Header = ({email, statusAuth, onLogoutSubmit}) => {
   return (
     <header className="header">
       <div className="container">
@@ -18,11 +19,18 @@ const Header = ({email, statusAuth}) => {
             <ul className="header__nav-list">
               <li className="header__nav-item user">
                 {statusAuth === AuthorizationStatus.AUTH ?
-                  <a className="header__nav-link header__nav-link--profile">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
+                  <>
+                    <a className="header__nav-link header__nav-link--profile">
+                      <div className="header__avatar-wrapper user__avatar-wrapper">
+                      </div>
+                      <span className="header__user-name user__name">{email}</span>
+                    </a>
+                    <div style={{marginTop: `20px`}}>
+                      <a>
+                        <span onClick={() => onLogoutSubmit()} className="header__user-name user__name">Выйти</span>
+                      </a>
                     </div>
-                    <span className="header__user-name user__name">{email}</span>
-                  </a>
+                  </>
                   :
                   <Link to={`/login`} className="header__logo-link header__logo-link--active">
                     <span className="header__user-name user__name">Войти</span>
@@ -40,7 +48,14 @@ const Header = ({email, statusAuth}) => {
 Header.propTypes = {
   email: PropTypes.string,
   statusAuth: PropTypes.string.isRequired,
+  onLogoutSubmit: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  onLogoutSubmit() {
+    dispatch(logout());
+  }
+});
 
 const mapStateToProps = (state) => ({
   email: state.data && state.data.email,
@@ -48,4 +63,4 @@ const mapStateToProps = (state) => ({
 });
 
 export {Header};
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -1,6 +1,6 @@
 export const ONE = 1;
 export const ZERO = 0;
-export const FACTOR_RATE = 10;
+export const FACTOR_RATE = 20;
 
 export const starsData = [
   `terribly`,

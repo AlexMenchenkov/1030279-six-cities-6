@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import CardsList from '/src/components/cards-list/cards-list.jsx';
 import {propTypesCard, propTypesMap} from '/src/prop-types.js';
@@ -7,22 +7,9 @@ import Map from '/src/components/map/map.jsx';
 import CityPanel from '/src/components/city-panel/city-panel.jsx';
 import {connect} from 'react-redux';
 import {fetchCityList} from '/src/store/api-actions.js';
-import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
 
 const MainScreen = (props) => {
-  const {offers, iconData, cityChecked, isDataLoaded, onLoadData} = props;
-
-  useEffect(() => {
-    if (!isDataLoaded) {
-      onLoadData();
-    }
-  }, [isDataLoaded]);
-
-  if (!isDataLoaded) {
-    return (
-      <LoadingScreen />
-    );
-  }
+  const {offers, iconData, cityChecked} = props;
   const filteredCities = offers.filter((offer) => offer.city.name === cityChecked);
 
   return <div className="page page--gray page--main">

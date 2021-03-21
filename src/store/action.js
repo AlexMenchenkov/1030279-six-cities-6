@@ -6,6 +6,7 @@ export const ActionType = {
   REDIRECT_TO_ROUTE: `main/redirectToRoute`,
   USER_DATA: `user/saveUserData`,
   CURRENT_OFFER: `user/saveCurrentOffer`,
+  LOG_HISTORY: `history/saveHistory`,
 };
 
 export const ActionCreator = {
@@ -36,5 +37,9 @@ export const ActionCreator = {
   saveCurrentOffer: (id) => ({
     type: ActionType.CURRENT_OFFER,
     payload: id,
-  })
+  }),
+  saveHistory: (path) => ({
+    type: ActionType.LOG_HISTORY,
+    payload: path,
+  }),
 };

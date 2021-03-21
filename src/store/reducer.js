@@ -7,6 +7,7 @@ const initialState = {
   checkedAuth: false,
   isRoomLoaded: false,
   currentOffer: null,
+  history: `/`,
 };
 
 const reducer = (state = initialState, action) => {
@@ -43,6 +44,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentOffer: action.payload,
+      };
+    case ActionType.LOG_HISTORY:
+      return {
+        ...state,
+        history: action.payload,
       };
   }
 

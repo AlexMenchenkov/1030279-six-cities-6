@@ -4,8 +4,9 @@ import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {AuthorizationStatus} from '/src/consts';
 import {logout} from '/src/store/api-actions.js';
+import {ActionCreator} from '/src/store/action.js';
 
-const Header = ({email, statusAuth, onLogoutSubmit}) => {
+const Header = ({email, statusAuth, onLogoutSubmit, logHistory}) => {
   return (
     <header className="header">
       <div className="container">
@@ -32,7 +33,7 @@ const Header = ({email, statusAuth, onLogoutSubmit}) => {
                     </div>
                   </>
                   :
-                  <Link to={`/login`} className="header__logo-link header__logo-link--active">
+                  <Link to={`/login`} onClick={() => logHistory(location.pathname)} className="header__logo-link header__logo-link--active">
                     <span className="header__user-name user__name">Войти</span>
                   </Link>
                 }
@@ -49,11 +50,15 @@ Header.propTypes = {
   email: PropTypes.string,
   statusAuth: PropTypes.string.isRequired,
   onLogoutSubmit: PropTypes.func.isRequired,
+  logHistory: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   onLogoutSubmit() {
     dispatch(logout());
+  },
+  logHistory(path) {
+    dispatch(ActionCreator.saveHistory(path));
   }
 });
 

@@ -56,7 +56,7 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
       auth: AuthorizationStatus.AUTH,
       checkedAuth: true,
     })))
-    .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.ROOT)))
+    .then(() => dispatch(ActionCreator.redirectToRoute(_getState().history)))
 );
 
 export const logout = () => (dispatch, _getState, api) => (

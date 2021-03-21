@@ -2,7 +2,7 @@ import React, {useRef} from 'react';
 import PropTypes from "prop-types";
 import RowStars from '/src/components/row-stars/row-stars.jsx';
 import {connect} from "react-redux";
-import {sendComment} from '/src/store/api-actions';
+import {sendComment, getComments} from '/src/store/api-actions';
 
 const SelfReview = ({submitReviewDispatch}) => {
   const textReview = useRef(null);
@@ -19,6 +19,8 @@ const SelfReview = ({submitReviewDispatch}) => {
       rating: Number(checkedInput && checkedInput.value),
       offerId,
     });
+    textReview.current.value = ``;
+    checkedInput.checked = false;
   };
 
   return (
@@ -49,8 +51,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  submitReviewDispatch(data) {
-    dispatch(sendComment(data));
+  submitReviewDispatch({offerId, ...data}) {
+    dispatch(sendComment({offerId, ...data})).then(() => {
+      dispatch(getComments(offerId));
+    });
   },
 });
 

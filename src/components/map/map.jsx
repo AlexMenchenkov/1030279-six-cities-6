@@ -12,7 +12,6 @@ const Map = ({offers, currentOffer}) => {
   const location = offers.map((offer) => offer.city.location);
   const titles = offers.map((offer) => offer.title);
   const coordinatesCity = location.filter(((offer) => ({id}) => !offer.has(id) && offer.add(id))(new Set()));
-  let icon;
   const [latitude] = coordinatesCity.map((offer) => offer.latitude);
   const [longitude] = coordinatesCity.map((offer) => offer.longitude);
   const [zoom] = coordinatesCity.map((offer) => offer.zoom);
@@ -38,15 +37,15 @@ const Map = ({offers, currentOffer}) => {
       .addTo(mapRef.current);
 
     points.forEach((point, index) => {
+      let icinActive;
       if (point[ONE].id === currentOffer) {
-        icon = leaflet.icon({
-          ...iconDataOrange,
-        });
+        icinActive = iconDataOrange;
       } else {
-        icon = leaflet.icon({
-          ...iconData,
-        });
+        icinActive = iconData;
       }
+      const icon = leaflet.icon({
+        ...icinActive,
+      });
       leaflet.marker({
         lat: point[ZERO].latitude,
         lng: point[ZERO].longitude,

@@ -16,9 +16,7 @@ const Room = ({offers, offer, isRoomLoaded, isDataLoaded, onLoadData, onLoadComm
     if (!isRoomLoaded && !isDataLoaded) {
       onLoadData(offerId);
     }
-    if (!isCommentsLoaded) {
-      onLoadComments(offerId);
-    }
+    onLoadComments(offerId);
   }, [isRoomLoaded]);
 
   if (!isRoomLoaded && !isDataLoaded || !isCommentsLoaded) {

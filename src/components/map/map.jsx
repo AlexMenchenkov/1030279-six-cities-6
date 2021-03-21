@@ -9,6 +9,7 @@ const Map = (props) => {
   const {offers, iconData} = props;
   const points = offers.map((offer) => offer.location);
   const location = offers.map((offer) => offer.city.location);
+  const titles = offers.map((offer) => offer.title);
   const coordinatesCity = location.filter(((offer) => ({id}) => !offer.has(id) && offer.add(id))(new Set()));
 
   const [latitude] = coordinatesCity.map((offer) => offer.latitude);
@@ -37,7 +38,7 @@ const Map = (props) => {
       })
       .addTo(mapRef.current);
 
-    points.forEach((point) => {
+    points.forEach((point, index) => {
 
       leaflet.marker({
         lat: point.latitude,
@@ -47,7 +48,7 @@ const Map = (props) => {
         icon,
       })
       .addTo(mapRef.current)
-      .bindPopup(point.title);
+      .bindPopup(titles[index]);
     });
 
     return () => {

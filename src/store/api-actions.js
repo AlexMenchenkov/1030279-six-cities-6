@@ -6,6 +6,9 @@ const dataMappingOffers = (data) => {
   const renameData = ({is_favorite, is_premium, max_adults, preview_image, host: {avatar_url, is_pro, id, name}, ...object}) =>
     // eslint-disable-next-line camelcase
     ({isFavorite: is_favorite, isPremium: is_premium, maxAdults: max_adults, previewImage: preview_image, host: {avatarUrl: avatar_url, isPro: is_pro, id, name}, ...object});
+  if (data.constructor.name === `Object`) {
+    return renameData(data);
+  }
   return data.map((offer) => renameData(offer));
 };
 
@@ -17,7 +20,7 @@ const dataMappingUser = (data) => {
   return renameData(data);
 };
 
-export const fetchCityList = () => (dispatch, _getState, api) => (
+export const fetchOffersList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFERS)
     .then(({data}) => {
       const offers = dataMappingOffers(data);
@@ -25,22 +28,39 @@ export const fetchCityList = () => (dispatch, _getState, api) => (
     })
 );
 
+export const fetchCurrentRoom = (id) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.OFFERS}/${id}`)
+    .then(({data}) => {
+      const offer = dataMappingOffers(data);
+      dispatch(ActionCreator.loadOffer(offer));
+    })
+);
+
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then((response) => dispatch(ActionCreator.saveUserData(dataMappingUser(response.data))))
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(() => dispatch(ActionCreator.requireAuthorization({
+      auth: AuthorizationStatus.AUTH,
+      checkedAuth: true,
+    })))
     .catch(() => {})
 );
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
     .then((response) => dispatch(ActionCreator.saveUserData(dataMappingUser(response.data))))
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(() => dispatch(ActionCreator.requireAuthorization({
+      auth: AuthorizationStatus.AUTH,
+      checkedAuth: true,
+    })))
     .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.ROOT)))
 );
 
 export const logout = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN_OUT)
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)))
+    .then(() => dispatch(ActionCreator.requireAuthorization({
+      auth: AuthorizationStatus.NO_AUTH,
+      checkedAuth: true,
+    })))
     .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.ROOT)))
 );

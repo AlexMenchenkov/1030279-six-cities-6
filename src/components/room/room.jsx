@@ -1,17 +1,36 @@
 import PropTypes from "prop-types";
-import React from 'react';
+import React, {useEffect} from 'react';
 import Header from '/src/components/header/header.jsx';
 import ReviewBlock from '/src/components/review-block/review-block.jsx';
 import {reviews} from '/src/mocks/reviews.js';
 import {connect} from "react-redux";
 import {propTypesCard} from '/src/prop-types.js';
-import {fetchCityList} from '/src/store/api-actions.js';
+import {fetchCurrentRoom} from '/src/store/api-actions.js';
 import {ZERO, FACTOR_RATE} from '/src/consts.js';
+import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
 
-const Room = ({offers}) => {
+const Room = ({offers, offer, isRoomLoaded, isDataLoaded, onLoadData}) => {
   const THIRD_ITEM_IN_PATH = 2;
   const offerId = Number(window.location.pathname.split(`/`)[THIRD_ITEM_IN_PATH]);
-  const currentOffer = offers.filter((offer) => offer.id === offerId)[ZERO];
+
+  useEffect(() => {
+    if (!isRoomLoaded && !isDataLoaded) {
+      onLoadData(offerId);
+    }
+  }, [isRoomLoaded]);
+
+  if (!isRoomLoaded && !isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
+  let currentOffer;
+  if (offer) {
+    currentOffer = offer;
+  } else {
+    currentOffer = offers.filter((elem) => elem.id === offerId)[ZERO];
+  }
 
   return (
     <div className="page">
@@ -30,7 +49,7 @@ const Room = ({offers}) => {
           <div className="property__container container">
             <div className="property__wrapper">
               {currentOffer.isPremium ?
-                <div className="place-card__mark">
+                <div className="property__mark">
                   <span>Premium</span>
                 </div>
                 : ``
@@ -216,15 +235,24 @@ Room.propTypes = {
           propTypesCard,
       ),
   ),
+  offer: PropTypes.shape(
+      propTypesCard,
+  ),
+  isRoomLoaded: PropTypes.bool.isRequired,
+  isDataLoaded: PropTypes.bool.isRequired,
+  onLoadData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
+  isRoomLoaded: state.isRoomLoaded,
+  isDataLoaded: state.isDataLoaded,
+  offer: state.offer,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoadData() {
-    dispatch(fetchCityList());
+  onLoadData(offerId) {
+    dispatch(fetchCurrentRoom(offerId));
   },
 });
 

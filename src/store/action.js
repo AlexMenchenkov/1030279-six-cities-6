@@ -2,6 +2,7 @@ export const ActionType = {
   CHANGE_CITY: `header/changeCity`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
   LOAD_OFFERS: `user/loadOffers`,
+  LOAD_OFFER: `user/loadOffer`,
   REDIRECT_TO_ROUTE: `main/redirectToRoute`,
   USER_DATA: `user/saveUserData`,
 };
@@ -18,6 +19,10 @@ export const ActionCreator = {
   loadOffers: (offers) => ({
     type: ActionType.LOAD_OFFERS,
     payload: offers,
+  }),
+  loadOffer: (offer) => ({
+    type: ActionType.LOAD_OFFER,
+    payload: offer,
   }),
   redirectToRoute: (url) => ({
     type: ActionType.REDIRECT_TO_ROUTE,

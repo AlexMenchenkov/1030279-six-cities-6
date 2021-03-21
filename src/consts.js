@@ -24,6 +24,11 @@ export const iconData = {
   iconSize: [30, 30]
 };
 
+export const iconDataOrange = {
+  iconUrl: `./img/pin-active.svg`,
+  iconSize: [30, 30]
+};
+
 export const AuthorizationStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,

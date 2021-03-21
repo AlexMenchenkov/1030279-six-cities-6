@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import CardsList from '/src/components/cards-list/cards-list.jsx';
-import {propTypesCard, propTypesMap} from '/src/prop-types.js';
+import {propTypesCard} from '/src/prop-types.js';
 import Header from '/src/components/header/header.jsx';
 import Map from '/src/components/map/map.jsx';
 import CityPanel from '/src/components/city-panel/city-panel.jsx';
@@ -10,7 +10,7 @@ import {fetchOffersList} from '/src/store/api-actions.js';
 import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
 
 const MainScreen = (props) => {
-  const {offers, iconData, cityChecked, isDataLoaded, onLoadData} = props;
+  const {offers, cityChecked, isDataLoaded, onLoadData} = props;
 
   useEffect(() => {
     if (!isDataLoaded) {
@@ -58,7 +58,6 @@ const MainScreen = (props) => {
           </section>
           <Map
             offers={filteredCities}
-            iconData={iconData}
           />
         </div>
       </div>
@@ -73,9 +72,6 @@ MainScreen.propTypes = {
       ),
   ),
   cityChecked: PropTypes.string.isRequired,
-  iconData: PropTypes.shape(
-      propTypesMap,
-  ).isRequired,
   onLoadData: PropTypes.func.isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
 };

@@ -69,10 +69,10 @@ const Room = ({offers, offer, isRoomLoaded, isDataLoaded, onLoadData, onLoadComm
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `${currentOffer.rating * FACTOR_RATE}%`}}/>
+                  <span style={{width: `${(Math.round(currentOffer.rating) * FACTOR_RATE)}%`}}/>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">{currentOffer.rating}</span>
+                <span className="property__rating-value rating__value">{Math.round(currentOffer.rating)}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">

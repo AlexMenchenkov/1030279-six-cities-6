@@ -49,7 +49,7 @@ const CardPlace = (props) => {
       </div>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
-          <span style={{width: offer.rating * FACTOR_RATE}}> </span>
+          <span style={{width: `${Math.round(offer.rating) * FACTOR_RATE}%`}}> </span>
           <span className="visually-hidden">Rating</span>
         </div>
       </div>

@@ -22,7 +22,7 @@ const Review = (props) => {
         <div className="reviews__info">
           <div className="reviews__rating rating">
             <div className="reviews__stars rating__stars">
-              <span style={{width: review.rating * FACTOR_RATE}}/>
+              <span style={{width: Math.round(review.rating) * FACTOR_RATE}}/>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>

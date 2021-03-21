@@ -28,11 +28,14 @@ export const fetchOffersList = () => (dispatch, _getState, api) => (
     })
 );
 
-export const fetchCurrentRoom = (id) => (dispatch, _getState, api) => (
+export const fetchCurrentOffer = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.OFFERS}/${id}`)
     .then(({data}) => {
       const offer = dataMappingOffers(data);
       dispatch(ActionCreator.loadOffer(offer));
+    })
+    .catch(() => {
+      location.href = `/404`;
     })
 );
 
@@ -62,5 +65,4 @@ export const logout = () => (dispatch, _getState, api) => (
       auth: AuthorizationStatus.NO_AUTH,
       checkedAuth: true,
     })))
-    .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.ROOT)))
 );

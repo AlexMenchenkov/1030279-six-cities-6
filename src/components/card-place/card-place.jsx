@@ -1,27 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
 import {propTypesCard} from '/src/prop-types.js';
 import {FACTOR_RATE} from '/src/consts.js';
+import {ActionCreator} from '/src/store/action';
 
 const CardPlace = (props) => {
   const {
     offer,
-    onHoverCard,
     id,
     classCard,
     width,
     height,
+    saveOfferId,
   } = props;
 
-  return <article onMouseOver={onHoverCard} id={id} className={`${classCard ? classCard + `__card ` : `cities__place-card`} place-card`}>
+  const handleClick = (event) => {
+    const idOffer = Number(event.currentTarget.id);
+    saveOfferId(idOffer);
+  };
+
+  return <article onMouseOver={handleClick} id={id} className={`${classCard ? classCard + `__card ` : `cities__place-card`} place-card`}>
     {offer.isPremium ?
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
       : ``
     }
-    <div className={classCard + `__image-wrapper place-card__image-wrapper`}>
+    <div className={classCard ? classCard + `__image-wrapper place-card__image-wrapper` : ``}>
       <Link to={`/offer/${offer.id}`}>
         <img className="place-card__image" src={offer.previewImage} width={width} height={height}
           alt="Place image"/>
@@ -58,6 +65,7 @@ CardPlace.propTypes = {
   onHoverCard: PropTypes.func,
   classCard: PropTypes.string,
   width: PropTypes.number,
+  saveOfferId: PropTypes.func.isRequired,
   height: PropTypes.number,
   id: PropTypes.number,
   offer: PropTypes.shape(
@@ -65,4 +73,17 @@ CardPlace.propTypes = {
   ),
 };
 
-export default CardPlace;
+const mapStateToProps = (state) => ({
+  cityChecked: state.cityChecked,
+  isDataLoaded: state.isDataLoaded,
+  offers: state.offers,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  saveOfferId(id) {
+    dispatch(ActionCreator.saveCurrentOffer(id));
+  },
+});
+
+export {CardPlace};
+export default connect(mapStateToProps, mapDispatchToProps)(CardPlace);

@@ -5,6 +5,7 @@ export const ActionType = {
   LOAD_OFFER: `user/loadOffer`,
   REDIRECT_TO_ROUTE: `main/redirectToRoute`,
   USER_DATA: `user/saveUserData`,
+  CURRENT_OFFER: `user/saveCurrentOffer`,
 };
 
 export const ActionCreator = {
@@ -31,5 +32,9 @@ export const ActionCreator = {
   saveUserData: (data) => ({
     type: ActionType.USER_DATA,
     payload: data,
+  }),
+  saveCurrentOffer: (id) => ({
+    type: ActionType.CURRENT_OFFER,
+    payload: id,
   })
 };

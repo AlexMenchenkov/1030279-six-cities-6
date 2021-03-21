@@ -20,11 +20,11 @@ const Header = ({email, statusAuth, onLogoutSubmit}) => {
               <li className="header__nav-item user">
                 {statusAuth === AuthorizationStatus.AUTH ?
                   <>
-                    <a className="header__nav-link header__nav-link--profile">
+                    <Link to={`/favorites`} className="header__nav-link header__nav-link--profile">
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                       </div>
                       <span className="header__user-name user__name">{email}</span>
-                    </a>
+                    </Link>
                     <div style={{marginTop: `20px`}}>
                       <a>
                         <span onClick={() => onLogoutSubmit()} className="header__user-name user__name">Выйти</span>

@@ -6,6 +6,7 @@ const initialState = {
   statusAuth: `NO_AUTH`,
   checkedAuth: false,
   isRoomLoaded: false,
+  currentOffer: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -37,6 +38,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         data: action.payload,
+      };
+    case ActionType.CURRENT_OFFER:
+      return {
+        ...state,
+        currentOffer: action.payload,
       };
   }
 

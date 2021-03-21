@@ -5,7 +5,7 @@ import ReviewBlock from '/src/components/review-block/review-block.jsx';
 import {reviews} from '/src/mocks/reviews.js';
 import {connect} from "react-redux";
 import {propTypesCard} from '/src/prop-types.js';
-import {fetchCurrentRoom} from '/src/store/api-actions.js';
+import {fetchCurrentOffer} from '/src/store/api-actions.js';
 import {ZERO, FACTOR_RATE} from '/src/consts.js';
 import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
 
@@ -252,7 +252,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadData(offerId) {
-    dispatch(fetchCurrentRoom(offerId));
+    dispatch(fetchCurrentOffer(offerId));
   },
 });
 

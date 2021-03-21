@@ -20,6 +20,14 @@ const dataMappingUser = (data) => {
   return renameData(data);
 };
 
+const dataMappingComments = (data) => {
+  // eslint-disable-next-line camelcase
+  const renameData = ({user: {avatar_url, is_pro, id, name}, ...object}) =>
+    // eslint-disable-next-line camelcase
+    ({user: {avatarUrl: avatar_url, isPro: is_pro, id, name}, ...object});
+  return data.map((offer) => renameData(offer));
+};
+
 export const fetchOffersList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFERS)
     .then(({data}) => {
@@ -65,4 +73,14 @@ export const logout = () => (dispatch, _getState, api) => (
       auth: AuthorizationStatus.NO_AUTH,
       checkedAuth: true,
     })))
+);
+
+export const getComments = (id) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.COMMENTS}/${id}`)
+    .then(({data}) => dispatch(ActionCreator.saveComments(dataMappingComments(data))))
+);
+
+export const sendComment = ({comment, rating, offerId}) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.COMMENTS}/${offerId}`, {comment, rating})
+    .then(({data}) => dispatch(ActionCreator.submitReview(data)))
 );

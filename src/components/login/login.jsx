@@ -12,8 +12,8 @@ const Login = ({onAuthSubmit, statusAuth}) => {
     );
   }
 
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();

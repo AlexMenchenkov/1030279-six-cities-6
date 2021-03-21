@@ -2,14 +2,13 @@ import PropTypes from "prop-types";
 import React, {useEffect} from 'react';
 import Header from '/src/components/header/header.jsx';
 import ReviewBlock from '/src/components/review-block/review-block.jsx';
-import {reviews} from '/src/mocks/reviews.js';
 import {connect} from "react-redux";
-import {propTypesCard} from '/src/prop-types.js';
-import {fetchCurrentOffer} from '/src/store/api-actions.js';
+import {propTypesCard, propTypesComments} from '/src/prop-types.js';
+import {fetchCurrentOffer, getComments} from '/src/store/api-actions.js';
 import {ZERO, FACTOR_RATE} from '/src/consts.js';
 import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
 
-const Room = ({offers, offer, isRoomLoaded, isDataLoaded, onLoadData}) => {
+const Room = ({offers, offer, isRoomLoaded, isDataLoaded, onLoadData, onLoadComments, comments, isCommentsLoaded}) => {
   const THIRD_ITEM_IN_PATH = 2;
   const offerId = Number(window.location.pathname.split(`/`)[THIRD_ITEM_IN_PATH]);
 
@@ -17,9 +16,12 @@ const Room = ({offers, offer, isRoomLoaded, isDataLoaded, onLoadData}) => {
     if (!isRoomLoaded && !isDataLoaded) {
       onLoadData(offerId);
     }
+    if (!isCommentsLoaded) {
+      onLoadComments(offerId);
+    }
   }, [isRoomLoaded]);
 
-  if (!isRoomLoaded && !isDataLoaded) {
+  if (!isRoomLoaded && !isDataLoaded || !isCommentsLoaded) {
     return (
       <LoadingScreen />
     );
@@ -114,7 +116,7 @@ const Room = ({offers, offer, isRoomLoaded, isDataLoaded, onLoadData}) => {
                   </p>
                 </div>
               </div>
-              <ReviewBlock reviews={reviews}/>
+              <ReviewBlock comments={comments}/>
             </div>
           </div>
           <section className="property__map map"/>
@@ -241,6 +243,13 @@ Room.propTypes = {
   isRoomLoaded: PropTypes.bool.isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
   onLoadData: PropTypes.func.isRequired,
+  onLoadComments: PropTypes.func.isRequired,
+  isCommentsLoaded: PropTypes.bool.isRequired,
+  comments: PropTypes.arrayOf(
+      PropTypes.shape(
+          propTypesComments
+      ),
+  ),
 };
 
 const mapStateToProps = (state) => ({
@@ -248,11 +257,16 @@ const mapStateToProps = (state) => ({
   isRoomLoaded: state.isRoomLoaded,
   isDataLoaded: state.isDataLoaded,
   offer: state.offer,
+  comments: state.comments,
+  isCommentsLoaded: state.isCommentsLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadData(offerId) {
     dispatch(fetchCurrentOffer(offerId));
+  },
+  onLoadComments(offerId) {
+    dispatch(getComments(offerId));
   },
 });
 

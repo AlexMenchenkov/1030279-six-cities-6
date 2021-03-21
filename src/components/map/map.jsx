@@ -5,7 +5,7 @@ import leaflet from 'leaflet';
 import {propTypesCard, propTypesMap} from '/src/prop-types.js';
 
 const Map = (props) => {
-  const mapRef = useRef();
+  const mapRef = useRef(null);
   const {offers, iconData} = props;
   const points = offers.map((offer) => offer.location);
   const location = offers.map((offer) => offer.city.location);

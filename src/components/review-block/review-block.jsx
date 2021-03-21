@@ -3,12 +3,11 @@ import React from 'react';
 import Review from '/src/components/review/review.jsx';
 import {propTypesReview} from '/src/prop-types.js';
 import SelfReview from '/src/components/self-review/self-review.jsx';
-import {AuthorizationStatus, starsData} from '/src/consts.js';
+import {AuthorizationStatus} from '/src/consts.js';
 import {connect} from "react-redux";
 import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
 
-const ReviewBlock = ({reviews, checkedAuth, statusAuth}) => {
-
+const ReviewBlock = ({comments, checkedAuth, statusAuth}) => {
   if (!checkedAuth) {
     return (
       <LoadingScreen />
@@ -17,8 +16,8 @@ const ReviewBlock = ({reviews, checkedAuth, statusAuth}) => {
 
   return (
     <section className="property__reviews reviews">
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-      {reviews.map((review) => {
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+      {comments.map((review) => {
         return (
           <Review
             review={review}
@@ -26,15 +25,13 @@ const ReviewBlock = ({reviews, checkedAuth, statusAuth}) => {
           />
         );
       })}
-      {statusAuth === AuthorizationStatus.AUTH && <SelfReview
-        starsData={starsData}
-      />}
+      {statusAuth === AuthorizationStatus.AUTH && <SelfReview/>}
     </section>
   );
 };
 
 ReviewBlock.propTypes = {
-  reviews: PropTypes.arrayOf(
+  comments: PropTypes.arrayOf(
       PropTypes.shape(
           propTypesReview.isRequired,
       ),

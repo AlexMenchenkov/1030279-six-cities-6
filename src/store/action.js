@@ -1,12 +1,14 @@
 export const ActionType = {
   CHANGE_CITY: `header/changeCity`,
-  REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
-  LOAD_OFFERS: `user/loadOffers`,
-  LOAD_OFFER: `user/loadOffer`,
-  REDIRECT_TO_ROUTE: `main/redirectToRoute`,
+  REQUIRED_AUTHORIZATION: `auth/requiredAuthorization`,
+  LOAD_OFFERS: `offers/loadOffers`,
+  LOAD_OFFER: `offers/loadOffer`,
+  REDIRECT_TO_ROUTE: `route/redirectToRoute`,
   USER_DATA: `user/saveUserData`,
-  CURRENT_OFFER: `user/saveCurrentOffer`,
+  CURRENT_OFFER: `offers/saveCurrentOffer`,
   LOG_HISTORY: `history/saveHistory`,
+  GET_COMMENTS: `comments/saveComments`,
+  SEND_COMMENT: `comments/sendComment`,
 };
 
 export const ActionCreator = {
@@ -41,5 +43,13 @@ export const ActionCreator = {
   saveHistory: (path) => ({
     type: ActionType.LOG_HISTORY,
     payload: path,
+  }),
+  saveComments: (data) => ({
+    type: ActionType.GET_COMMENTS,
+    payload: data,
+  }),
+  submitReview: (data) => ({
+    type: ActionType.SEND_COMMENT,
+    payload: data,
   }),
 };

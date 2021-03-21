@@ -16,6 +16,12 @@ const CityBrick = (props) => {
   );
 };
 
+CityBrick.propTypes = {
+  city: PropTypes.string.isRequired,
+  onClickCity: PropTypes.func.isRequired,
+  cityChecked: PropTypes.string.isRequired,
+};
+
 const mapStateToProps = (state) => ({
   cityChecked: state.cityChecked,
 });
@@ -25,12 +31,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.changeCity(event.target.innerText));
   },
 });
-
-CityBrick.propTypes = {
-  city: PropTypes.string.isRequired,
-  onClickCity: PropTypes.func.isRequired,
-  cityChecked: PropTypes.string.isRequired,
-};
 
 export {CityBrick};
 export default connect(mapStateToProps, mapDispatchToProps)(CityBrick);

@@ -33,6 +33,7 @@ export const APIRoute = {
   OFFERS: `/hotels`,
   LOGIN: `/login`,
   LOGIN_OUT: `/logout`,
+  COMMENTS: `/comments`,
 };
 
 export const AppRoute = {

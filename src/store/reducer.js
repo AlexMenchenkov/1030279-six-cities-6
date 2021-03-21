@@ -8,6 +8,7 @@ const initialState = {
   isRoomLoaded: false,
   currentOffer: null,
   history: `/`,
+  isCommentsLoaded: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -49,6 +50,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         history: action.payload,
+      };
+    case ActionType.GET_COMMENTS:
+      return {
+        ...state,
+        comments: action.payload,
+        isCommentsLoaded: true,
       };
   }
 

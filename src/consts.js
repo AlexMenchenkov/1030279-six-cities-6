@@ -1,6 +1,6 @@
 export const ONE = 1;
 export const ZERO = 0;
-export const FACTOR_RATE = 10;
+export const FACTOR_RATE = 20;
 
 export const starsData = [
   `terribly`,
@@ -32,11 +32,13 @@ export const AuthorizationStatus = {
 export const APIRoute = {
   OFFERS: `/hotels`,
   LOGIN: `/login`,
+  LOGIN_OUT: `/logout`,
+  COMMENTS: `/comments`,
 };
 
 export const AppRoute = {
   LOGIN: `/login`,
   ROOT: `/`,
-  FAVORITES: `favorites`,
+  FAVORITES: `/favorites`,
   OFFER: `/offer/:id`,
 };

@@ -21,9 +21,12 @@ const App = () => {
             <Login/>
           )}
         />
-        <Route path={AppRoute.FAVORITES} exact
-          render={() => (
-            <Favorites/>
+        <Route path={AppRoute.OFFER} exact
+          render={(props) => (
+            <
+              Room
+              id={props}
+            />
           )}
         />
         <Route path={AppRoute.ROOT} exact
@@ -36,12 +39,11 @@ const App = () => {
         />
         <PrivateRoute
           exact
-          path={AppRoute.OFFER}
-          render={(props) => {
+          path={AppRoute.FAVORITES}
+          render={() => {
             return (
               <
-                Room
-                id={props}
+                Favorites
               />
             );
           }}

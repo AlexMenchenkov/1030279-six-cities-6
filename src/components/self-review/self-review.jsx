@@ -1,26 +1,35 @@
+import React, {useRef} from 'react';
 import PropTypes from "prop-types";
-import React, {useState} from 'react';
 import RowStars from '/src/components/row-stars/row-stars.jsx';
+import {connect} from "react-redux";
+import {sendComment, getComments} from '/src/store/api-actions';
 
-const SelfReview = (props) => {
-  // eslint-disable-next-line no-unused-vars
-  const [textReview, setReview] = useState(``);
-  const {starsData} = props;
+const SelfReview = ({submitReviewDispatch}) => {
+  const textReview = useRef(null);
+  const starRate = useRef(null);
 
-  const handleChange = (event) => {
-    const {value} = event.target;
-    setReview(value);
+  const THIRD_ITEM_IN_PATH = 2;
+  const offerId = Number(window.location.pathname.split(`/`)[THIRD_ITEM_IN_PATH]);
+
+  const submitReviewHandle = (event) => {
+    event.preventDefault();
+    const checkedInput = (starRate.current).querySelector(`input:checked`);
+    submitReviewDispatch({
+      comment: textReview.current.value,
+      rating: Number(checkedInput && checkedInput.value),
+      offerId,
+    });
+    textReview.current.value = ``;
+    checkedInput.checked = false;
   };
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form onSubmit={submitReviewHandle} className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <div className="reviews__rating-form form__rating">
-        <RowStars
-          starsData={starsData}
-        />
+      <div ref={starRate} className="reviews__rating-form form__rating">
+        <RowStars/>
       </div>
-      <textarea onChange={handleChange} className="reviews__textarea form__textarea" id="review" name="review"
+      <textarea ref={textReview} className="reviews__textarea form__textarea" id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"/>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -33,9 +42,21 @@ const SelfReview = (props) => {
   );
 };
 
-
 SelfReview.propTypes = {
-  starsData: PropTypes.array.isRequired,
+  submitReviewDispatch: PropTypes.func.isRequired,
 };
 
-export default SelfReview;
+const mapStateToProps = (state) => ({
+  cityChecked: state.cityChecked,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  submitReviewDispatch({offerId, ...data}) {
+    dispatch(sendComment({offerId, ...data})).then(() => {
+      dispatch(getComments(offerId));
+    });
+  },
+});
+
+export {SelfReview};
+export default connect(mapStateToProps, mapDispatchToProps)(SelfReview);

@@ -3,16 +3,21 @@ import React from 'react';
 import Review from '/src/components/review/review.jsx';
 import {propTypesReview} from '/src/prop-types.js';
 import SelfReview from '/src/components/self-review/self-review.jsx';
-import {starsData} from '/src/consts.js';
+import {AuthorizationStatus} from '/src/consts.js';
+import {connect} from "react-redux";
+import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
 
-const ReviewBlock = (props) => {
-  const {
-    reviews
-  } = props;
+const ReviewBlock = ({comments, checkedAuth, statusAuth}) => {
+  if (!checkedAuth) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   return (
     <section className="property__reviews reviews">
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-      {reviews.map((review) => {
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+      {comments.map((review) => {
         return (
           <Review
             review={review}
@@ -20,20 +25,25 @@ const ReviewBlock = (props) => {
           />
         );
       })}
-      <SelfReview
-        starsData={starsData}
-      />
+      {statusAuth === AuthorizationStatus.AUTH && <SelfReview/>}
     </section>
   );
 };
 
 ReviewBlock.propTypes = {
-  reviews: PropTypes.arrayOf(
+  comments: PropTypes.arrayOf(
       PropTypes.shape(
           propTypesReview.isRequired,
       ),
   ).isRequired,
+  statusAuth: PropTypes.string.isRequired,
+  checkedAuth: PropTypes.bool.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  statusAuth: state.statusAuth,
+  checkedAuth: state.checkedAuth,
+});
 
-export default ReviewBlock;
+export {ReviewBlock};
+export default connect(mapStateToProps)(ReviewBlock);

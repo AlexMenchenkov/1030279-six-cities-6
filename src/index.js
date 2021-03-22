@@ -13,7 +13,10 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
 const api = createAPI(
-    () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH))
+    () => store.dispatch(ActionCreator.requireAuthorization({
+      auth: AuthorizationStatus.NO_AUTH,
+      checkedAuth: true,
+    }))
 );
 
 const store = createStore(

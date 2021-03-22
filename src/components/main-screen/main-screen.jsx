@@ -6,7 +6,7 @@ import Header from '/src/components/header/header.jsx';
 import Map from '/src/components/map/map.jsx';
 import CityPanel from '/src/components/city-panel/city-panel.jsx';
 import {connect} from 'react-redux';
-import {fetchCityList} from '/src/store/api-actions.js';
+import {fetchOffersList} from '/src/store/api-actions.js';
 import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
 
 const MainScreen = (props) => {
@@ -36,7 +36,7 @@ const MainScreen = (props) => {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{2} places to stay in Amsterdam</b>
+            <b className="places__found">{filteredCities.length} places to stay in {cityChecked}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex="0">
@@ -88,7 +88,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadData() {
-    dispatch(fetchCityList());
+    dispatch(fetchOffersList());
   },
 });
 

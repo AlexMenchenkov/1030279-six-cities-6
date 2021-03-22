@@ -1,5 +1,6 @@
 export const ONE = 1;
 export const ZERO = 0;
+export const INDEXOF_FAIL_CODE = -1;
 export const FACTOR_RATE = 20;
 
 export const starsData = [
@@ -9,6 +10,15 @@ export const starsData = [
   `good`,
   `perfect`,
 ];
+
+export const sectionsNames = [`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`];
+
+export const sectionsId = {
+  popular: 0,
+  lowToHigh: 1,
+  highToLow: 2,
+  rate: 3,
+};
 
 export const cities = [
   `Paris`,

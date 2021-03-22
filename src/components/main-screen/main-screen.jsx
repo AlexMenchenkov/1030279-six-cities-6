@@ -8,9 +8,10 @@ import CityPanel from '/src/components/city-panel/city-panel.jsx';
 import {connect} from 'react-redux';
 import {fetchOffersList} from '/src/store/api-actions.js';
 import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
+import Filter from '/src/components/filter/filter.jsx';
+import {ONE, INDEXOF_FAIL_CODE, sectionsId} from '/src/consts.js';
 
-const MainScreen = (props) => {
-  const {offers, cityChecked, isDataLoaded, onLoadData} = props;
+const MainScreen = ({offers, cityChecked, isDataLoaded, onLoadData, sortId, isShow}) => {
 
   useEffect(() => {
     if (!isDataLoaded) {
@@ -23,7 +24,35 @@ const MainScreen = (props) => {
       <LoadingScreen />
     );
   }
-  const filteredCities = offers.filter((offer) => offer.city.name === cityChecked);
+  const filteredOffersonCity = offers.filter((offer) => offer.city.name === cityChecked);
+  const sortByPriceLowToHigth = () => {
+    sortOffersData.sort((a, b) => a.price > b.price ? ONE : INDEXOF_FAIL_CODE);
+  };
+  const sortByHigthToLow = (property) => {
+    sortOffersData.sort((a, b) => a[property] < b[property] ? ONE : INDEXOF_FAIL_CODE);
+  };
+  let sortOffersData = filteredOffersonCity;
+
+  const sortOffersFunc = () => {
+    switch (sortId) {
+      case sectionsId.popular :
+        return filteredOffersonCity;
+      case sectionsId.highToLow :
+        sortByPriceLowToHigth(sortOffersData);
+        return sortOffersData;
+      case sectionsId.lowToHigh :
+        sortByHigthToLow(`price`);
+        return sortOffersData;
+      case sectionsId.rate :
+        sortByHigthToLow(`rating`);
+        return sortOffersData;
+      default: {
+        return filteredOffersonCity;
+      }
+    }
+  };
+
+  sortOffersData = sortOffersFunc();
 
   return <div className="page page--gray page--main">
     <Header/>
@@ -36,28 +65,17 @@ const MainScreen = (props) => {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{filteredCities.length} places to stay in {cityChecked}</b>
-            <form className="places__sorting" action="#" method="get">
-              <span className="places__sorting-caption">Sort by</span>
-              <span className="places__sorting-type" tabIndex="0">
-                  Popular
-                <svg className="places__sorting-arrow" width="7" height="4">
-                  <use xlinkHref="#icon-arrow-select"> </use>
-                </svg>
-              </span>
-              <ul className="places__options places__options--custom places__options--opened">
-                <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                <li className="places__option" tabIndex="0">Price: low to high</li>
-                <li className="places__option" tabIndex="0">Price: high to low</li>
-                <li className="places__option" tabIndex="0">Top rated first</li>
-              </ul>
-            </form>
+            <b className="places__found">{filteredOffersonCity.length} places to stay in {cityChecked}</b>
+            <Filter
+              sortId={sortId}
+              isShow={isShow}
+            />
             <div className="cities__places-list places__list tabs__content">
-              <CardsList offers={filteredCities} cityChecked={cityChecked}/>
+              <CardsList offers={filteredOffersonCity} cityChecked={cityChecked}/>
             </div>
           </section>
           <Map
-            offers={filteredCities}
+            offers={filteredOffersonCity}
           />
         </div>
       </div>
@@ -74,12 +92,16 @@ MainScreen.propTypes = {
   cityChecked: PropTypes.string.isRequired,
   onLoadData: PropTypes.func.isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
+  sortId: PropTypes.number.isRequired,
+  isShow: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   cityChecked: state.cityChecked,
   isDataLoaded: state.isDataLoaded,
   offers: state.offers,
+  sortId: state.sortId,
+  isShow: state.isShow,
 });
 
 const mapDispatchToProps = (dispatch) => ({

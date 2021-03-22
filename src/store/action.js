@@ -9,6 +9,8 @@ export const ActionType = {
   LOG_HISTORY: `history/saveHistory`,
   GET_COMMENTS: `comments/saveComments`,
   SEND_COMMENT: `comments/sendComment`,
+  SORT_OFFERS: `offers/sortOffers`,
+  SHOW_FILTER: `offers/showFilter`,
 };
 
 export const ActionCreator = {
@@ -50,6 +52,14 @@ export const ActionCreator = {
   }),
   submitReview: (data) => ({
     type: ActionType.SEND_COMMENT,
+    payload: data,
+  }),
+  sortOffers: (data) => ({
+    type: ActionType.SORT_OFFERS,
+    payload: data,
+  }),
+  showFilter: (data) => ({
+    type: ActionType.SHOW_FILTER,
     payload: data,
   }),
 };

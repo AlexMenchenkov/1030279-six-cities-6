@@ -9,6 +9,8 @@ const initialState = {
   currentOffer: null,
   history: `/`,
   isCommentsLoaded: false,
+  sortId: 0,
+  isShow: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -57,6 +59,19 @@ const reducer = (state = initialState, action) => {
         comments: action.payload,
         isCommentsLoaded: true,
       };
+    case ActionType.SORT_OFFERS:
+      return {
+        ...state,
+        sortId: action.payload,
+      };
+    case ActionType.SHOW_FILTER:
+      return {
+        ...state,
+        isShow: action.payload,
+      };
+    default: {
+      break;
+    }
   }
 
   return state;

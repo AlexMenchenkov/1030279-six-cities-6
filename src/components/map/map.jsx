@@ -2,21 +2,20 @@ import PropTypes from "prop-types";
 import React, {useRef, useEffect} from 'react';
 import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
-import {propTypesCard, propTypesMap} from '/src/prop-types.js';
+import {propTypesCard} from '/src/prop-types.js';
+import {connect} from "react-redux";
+import {iconData, iconDataOrange, ONE, ZERO} from '/src/consts.js';
 
-const Map = (props) => {
+const Map = ({offers, currentOffer}) => {
   const mapRef = useRef(null);
-  const {offers, iconData} = props;
-  const points = offers.map((offer) => offer.location);
+  const points = offers.map((offer) => [offer.location, {id: offer.id}]);
   const location = offers.map((offer) => offer.city.location);
+  const titles = offers.map((offer) => offer.title);
   const coordinatesCity = location.filter(((offer) => ({id}) => !offer.has(id) && offer.add(id))(new Set()));
-
   const [latitude] = coordinatesCity.map((offer) => offer.latitude);
   const [longitude] = coordinatesCity.map((offer) => offer.longitude);
   const [zoom] = coordinatesCity.map((offer) => offer.zoom);
-  const icon = leaflet.icon({
-    ...iconData,
-  });
+
   const widthMap = {
     width: `500px`,
   };
@@ -37,17 +36,25 @@ const Map = (props) => {
       })
       .addTo(mapRef.current);
 
-    points.forEach((point) => {
-
+    points.forEach((point, index) => {
+      let icinActive;
+      if (point[ONE].id === currentOffer) {
+        icinActive = iconDataOrange;
+      } else {
+        icinActive = iconData;
+      }
+      const icon = leaflet.icon({
+        ...icinActive,
+      });
       leaflet.marker({
-        lat: point.latitude,
-        lng: point.longitude,
+        lat: point[ZERO].latitude,
+        lng: point[ZERO].longitude,
       },
       {
         icon,
       })
       .addTo(mapRef.current)
-      .bindPopup(point.title);
+      .bindPopup(titles[index]);
     });
 
     return () => {
@@ -69,9 +76,12 @@ Map.propTypes = {
           propTypesCard,
       ),
   ),
-  iconData: PropTypes.shape(
-      propTypesMap,
-  ).isRequired,
+  currentOffer: PropTypes.number,
 };
 
-export default Map;
+const mapStateToProps = (state) => ({
+  currentOffer: state.currentOffer,
+});
+
+export {Map};
+export default connect(mapStateToProps)(Map);

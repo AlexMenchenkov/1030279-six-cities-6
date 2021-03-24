@@ -3,6 +3,7 @@ export const ActionType = {
   REQUIRED_AUTHORIZATION: `auth/requiredAuthorization`,
   LOAD_OFFERS: `offers/loadOffers`,
   LOAD_OFFER: `offers/loadOffer`,
+  LOAD_NEARBY_OFFERS: `offers/loadNearbyOffers`,
   REDIRECT_TO_ROUTE: `route/redirectToRoute`,
   USER_DATA: `user/saveUserData`,
   CURRENT_OFFER: `offers/saveCurrentOffer`,
@@ -29,6 +30,10 @@ export const ActionCreator = {
   loadOffer: (offer) => ({
     type: ActionType.LOAD_OFFER,
     payload: offer,
+  }),
+  loadNearbyOffers: (offers) => ({
+    type: ActionType.LOAD_NEARBY_OFFERS,
+    payload: offers,
   }),
   redirectToRoute: (url) => ({
     type: ActionType.REDIRECT_TO_ROUTE,

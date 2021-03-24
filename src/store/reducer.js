@@ -3,6 +3,7 @@ import {ActionType} from '/src/store/action.js';
 const initialState = {
   cityChecked: `Paris`,
   isDataLoaded: false,
+  isNearbyLoaded: false,
   statusAuth: `NO_AUTH`,
   checkedAuth: false,
   isRoomLoaded: false,
@@ -31,6 +32,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         offer: action.payload,
         isRoomLoaded: true,
+      };
+    case ActionType.LOAD_NEARBY_OFFERS:
+      return {
+        ...state,
+        offerNearby: action.payload,
+        isNearbyLoaded: true,
       };
     case ActionType.REQUIRED_AUTHORIZATION:
       return {

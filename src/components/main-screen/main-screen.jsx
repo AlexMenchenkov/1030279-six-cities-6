@@ -9,9 +9,16 @@ import {connect} from 'react-redux';
 import {fetchOffersList} from '/src/store/api-actions.js';
 import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
 import Filter from '/src/components/filter/filter.jsx';
-import {ONE, INDEXOF_FAIL_CODE, sectionsId} from '/src/consts.js';
+import {ONE, INDEXOF_FAIL_CODE, sectionsId, styleMapMain} from '/src/consts.js';
 
-const MainScreen = ({offers, cityChecked, isDataLoaded, onLoadData, sortId, isShow}) => {
+const MainScreen = ({
+  offers,
+  cityChecked,
+  isDataLoaded,
+  onLoadData,
+  sortId,
+  isShow
+}) => {
 
   useEffect(() => {
     if (!isDataLoaded) {
@@ -71,12 +78,15 @@ const MainScreen = ({offers, cityChecked, isDataLoaded, onLoadData, sortId, isSh
               isShow={isShow}
             />
             <div className="cities__places-list places__list tabs__content">
-              <CardsList offers={filteredOffersonCity} cityChecked={cityChecked}/>
+              <CardsList offers={filteredOffersonCity}/>
             </div>
           </section>
-          <Map
-            offers={filteredOffersonCity}
-          />
+          <div className="cities__right-section">
+            <Map
+              offers={filteredOffersonCity}
+              styleMap={styleMapMain}
+            />
+          </div>
         </div>
       </div>
     </main>

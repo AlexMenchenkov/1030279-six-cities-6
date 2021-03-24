@@ -3,8 +3,7 @@ import React from 'react';
 import CardPlace from '/src/components/card-place/card-place.jsx';
 import {propTypesCard} from '/src/prop-types.js';
 
-const CardsList = (props) => {
-  const {offers} = props;
+const CardsList = ({offers}) => {
 
   return (<>
     {offers.map((offer) => {
@@ -26,7 +25,6 @@ CardsList.propTypes = {
           propTypesCard,
       ),
   ),
-  cityChecked: PropTypes.string.isRequired,
 };
 
 export default CardsList;

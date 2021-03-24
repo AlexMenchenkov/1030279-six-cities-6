@@ -11,6 +11,17 @@ export const starsData = [
   `perfect`,
 ];
 
+export const styleMapMain = {
+  width: `100%`,
+  height: `100%`,
+};
+
+export const styleMapRoom = {
+  height: `100%`,
+  width: `1150px`,
+  margin: `auto`,
+};
+
 export const sectionsNames = [`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`];
 
 export const sectionsId = {

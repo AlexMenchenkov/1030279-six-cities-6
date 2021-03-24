@@ -32,7 +32,7 @@ export const fetchOffersList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFERS)
     .then(({data}) => {
       const offers = dataMappingOffers(data);
-      dispatch(ActionCreator.loadOffers(offers));
+      dispatch(ActionCreator.loadOffers(offers, true));
     })
 );
 
@@ -41,6 +41,17 @@ export const fetchCurrentOffer = (id) => (dispatch, _getState, api) => (
     .then(({data}) => {
       const offer = dataMappingOffers(data);
       dispatch(ActionCreator.loadOffer(offer));
+    })
+    .catch(() => {
+      location.href = `/404`;
+    })
+);
+
+export const fetchNearbyOffers = (id) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.OFFERS}/${id}/nearby`)
+    .then(({data}) => {
+      const offers = dataMappingOffers(data);
+      dispatch(ActionCreator.loadNearbyOffers(offers));
     })
     .catch(() => {
       location.href = `/404`;

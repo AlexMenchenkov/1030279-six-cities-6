@@ -3,14 +3,16 @@ import {ActionType} from '/src/store/action.js';
 const initialState = {
   cityChecked: `Paris`,
   isDataLoaded: false,
+  isNearbyLoaded: false,
   statusAuth: `NO_AUTH`,
   checkedAuth: false,
   isRoomLoaded: false,
-  currentOffer: null,
+  currentHoverId: null,
   history: `/`,
   isCommentsLoaded: false,
   sortId: 0,
   isShow: false,
+  needHoverEffect: true,
 };
 
 const reducer = (state = initialState, action) => {
@@ -32,6 +34,12 @@ const reducer = (state = initialState, action) => {
         offer: action.payload,
         isRoomLoaded: true,
       };
+    case ActionType.LOAD_NEARBY_OFFERS:
+      return {
+        ...state,
+        offerNearby: action.payload,
+        isNearbyLoaded: true,
+      };
     case ActionType.REQUIRED_AUTHORIZATION:
       return {
         ...state,
@@ -46,7 +54,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.CURRENT_OFFER:
       return {
         ...state,
-        currentOffer: action.payload,
+        currentHoverId: action.payload,
       };
     case ActionType.LOG_HISTORY:
       return {
@@ -68,6 +76,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isShow: action.payload,
+      };
+    case ActionType.HOVER_EFFECT:
+      return {
+        ...state,
+        needHoverEffect: action.payload,
       };
     default: {
       break;

@@ -3,14 +3,16 @@ export const ActionType = {
   REQUIRED_AUTHORIZATION: `auth/requiredAuthorization`,
   LOAD_OFFERS: `offers/loadOffers`,
   LOAD_OFFER: `offers/loadOffer`,
+  LOAD_NEARBY_OFFERS: `offers/loadNearbyOffers`,
   REDIRECT_TO_ROUTE: `route/redirectToRoute`,
   USER_DATA: `user/saveUserData`,
-  CURRENT_OFFER: `offers/saveCurrentOffer`,
+  CURRENT_OFFER: `offers/savecurrentHoverId`,
   LOG_HISTORY: `history/saveHistory`,
   GET_COMMENTS: `comments/saveComments`,
   SEND_COMMENT: `comments/sendComment`,
   SORT_OFFERS: `offers/sortOffers`,
   SHOW_FILTER: `offers/showFilter`,
+  HOVER_EFFECT: `map/changeHoverEffect`,
 };
 
 export const ActionCreator = {
@@ -30,6 +32,10 @@ export const ActionCreator = {
     type: ActionType.LOAD_OFFER,
     payload: offer,
   }),
+  loadNearbyOffers: (offers) => ({
+    type: ActionType.LOAD_NEARBY_OFFERS,
+    payload: offers,
+  }),
   redirectToRoute: (url) => ({
     type: ActionType.REDIRECT_TO_ROUTE,
     payload: url,
@@ -38,7 +44,7 @@ export const ActionCreator = {
     type: ActionType.USER_DATA,
     payload: data,
   }),
-  saveCurrentOffer: (id) => ({
+  savecurrentHoverId: (id) => ({
     type: ActionType.CURRENT_OFFER,
     payload: id,
   }),
@@ -60,6 +66,10 @@ export const ActionCreator = {
   }),
   showFilter: (data) => ({
     type: ActionType.SHOW_FILTER,
+    payload: data,
+  }),
+  changeHoverEffect: (data) => ({
+    type: ActionType.HOVER_EFFECT,
     payload: data,
   }),
 };

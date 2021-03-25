@@ -6,7 +6,7 @@ import {propTypesCard} from '/src/prop-types.js';
 import {connect} from "react-redux";
 import {iconData, iconDataOrange, ONE, ZERO} from '/src/consts.js';
 
-const Map = ({offers, currentOffer}) => {
+const Map = ({offers, currentHoverId, styleMap, roomId}) => {
   const mapRef = useRef(null);
   const points = offers.map((offer) => [offer.location, {id: offer.id}]);
   const location = offers.map((offer) => offer.city.location);
@@ -15,10 +15,6 @@ const Map = ({offers, currentOffer}) => {
   const [latitude] = coordinatesCity.map((offer) => offer.latitude);
   const [longitude] = coordinatesCity.map((offer) => offer.longitude);
   const [zoom] = coordinatesCity.map((offer) => offer.zoom);
-
-  const widthMap = {
-    width: `500px`,
-  };
 
   useEffect(() => {
     mapRef.current = leaflet.map(`map`, {
@@ -37,14 +33,14 @@ const Map = ({offers, currentOffer}) => {
       .addTo(mapRef.current);
 
     points.forEach((point, index) => {
-      let icinActive;
-      if (point[ONE].id === currentOffer) {
-        icinActive = iconDataOrange;
+      let iconActive;
+      if (point[ONE].id === (currentHoverId || roomId)) {
+        iconActive = iconDataOrange;
       } else {
-        icinActive = iconData;
+        iconActive = iconData;
       }
       const icon = leaflet.icon({
-        ...icinActive,
+        ...iconActive,
       });
       leaflet.marker({
         lat: point[ZERO].latitude,
@@ -62,12 +58,7 @@ const Map = ({offers, currentOffer}) => {
     };
   }, [coordinatesCity]);
 
-  return (<>
-    <div className="cities__right-section">
-      <div id="map" style={widthMap} ref={mapRef} />
-    </div>
-  </>
-  );
+  return (<div id="map" style={styleMap} ref={mapRef} />);
 };
 
 Map.propTypes = {
@@ -76,12 +67,23 @@ Map.propTypes = {
           propTypesCard,
       ),
   ),
-  currentOffer: PropTypes.number,
+  styleMap: PropTypes.shape(
+      {
+        width: PropTypes.string.isRequired,
+        height: PropTypes.string.isRequired,
+        margin: PropTypes.string,
+      },
+  ),
+  currentHoverId: PropTypes.number,
+  roomId: PropTypes.number,
 };
 
-const mapStateToProps = (state) => ({
-  currentOffer: state.currentOffer,
-});
+const mapStateToProps = (state) => {
+  if (!state.needHoverEffect) {
+    return {currentHoverId: null};
+  }
+  return {currentHoverId: state.currentHoverId};
+};
 
 export {Map};
 export default connect(mapStateToProps)(Map);

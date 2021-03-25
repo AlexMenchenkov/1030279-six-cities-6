@@ -21,40 +21,48 @@ const Favorites = ({offers, isDataLoaded, onLoadData}) => {
       <LoadingScreen />
     );
   }
-  const filteredOffersonCity = offers.filter((offer) => offer.isFavorite === true);
+
+  const cityesArray = offers.map((offer) => offer.city.name);
+  const uniqueCityes = [...new Set(cityesArray)];
+
   return (
     <div className="page">
       <Header/>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
-            <h1 className="favorites__title">{filteredOffersonCity.length ? `Saved listing` : `Nothing yet saved`}</h1>
+            <h1 className="favorites__title">{offers.length ? `Saved listing` : `Nothing yet saved`}</h1>
             <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                {filteredOffersonCity.length ? `<div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="#">
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>`
-                  : ``}
-                <div className="favorites__places">
-                  {filteredOffersonCity.map((offer) => {
-                    return (
-                      <CardPlace
-                        offer={offer}
-                        key={offer.id}
-                        id={offer.id}
-                        classCard={`favorites`}
-                        width={150}
-                        height={110}
-                      />
-                    );
-                  })}
-
-                </div>
-              </li>
+              {uniqueCityes.map((city, index) => {
+                return (
+                  <li key={index} className="favorites__locations-items">
+                    <div className="favorites__locations locations locations--current">
+                      <div className="locations__item">
+                        <a className="locations__item-link" href="#">
+                          <span>{city}</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div className="favorites__places">
+                      {offers.map((offer) => {
+                        if (offer.city.name === city) {
+                          return (
+                            <CardPlace
+                              offer={offer}
+                              key={offer.id}
+                              id={offer.id}
+                              classCard={`favorites`}
+                              width={150}
+                              height={110}
+                            />
+                          );
+                        }
+                        return ``;
+                      })}
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
           </section>
         </div>

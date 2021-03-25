@@ -60,7 +60,6 @@ const CardPlace = ({
 };
 
 CardPlace.propTypes = {
-  onHoverCard: PropTypes.func,
   classCard: PropTypes.string,
   width: PropTypes.number,
   saveOfferId: PropTypes.func.isRequired,
@@ -79,7 +78,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   saveOfferId(id) {
-    dispatch(ActionCreator.savecurrentHoverId(id));
+    dispatch(ActionCreator.saveactiveIdForMap(id));
   },
 });
 

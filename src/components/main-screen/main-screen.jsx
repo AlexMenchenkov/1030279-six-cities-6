@@ -124,8 +124,8 @@ const mapDispatchToProps = (dispatch) => ({
   onLoadData() {
     dispatch(fetchOffersList());
   },
-  changeHoverEffectDispatch(needHover) {
-    dispatch(ActionCreator.changeHoverEffect(needHover));
+  changeHoverEffectDispatch(needChangeMarker) {
+    dispatch(ActionCreator.changeHoverEffect(needChangeMarker));
   },
 });
 

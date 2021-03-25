@@ -7,12 +7,12 @@ const initialState = {
   statusAuth: `NO_AUTH`,
   checkedAuth: false,
   isRoomLoaded: false,
-  currentHoverId: null,
+  activeIdForMap: null,
   history: `/`,
   isCommentsLoaded: false,
   sortId: 0,
   isShow: false,
-  needHoverEffect: true,
+  needChangeMarker: true,
 };
 
 const reducer = (state = initialState, action) => {
@@ -54,7 +54,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.CURRENT_OFFER:
       return {
         ...state,
-        currentHoverId: action.payload,
+        activeIdForMap: action.payload,
       };
     case ActionType.LOG_HISTORY:
       return {
@@ -80,7 +80,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.HOVER_EFFECT:
       return {
         ...state,
-        needHoverEffect: action.payload,
+        needChangeMarker: action.payload,
       };
     default: {
       break;

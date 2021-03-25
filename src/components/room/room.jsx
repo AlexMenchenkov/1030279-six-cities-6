@@ -4,7 +4,7 @@ import Header from '/src/components/header/header.jsx';
 import ReviewBlock from '/src/components/review-block/review-block.jsx';
 import {connect} from "react-redux";
 import {propTypesCard, propTypesComments} from '/src/prop-types.js';
-import {fetchcurrentHoverId, getComments, fetchNearbyOffers} from '/src/store/api-actions.js';
+import {fetchactiveIdForMap, getComments, fetchNearbyOffers} from '/src/store/api-actions.js';
 import {ZERO, FACTOR_RATE, styleMapRoom} from '/src/consts.js';
 import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
 import Map from '/src/components/map/map.jsx';
@@ -20,15 +20,15 @@ const Room = ({
   comments,
   isCommentsLoaded,
   isNearbyLoaded,
-  currentHoverId,
+  activeIdForMap,
   changeHoverEffectDispatch,
 }) => {
   const THIRD_ITEM_IN_PATH = 2;
   const offerId = Number(window.location.pathname.split(`/`)[THIRD_ITEM_IN_PATH]);
 
   const handleClick = () => {
-    onLoadData(currentHoverId);
-    onLoadComments(currentHoverId);
+    onLoadData(activeIdForMap);
+    onLoadComments(activeIdForMap);
     window.scrollTo({
       top: ZERO,
       left: ZERO,
@@ -173,7 +173,7 @@ Room.propTypes = {
   onLoadComments: PropTypes.func.isRequired,
   isCommentsLoaded: PropTypes.bool.isRequired,
   isNearbyLoaded: PropTypes.bool.isRequired,
-  currentHoverId: PropTypes.number,
+  activeIdForMap: PropTypes.number,
   comments: PropTypes.arrayOf(
       PropTypes.shape(
           propTypesComments
@@ -187,24 +187,24 @@ const mapStateToProps = (state) => ({
   isNearbyLoaded: state.isNearbyLoaded,
   offer: state.offer,
   offerNearby: state.offerNearby,
-  currentHoverId: state.currentHoverId,
+  activeIdForMap: state.activeIdForMap,
   comments: state.comments,
   isCommentsLoaded: state.isCommentsLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadData(offerId) {
-    dispatch(fetchcurrentHoverId(offerId))
+    dispatch(fetchactiveIdForMap(offerId))
       .then(() => dispatch(fetchNearbyOffers(offerId)));
   },
   onLoadComments(offerId) {
     dispatch(getComments(offerId));
   },
   saveOfferId(id) {
-    dispatch(ActionCreator.savecurrentHoverId(id));
+    dispatch(ActionCreator.saveactiveIdForMap(id));
   },
-  changeHoverEffectDispatch(needHover) {
-    dispatch(ActionCreator.changeHoverEffect(needHover));
+  changeHoverEffectDispatch(needChangeMarker) {
+    dispatch(ActionCreator.changeHoverEffect(needChangeMarker));
   },
 });
 

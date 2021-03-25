@@ -36,7 +36,7 @@ export const fetchOffersList = () => (dispatch, _getState, api) => (
     })
 );
 
-export const fetchcurrentHoverId = (id) => (dispatch, _getState, api) => (
+export const fetchactiveIdForMap = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.OFFERS}/${id}`)
     .then(({data}) => {
       const offer = dataMappingOffers(data);

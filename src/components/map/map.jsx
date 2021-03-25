@@ -6,7 +6,7 @@ import {propTypesCard} from '/src/prop-types.js';
 import {connect} from "react-redux";
 import {iconData, iconDataOrange, ONE, ZERO} from '/src/consts.js';
 
-const Map = ({offers, currentHoverId, styleMap, roomId}) => {
+const Map = ({offers, activeIdForMap, styleMap, roomId}) => {
   const mapRef = useRef(null);
   const points = offers.map((offer) => [offer.location, {id: offer.id}]);
   const location = offers.map((offer) => offer.city.location);
@@ -34,7 +34,7 @@ const Map = ({offers, currentHoverId, styleMap, roomId}) => {
 
     points.forEach((point, index) => {
       let iconActive;
-      if (point[ONE].id === (currentHoverId || roomId)) {
+      if (point[ONE].id === (activeIdForMap || roomId)) {
         iconActive = iconDataOrange;
       } else {
         iconActive = iconData;
@@ -74,15 +74,15 @@ Map.propTypes = {
         margin: PropTypes.string,
       },
   ),
-  currentHoverId: PropTypes.number,
+  activeIdForMap: PropTypes.number,
   roomId: PropTypes.number,
 };
 
 const mapStateToProps = (state) => {
-  if (!state.needHoverEffect) {
-    return {currentHoverId: null};
+  if (!state.needChangeMarker) {
+    return {activeIdForMap: null};
   }
-  return {currentHoverId: state.currentHoverId};
+  return {activeIdForMap: state.activeIdForMap};
 };
 
 export {Map};

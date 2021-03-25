@@ -60,6 +60,7 @@ export const APIRoute = {
   LOGIN: `/login`,
   LOGIN_OUT: `/logout`,
   COMMENTS: `/comments`,
+  FAVORITES: `/favorite`,
 };
 
 export const AppRoute = {

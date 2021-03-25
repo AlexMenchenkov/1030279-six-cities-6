@@ -2,6 +2,8 @@ export const ActionType = {
   CHANGE_CITY: `header/changeCity`,
   REQUIRED_AUTHORIZATION: `auth/requiredAuthorization`,
   LOAD_OFFERS: `offers/loadOffers`,
+  LOAD_FAVORITES: `favorites/loadFavorites`,
+  CHANGE_FAVORITES: `favorites/changeFavorites`,
   LOAD_OFFER: `offers/loadOffer`,
   LOAD_NEARBY_OFFERS: `offers/loadNearbyOffers`,
   REDIRECT_TO_ROUTE: `route/redirectToRoute`,
@@ -27,6 +29,14 @@ export const ActionCreator = {
   loadOffers: (offers) => ({
     type: ActionType.LOAD_OFFERS,
     payload: offers,
+  }),
+  loadFavorites: (favorites) => ({
+    type: ActionType.LOAD_FAVORITES,
+    payload: favorites,
+  }),
+  changeFavoritesStatus: (data) => ({
+    type: ActionType.CHANGE_FAVORITES,
+    payload: data,
   }),
   loadOffer: (offer) => ({
     type: ActionType.LOAD_OFFER,

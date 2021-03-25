@@ -6,23 +6,23 @@ import CardPlace from '/src/components/card-place/card-place.jsx';
 import {propTypesCard} from '/src/prop-types.js';
 import {connect} from "react-redux";
 import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
-import {fetchOffersList} from '/src/store/api-actions.js';
+import {fetchFavoritesList} from '/src/store/api-actions.js';
 
-const Favorites = ({offers, isDataLoaded, onLoadData}) => {
+const Favorites = ({favoritesList, isFavoritesLoaded, onLoadFavorites}) => {
 
   useEffect(() => {
-    if (!isDataLoaded) {
-      onLoadData();
+    if (!isFavoritesLoaded) {
+      onLoadFavorites();
     }
-  }, [isDataLoaded]);
+  }, [isFavoritesLoaded]);
 
-  if (!isDataLoaded) {
+  if (!isFavoritesLoaded) {
     return (
       <LoadingScreen />
     );
   }
 
-  const cityesArray = offers.map((offer) => offer.city.name);
+  const cityesArray = favoritesList.map((offer) => offer.city.name);
   const uniqueCityes = [...new Set(cityesArray)];
 
   return (
@@ -31,7 +31,7 @@ const Favorites = ({offers, isDataLoaded, onLoadData}) => {
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
-            <h1 className="favorites__title">{offers.length ? `Saved listing` : `Nothing yet saved`}</h1>
+            <h1 className="favorites__title">{favoritesList.length ? `Saved listing` : `Nothing yet saved`}</h1>
             <ul className="favorites__list">
               {uniqueCityes.map((city, index) => {
                 return (
@@ -44,14 +44,14 @@ const Favorites = ({offers, isDataLoaded, onLoadData}) => {
                       </div>
                     </div>
                     <div className="favorites__places">
-                      {offers.map((offer) => {
+                      {favoritesList.map((offer) => {
                         if (offer.city.name === city) {
                           return (
                             <CardPlace
                               offer={offer}
                               key={offer.id}
                               id={offer.id}
-                              classCard={`favorites`}
+                              isFavoritePage={true}
                               width={150}
                               height={110}
                             />
@@ -73,23 +73,23 @@ const Favorites = ({offers, isDataLoaded, onLoadData}) => {
 };
 
 Favorites.propTypes = {
-  offers: PropTypes.arrayOf(
+  favoritesList: PropTypes.arrayOf(
       PropTypes.shape(
           propTypesCard,
       ),
   ),
-  isDataLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired,
+  isFavoritesLoaded: PropTypes.bool,
+  onLoadFavorites: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
-  isDataLoaded: state.isDataLoaded,
+  favoritesList: state.favoritesList,
+  isFavoritesLoaded: state.isFavoritesLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoadData() {
-    dispatch(fetchOffersList());
+  onLoadFavorites() {
+    dispatch(fetchFavoritesList());
   },
 });
 

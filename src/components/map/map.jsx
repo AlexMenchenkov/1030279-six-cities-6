@@ -6,7 +6,7 @@ import {propTypesCard} from '/src/prop-types.js';
 import {connect} from "react-redux";
 import {iconData, iconDataOrange, ONE, ZERO} from '/src/consts.js';
 
-const Map = ({offers, currentOffer, styleMap}) => {
+const Map = ({offers, currentHoverId, styleMap, roomId}) => {
   const mapRef = useRef(null);
   const points = offers.map((offer) => [offer.location, {id: offer.id}]);
   const location = offers.map((offer) => offer.city.location);
@@ -33,14 +33,14 @@ const Map = ({offers, currentOffer, styleMap}) => {
       .addTo(mapRef.current);
 
     points.forEach((point, index) => {
-      let icinActive;
-      if (point[ONE].id === currentOffer) {
-        icinActive = iconDataOrange;
+      let iconActive;
+      if (point[ONE].id === (currentHoverId || roomId)) {
+        iconActive = iconDataOrange;
       } else {
-        icinActive = iconData;
+        iconActive = iconData;
       }
       const icon = leaflet.icon({
-        ...icinActive,
+        ...iconActive,
       });
       leaflet.marker({
         lat: point[ZERO].latitude,
@@ -74,12 +74,16 @@ Map.propTypes = {
         margin: PropTypes.string,
       },
   ),
-  currentOffer: PropTypes.number,
+  currentHoverId: PropTypes.number,
+  roomId: PropTypes.number,
 };
 
-const mapStateToProps = (state) => ({
-  currentOffer: state.currentOffer,
-});
+const mapStateToProps = (state) => {
+  if (!state.needHoverEffect) {
+    return {currentHoverId: null};
+  }
+  return {currentHoverId: state.currentHoverId};
+};
 
 export {Map};
 export default connect(mapStateToProps)(Map);

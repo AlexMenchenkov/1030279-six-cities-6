@@ -10,6 +10,7 @@ import {fetchOffersList} from '/src/store/api-actions.js';
 import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
 import Filter from '/src/components/filter/filter.jsx';
 import {ONE, INDEXOF_FAIL_CODE, sectionsId, styleMapMain} from '/src/consts.js';
+import {ActionCreator} from '/src/store/action.js';
 
 const MainScreen = ({
   offers,
@@ -17,13 +18,15 @@ const MainScreen = ({
   isDataLoaded,
   onLoadData,
   sortId,
-  isShow
+  isShow,
+  changeHoverEffectDispatch,
 }) => {
 
   useEffect(() => {
     if (!isDataLoaded) {
       onLoadData();
     }
+    changeHoverEffectDispatch(true);
   }, [isDataLoaded]);
 
   if (!isDataLoaded) {
@@ -78,7 +81,9 @@ const MainScreen = ({
               isShow={isShow}
             />
             <div className="cities__places-list places__list tabs__content">
-              <CardsList offers={filteredOffersonCity}/>
+              <CardsList
+                offers={filteredOffersonCity}
+              />
             </div>
           </section>
           <div className="cities__right-section">
@@ -101,6 +106,7 @@ MainScreen.propTypes = {
   ),
   cityChecked: PropTypes.string.isRequired,
   onLoadData: PropTypes.func.isRequired,
+  changeHoverEffectDispatch: PropTypes.func.isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
   sortId: PropTypes.number.isRequired,
   isShow: PropTypes.bool.isRequired,
@@ -117,6 +123,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onLoadData() {
     dispatch(fetchOffersList());
+  },
+  changeHoverEffectDispatch(needHover) {
+    dispatch(ActionCreator.changeHoverEffect(needHover));
   },
 });
 

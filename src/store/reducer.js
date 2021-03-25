@@ -7,11 +7,12 @@ const initialState = {
   statusAuth: `NO_AUTH`,
   checkedAuth: false,
   isRoomLoaded: false,
-  currentOffer: null,
+  currentHoverId: null,
   history: `/`,
   isCommentsLoaded: false,
   sortId: 0,
   isShow: false,
+  needHoverEffect: true,
 };
 
 const reducer = (state = initialState, action) => {
@@ -53,7 +54,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.CURRENT_OFFER:
       return {
         ...state,
-        currentOffer: action.payload,
+        currentHoverId: action.payload,
       };
     case ActionType.LOG_HISTORY:
       return {
@@ -75,6 +76,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isShow: action.payload,
+      };
+    case ActionType.HOVER_EFFECT:
+      return {
+        ...state,
+        needHoverEffect: action.payload,
       };
     default: {
       break;

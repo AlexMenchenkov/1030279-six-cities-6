@@ -79,7 +79,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   saveOfferId(id) {
-    dispatch(ActionCreator.saveCurrentOffer(id));
+    dispatch(ActionCreator.savecurrentHoverId(id));
   },
 });
 

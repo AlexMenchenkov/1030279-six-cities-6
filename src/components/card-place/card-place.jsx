@@ -20,6 +20,7 @@ const CardPlace = ({
   responseFavorites,
   needChangeMarker,
 }) => {
+  console.log('RENDER CARD_OFFER');
   const handleMouseOver = (event) => {
     if (!needChangeMarker) {
       return;

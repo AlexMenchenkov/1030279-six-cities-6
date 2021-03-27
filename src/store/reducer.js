@@ -51,7 +51,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         data: action.payload,
       };
-    case ActionType.CURRENT_OFFER:
+    case ActionType.ACTIVE_OFFER:
       return {
         ...state,
         activeIdForMap: action.payload,

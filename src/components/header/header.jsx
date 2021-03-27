@@ -7,6 +7,7 @@ import {logout} from '/src/store/api-actions';
 import {ActionCreator} from '/src/store/action';
 
 const Header = ({email, statusAuth, onLogoutSubmit, logHistory}) => {
+  console.log('RENDER HEADER');
   return (
     <header className="header">
       <div className="container">

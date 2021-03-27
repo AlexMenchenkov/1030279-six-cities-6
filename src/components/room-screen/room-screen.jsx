@@ -201,7 +201,6 @@ RoomScreen.propTypes = {
   ),
   isRoomLoaded: PropTypes.bool.isRequired,
   onLoadData: PropTypes.func.isRequired,
-  saveOfferId: PropTypes.func.isRequired,
   clearDataRoomDispatch: PropTypes.func.isRequired,
   onLoadComments: PropTypes.func.isRequired,
   isCommentsLoaded: PropTypes.bool.isRequired,
@@ -233,9 +232,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onLoadComments(offerId) {
     dispatch(getComments(offerId));
-  },
-  saveOfferId(id) {
-    dispatch(ActionCreator.saveActiveIdForMap(id));
   },
   clearDataRoomDispatch(needChangeMarker) {
     dispatch(ActionCreator.clearDataRoom(needChangeMarker));

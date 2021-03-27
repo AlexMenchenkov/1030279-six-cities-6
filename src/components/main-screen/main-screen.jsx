@@ -10,6 +10,7 @@ import {fetchOffersList} from '/src/store/api-actions';
 import LoadingScreen from '/src/components/loading-screen/loading-screen';
 import Filter from '/src/components/filter/filter';
 import {ONE, INDEXOF_FAIL_CODE, sectionsId, styleMapMain} from '/src/consts';
+import Footer from '/src/components/footer/footer';
 
 const MainScreen = ({
   offers,
@@ -20,7 +21,7 @@ const MainScreen = ({
   isShow,
   responseFavorites,
 }) => {
-
+console.log('RENDER APP');
   useEffect(() => {
     if (!isDataLoaded) {
       onLoadData();
@@ -106,6 +107,7 @@ const MainScreen = ({
         </div>
       </div>
     </main>
+    <Footer/>
   </div>;
 };
 

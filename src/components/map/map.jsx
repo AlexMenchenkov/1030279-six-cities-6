@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import {iconData, iconDataOrange, ONE, ZERO} from '/src/consts';
 
 const Map = ({offers, activeIdForMap, styleMap, roomId}) => {
+  console.log('RENDER MAP');
   const mapRef = useRef(null);
   const points = offers.map((offer) => [offer.location, {id: offer.id}]);
   const location = offers.map((offer) => offer.city.location);

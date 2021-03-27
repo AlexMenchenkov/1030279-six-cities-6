@@ -58,7 +58,7 @@ const Map = ({offers, activeIdForMap, styleMap, roomId}) => {
     };
   }, [coordinatesCity]);
 
-  return (<div id="map" style={styleMap} ref={mapRef} />);
+  return (<div id="map" style={styleMap} />);
 };
 
 Map.propTypes = {

@@ -1,16 +1,16 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import CardsList from '/src/components/cards-list/cards-list.jsx';
-import {propTypesCard} from '/src/prop-types.js';
-import Header from '/src/components/header/header.jsx';
-import Map from '/src/components/map/map.jsx';
-import CityPanel from '/src/components/city-panel/city-panel.jsx';
+import CardsList from '/src/components/cards-list/cards-list';
+import {propTypesCard} from '/src/prop-types';
+import Header from '/src/components/header/header';
+import Map from '/src/components/map/map';
+import CityPanel from '/src/components/city-panel/city-panel';
 import {connect} from 'react-redux';
-import {fetchOffersList} from '/src/store/api-actions.js';
-import LoadingScreen from '/src/components/loading-screen/loading-screen.jsx';
-import Filter from '/src/components/filter/filter.jsx';
-import {ONE, INDEXOF_FAIL_CODE, sectionsId, styleMapMain} from '/src/consts.js';
-import {ActionCreator} from '/src/store/action.js';
+import {fetchOffersList} from '/src/store/api-actions';
+import LoadingScreen from '/src/components/loading-screen/loading-screen';
+import Filter from '/src/components/filter/filter';
+import {ONE, INDEXOF_FAIL_CODE, sectionsId, styleMapMain} from '/src/consts';
+import {ActionCreator} from '/src/store/action';
 
 const MainScreen = ({
   offers,

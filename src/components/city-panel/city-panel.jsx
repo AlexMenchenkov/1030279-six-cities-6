@@ -1,6 +1,6 @@
 import React from 'react';
-import {cities} from '/src/consts.js';
-import CityBrick from '/src/components/city-brick/city-brick.jsx';
+import {cities} from '/src/consts';
+import CityBrick from '/src/components/city-brick/city-brick';
 
 const CityPanel = () => {
 

@@ -1,4 +1,4 @@
-import {ActionType} from '/src/store/action.js';
+import {ActionType} from '/src/store/action';
 
 const initialState = {
   cityChecked: `Paris`,
@@ -89,7 +89,7 @@ const reducer = (state = initialState, action) => {
         isCommentsLoaded: false,
         isRoomLoaded: false,
         isNearbyLoaded: false,
-      };
+      };place-card__image
     case ActionType.LOAD_FAVORITES:
       return {
         ...state,

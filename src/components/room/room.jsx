@@ -1,15 +1,15 @@
 import PropTypes from "prop-types";
 import React, {useEffect} from 'react';
-import Header from '/src/components/header/header.jsx';
-import ReviewBlock from '/src/components/review-block/review-block.jsx';
+import Header from '/src/components/header/header';
+import ReviewBlock from '/src/components/review-block/review-block';
 import {connect} from "react-redux";
-import {propTypesCard, propTypesComments} from '/src/prop-types.js';
-import {fetchactiveIdForMap, getComments, fetchNearbyOffers, changeFavoriteStatus} from '/src/store/api-actions.js';
-import {ZERO, FACTOR_RATE, styleMapRoom} from '/src/consts.js';
-import LoadingScreen from '/src/components/loading-screen/loading-screen.jsx';
-import Map from '/src/components/map/map.jsx';
-import CardsList from '/src/components/cards-list/cards-list.jsx';
-import {ActionCreator} from '/src/store/action.js';
+import {propTypesCard, propTypesComments} from '/src/prop-types';
+import {fetchactiveIdForMap, getComments, fetchNearbyOffers, changeFavoriteStatus} from '/src/store/api-actions';
+import {ZERO, FACTOR_RATE, styleMapRoom} from '/src/consts';
+import LoadingScreen from '/src/components/loading-screen/loading-screen';
+import Map from '/src/components/map/map';
+import CardsList from '/src/components/cards-list/cards-list';
+import {ActionCreator} from '/src/store/action';
 
 const Room = ({
   offer,

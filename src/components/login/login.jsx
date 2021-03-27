@@ -2,7 +2,7 @@ import React, {useRef} from 'react';
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {login} from '/src/store/api-actions';
-import {AppRoute, AuthorizationStatus} from '/src/consts.js';
+import {AppRoute, AuthorizationStatus} from '/src/consts';
 import {Redirect} from "react-router-dom";
 
 const Login = ({onAuthSubmit, statusAuth}) => {

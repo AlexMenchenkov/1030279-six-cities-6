@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import React from 'react';
-import {sectionsNames} from '/src/consts.js';
+import {sectionsNames} from '/src/consts';
 import {connect} from "react-redux";
-import {ActionCreator} from '/src/store/action.js';
+import {ActionCreator} from '/src/store/action';
 
 const FilterSection = ({isShow, showFilterDispatch, sortDispatch}) => {
 

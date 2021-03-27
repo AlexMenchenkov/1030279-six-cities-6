@@ -3,8 +3,8 @@ import React from 'react';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {AuthorizationStatus} from '/src/consts';
-import {logout} from '/src/store/api-actions.js';
-import {ActionCreator} from '/src/store/action.js';
+import {logout} from '/src/store/api-actions';
+import {ActionCreator} from '/src/store/action';
 
 const Header = ({email, statusAuth, onLogoutSubmit, logHistory}) => {
   return (

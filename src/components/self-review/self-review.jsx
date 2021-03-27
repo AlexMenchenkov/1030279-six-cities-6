@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 import PropTypes from "prop-types";
-import RowStars from '/src/components/row-stars/row-stars.jsx';
+import RowStars from '/src/components/row-stars/row-stars';
 import {connect} from "react-redux";
 import {sendComment, getComments} from '/src/store/api-actions';
 

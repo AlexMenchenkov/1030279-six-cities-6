@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
-import {propTypesCard} from '/src/prop-types.js';
-import {FACTOR_RATE} from '/src/consts.js';
+import {propTypesCard} from '/src/prop-types';
+import {FACTOR_RATE} from '/src/consts';
 import {ActionCreator} from '/src/store/action';
-import {changeFavoriteStatus} from '/src/store/api-actions.js';
+import {changeFavoriteStatus} from '/src/store/api-actions';
 
 const CardPlace = ({
   offer,

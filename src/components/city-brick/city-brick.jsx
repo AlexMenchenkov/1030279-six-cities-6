@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from 'react';
 import {connect} from 'react-redux';
-import {ActionCreator} from '/src/store/action.js';
+import {ActionCreator} from '/src/store/action';
 
 const CityBrick = (props) => {
   const {city, onClickCity, cityChecked} = props;

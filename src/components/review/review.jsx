@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from 'react';
-import {propTypesReview} from '/src/prop-types.js';
-import {FACTOR_RATE} from '/src/consts.js';
+import {propTypesReview} from '/src/prop-types';
+import {FACTOR_RATE} from '/src/consts';
 
 const Review = (props) => {
   const {

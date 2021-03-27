@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import React from 'react';
-import Review from '/src/components/review/review.jsx';
-import {propTypesReview} from '/src/prop-types.js';
-import SelfReview from '/src/components/self-review/self-review.jsx';
-import {AuthorizationStatus} from '/src/consts.js';
+import Review from '/src/components/review/review';
+import {propTypesReview} from '/src/prop-types';
+import SelfReview from '/src/components/self-review/self-review';
+import {AuthorizationStatus} from '/src/consts';
 import {connect} from "react-redux";
-import LoadingScreen from '/src/components/loading-screen/loading-screen.jsx';
+import LoadingScreen from '/src/components/loading-screen/loading-screen';
 
 const ReviewBlock = ({comments, checkedAuth, statusAuth}) => {
   if (!checkedAuth) {

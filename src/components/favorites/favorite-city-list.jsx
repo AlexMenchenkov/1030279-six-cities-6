@@ -3,13 +3,12 @@ import React, {useEffect} from 'react';
 import Header from '/src/components/header/header';
 import Footer from '/src/components/footer/footer';
 import CardPlace from '/src/components/card-place/card-place';
-import FavoriteCityList from '/src/components/card-place/FavoriteCityList';
 import {propTypesCard} from '/src/prop-types';
 import {connect} from "react-redux";
 import LoadingScreen from '/src/components/loading-screen/loading-screen';
 import {fetchFavoritesList} from '/src/store/api-actions';
 
-const Favorites = ({favoritesList, isFavoritesLoaded, onLoadFavorites}) => {
+const FavoriteCityList = ({favoritesList, isFavoritesLoaded, onLoadFavorites}) => {
 
   useEffect(() => {
     if (!isFavoritesLoaded) {
@@ -94,5 +93,5 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export {Favorites};
-export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
+export {FavoriteCityList};
+export default connect(mapStateToProps, mapDispatchToProps)(FavoriteCityList);

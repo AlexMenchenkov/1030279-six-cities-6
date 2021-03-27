@@ -1,4 +1,4 @@
-import {APIRoute, AuthorizationStatus} from '/src/consts.js';
+import {APIRoute, AuthorizationStatus} from '/src/consts';
 import {ActionCreator} from './action';
 
 const dataMappingOffers = (data) => {

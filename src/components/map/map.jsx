@@ -2,9 +2,9 @@ import PropTypes from "prop-types";
 import React, {useRef, useEffect} from 'react';
 import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
-import {propTypesCard} from '/src/prop-types.js';
+import {propTypesCard} from '/src/prop-types';
 import {connect} from "react-redux";
-import {iconData, iconDataOrange, ONE, ZERO} from '/src/consts.js';
+import {iconData, iconDataOrange, ONE, ZERO} from '/src/consts';
 
 const Map = ({offers, activeIdForMap, styleMap, roomId}) => {
   const mapRef = useRef(null);

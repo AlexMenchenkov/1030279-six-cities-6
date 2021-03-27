@@ -20,7 +20,6 @@ const RoomScreen = ({
   comments,
   isCommentsLoaded,
   isNearbyLoaded,
-  changeHoverEffectDispatch,
   clearDataRoomDispatch,
   responseFavorites,
   changeFavoritesStatusDispatch,
@@ -49,7 +48,7 @@ const RoomScreen = ({
       onLoadData(offerId);
     }
     onLoadComments(offerId);
-    changeHoverEffectDispatch(false);
+
     return () => {
       clearDataRoomDispatch(false);
     };
@@ -178,6 +177,7 @@ const RoomScreen = ({
                 offers={offersForCardList}
                 handleLoadDataClick={handleLoadDataClick}
                 isNotUpdateRoom={true}
+                needChangeMarker={false}
               />
             </div>
           </section>
@@ -203,7 +203,6 @@ RoomScreen.propTypes = {
   ),
   isRoomLoaded: PropTypes.bool.isRequired,
   onLoadData: PropTypes.func.isRequired,
-  changeHoverEffectDispatch: PropTypes.func.isRequired,
   saveOfferId: PropTypes.func.isRequired,
   clearDataRoomDispatch: PropTypes.func.isRequired,
   onLoadComments: PropTypes.func.isRequired,
@@ -239,9 +238,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   saveOfferId(id) {
     dispatch(ActionCreator.saveActiveIdForMap(id));
-  },
-  changeHoverEffectDispatch(needChangeMarker) {
-    dispatch(ActionCreator.changeHoverEffect(needChangeMarker));
   },
   clearDataRoomDispatch(needChangeMarker) {
     dispatch(ActionCreator.clearDataRoom(needChangeMarker));

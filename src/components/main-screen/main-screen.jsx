@@ -10,7 +10,6 @@ import {fetchOffersList} from '/src/store/api-actions';
 import LoadingScreen from '/src/components/loading-screen/loading-screen';
 import Filter from '/src/components/filter/filter';
 import {ONE, INDEXOF_FAIL_CODE, sectionsId, styleMapMain} from '/src/consts';
-import {ActionCreator} from '/src/store/action';
 
 const MainScreen = ({
   offers,
@@ -19,7 +18,6 @@ const MainScreen = ({
   onLoadData,
   sortId,
   isShow,
-  changeHoverEffectDispatch,
   responseFavorites,
 }) => {
 
@@ -27,7 +25,6 @@ const MainScreen = ({
     if (!isDataLoaded) {
       onLoadData();
     }
-    changeHoverEffectDispatch(true);
   }, [isDataLoaded]);
 
   if (!isDataLoaded) {
@@ -96,6 +93,7 @@ const MainScreen = ({
               <CardsList
                 offers={filteredOffersonCity}
                 isNotUpdateRoom={false}
+                needChangeMarker={true}
               />
             </div>
           </section>
@@ -124,7 +122,6 @@ MainScreen.propTypes = {
   ),
   cityChecked: PropTypes.string.isRequired,
   onLoadData: PropTypes.func.isRequired,
-  changeHoverEffectDispatch: PropTypes.func.isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
   sortId: PropTypes.number.isRequired,
   isShow: PropTypes.bool.isRequired,
@@ -142,9 +139,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onLoadData() {
     dispatch(fetchOffersList());
-  },
-  changeHoverEffectDispatch(needChangeMarker) {
-    dispatch(ActionCreator.changeHoverEffect(needChangeMarker));
   },
 });
 

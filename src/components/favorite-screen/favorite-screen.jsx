@@ -7,12 +7,10 @@ import {propTypesCard} from '/src/prop-types';
 import {connect} from "react-redux";
 import LoadingScreen from '/src/components/loading-screen/loading-screen';
 import {fetchFavoritesList} from '/src/store/api-actions';
-import {ActionCreator} from '/src/store/action';
 
-const FavoritesScreen = ({favoritesList, isFavoritesLoaded, onLoadFavorites, changeHoverEffectDispatch}) => {
+const FavoritesScreen = ({favoritesList, isFavoritesLoaded, onLoadFavorites}) => {
 
   useEffect(() => {
-    changeHoverEffectDispatch(false);
     if (!isFavoritesLoaded) {
       onLoadFavorites();
     }
@@ -62,7 +60,6 @@ FavoritesScreen.propTypes = {
   ),
   isFavoritesLoaded: PropTypes.bool,
   onLoadFavorites: PropTypes.func.isRequired,
-  changeHoverEffectDispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -73,9 +70,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onLoadFavorites() {
     dispatch(fetchFavoritesList());
-  },
-  changeHoverEffectDispatch(needChangeMarker) {
-    dispatch(ActionCreator.changeHoverEffect(needChangeMarker));
   },
 });
 

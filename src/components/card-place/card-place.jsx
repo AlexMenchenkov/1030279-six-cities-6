@@ -102,7 +102,6 @@ CardPlace.propTypes = {
 
 const mapStateToProps = (state) => ({
   cityChecked: state.cityChecked,
-  needChangeMarker: state.needChangeMarker,
   isDataLoaded: state.isDataLoaded,
   offers: state.offers,
   responseFavorites: state.responseFavorites,

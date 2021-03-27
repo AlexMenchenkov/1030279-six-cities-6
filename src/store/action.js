@@ -14,7 +14,6 @@ export const ActionType = {
   SEND_COMMENT: `comments/sendComment`,
   SORT_OFFERS: `offers/sortOffers`,
   SHOW_FILTER: `offers/showFilter`,
-  HOVER_EFFECT: `map/changeHoverEffect`,
   CLEAR_DATA_ROOM: `data/clearDataRoom`,
 };
 
@@ -77,10 +76,6 @@ export const ActionCreator = {
   }),
   showFilter: (data) => ({
     type: ActionType.SHOW_FILTER,
-    payload: data,
-  }),
-  changeHoverEffect: (data) => ({
-    type: ActionType.HOVER_EFFECT,
     payload: data,
   }),
   clearDataRoom: (data) => ({

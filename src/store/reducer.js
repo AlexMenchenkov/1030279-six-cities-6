@@ -12,7 +12,6 @@ const initialState = {
   isCommentsLoaded: false,
   sortId: 0,
   isShow: false,
-  needChangeMarker: true,
   responseFavorites: [],
 };
 
@@ -77,11 +76,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isShow: action.payload,
-      };
-    case ActionType.HOVER_EFFECT:
-      return {
-        ...state,
-        needChangeMarker: action.payload,
       };
     case ActionType.CLEAR_DATA_ROOM:
       return {

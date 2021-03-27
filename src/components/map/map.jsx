@@ -78,12 +78,9 @@ Map.propTypes = {
   roomId: PropTypes.number,
 };
 
-const mapStateToProps = (state) => {
-  if (!state.needChangeMarker) {
-    return {activeIdForMap: null};
-  }
-  return {activeIdForMap: state.activeIdForMap};
-};
+const mapStateToProps = (state) => ({
+  activeIdForMap: state.activeIdForMap,
+});
 
 export {Map};
 export default connect(mapStateToProps)(Map);

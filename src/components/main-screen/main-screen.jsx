@@ -20,6 +20,7 @@ const MainScreen = ({
   sortId,
   isShow,
   changeHoverEffectDispatch,
+  responseFavorites,
 }) => {
 
   useEffect(() => {
@@ -34,7 +35,7 @@ const MainScreen = ({
       <LoadingScreen />
     );
   }
-  const filteredOffersonCity = offers.filter((offer) => offer.city.name === cityChecked);
+  let filteredOffersonCity = offers.filter((offer) => offer.city.name === cityChecked);
   const sortByPriceLowToHigth = () => {
     sortOffersData.sort((a, b) => a.price > b.price ? ONE : INDEXOF_FAIL_CODE);
   };
@@ -64,6 +65,17 @@ const MainScreen = ({
 
   sortOffersData = sortOffersFunc();
 
+  if (responseFavorites.length) {
+    responseFavorites.forEach((favorite) => {
+      filteredOffersonCity = filteredOffersonCity.map((offer) => {
+        if (offer.id === favorite.id) {
+          return favorite;
+        }
+        return offer;
+      });
+    });
+  }
+
   return <div className="page page--gray page--main">
     <Header/>
     <main className="page__main page__main--index">
@@ -83,6 +95,7 @@ const MainScreen = ({
             <div className="cities__places-list places__list tabs__content">
               <CardsList
                 offers={filteredOffersonCity}
+                isNotUpdateRoom={false}
               />
             </div>
           </section>
@@ -104,6 +117,11 @@ MainScreen.propTypes = {
           propTypesCard,
       ),
   ),
+  responseFavorites: PropTypes.arrayOf(
+      PropTypes.shape(
+          propTypesCard,
+      ),
+  ),
   cityChecked: PropTypes.string.isRequired,
   onLoadData: PropTypes.func.isRequired,
   changeHoverEffectDispatch: PropTypes.func.isRequired,
@@ -115,6 +133,7 @@ MainScreen.propTypes = {
 const mapStateToProps = (state) => ({
   cityChecked: state.cityChecked,
   isDataLoaded: state.isDataLoaded,
+  responseFavorites: state.responseFavorites,
   offers: state.offers,
   sortId: state.sortId,
   isShow: state.isShow,

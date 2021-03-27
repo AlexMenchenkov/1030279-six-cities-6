@@ -4,7 +4,7 @@ import Header from '/src/components/header/header.jsx';
 import ReviewBlock from '/src/components/review-block/review-block.jsx';
 import {connect} from "react-redux";
 import {propTypesCard, propTypesComments} from '/src/prop-types.js';
-import {fetchactiveIdForMap, getComments, fetchNearbyOffers} from '/src/store/api-actions.js';
+import {fetchactiveIdForMap, getComments, fetchNearbyOffers, changeFavoriteStatus} from '/src/store/api-actions.js';
 import {ZERO, FACTOR_RATE, styleMapRoom} from '/src/consts.js';
 import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
 import Map from '/src/components/map/map.jsx';
@@ -22,11 +22,14 @@ const Room = ({
   isNearbyLoaded,
   activeIdForMap,
   changeHoverEffectDispatch,
+  clearDataRoomDispatch,
+  responseFavorites,
+  changeFavoritesStatusDispatch,
 }) => {
   const THIRD_ITEM_IN_PATH = 2;
   const offerId = Number(window.location.pathname.split(`/`)[THIRD_ITEM_IN_PATH]);
 
-  const handleClick = () => {
+  const loadDataHandle = () => {
     onLoadData(activeIdForMap);
     onLoadComments(activeIdForMap);
     window.scrollTo({
@@ -36,12 +39,20 @@ const Room = ({
     });
   };
 
+  const addFavoriteHandle = (event) => {
+    const status = Number(event.currentTarget.dataset.status);
+    changeFavoritesStatusDispatch(offerId, status, true, responseFavorites);
+  };
+
   useEffect(() => {
     if (!isRoomLoaded) {
       onLoadData(offerId);
     }
     onLoadComments(offerId);
     changeHoverEffectDispatch(false);
+    return () => {
+      clearDataRoomDispatch(false);
+    };
   }, []);
 
   if (!isRoomLoaded || (!isCommentsLoaded || !isNearbyLoaded)) {
@@ -49,7 +60,22 @@ const Room = ({
       <LoadingScreen />
     );
   }
-  const offersForCardList = offerNearby.filter((room) => room.id !== offer.id);
+  let offersForCardList = offerNearby.filter((room) => room.id !== offer.id);
+
+  if (responseFavorites.length) {
+    responseFavorites.forEach((favorite) => {
+      offersForCardList = offersForCardList.map((offerForCard) => {
+        if (offerForCard.id === favorite.id) {
+          return favorite;
+        }
+        return offerForCard;
+      });
+    });
+    const offerUpFavorite = responseFavorites.filter((elem) => elem.id === offer.id);
+    if (offerUpFavorite.length) {
+      offer = offerUpFavorite[ZERO];
+    }
+  }
 
   return (
     <div className="page">
@@ -77,7 +103,7 @@ const Room = ({
                 <h1 className="property__name">
                   {offer.title}
                 </h1>
-                <button className={`${offer.isFavorite ? `property__bookmark-button--active` : `property__bookmark-button`} button`} type="button">
+                <button onClick={addFavoriteHandle} data-status={Number(!offer.isFavorite)} className={`${offer.isFavorite ? `property__bookmark-button--active` : `property__bookmark-button`} button`} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>
@@ -147,8 +173,12 @@ const Room = ({
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div onClick={handleClick} className="near-places__list places__list">
-              <CardsList offers={offersForCardList}/>
+            <div className="near-places__list places__list">
+              <CardsList
+                offers={offersForCardList}
+                onClickCardhandler={loadDataHandle}
+                isNotUpdateRoom={true}
+              />
             </div>
           </section>
         </div>
@@ -166,14 +196,21 @@ Room.propTypes = {
   offer: PropTypes.shape(
       propTypesCard,
   ),
+  responseFavorites: PropTypes.arrayOf(
+      PropTypes.shape(
+          propTypesCard,
+      ),
+  ),
   isRoomLoaded: PropTypes.bool.isRequired,
   onLoadData: PropTypes.func.isRequired,
   changeHoverEffectDispatch: PropTypes.func.isRequired,
   saveOfferId: PropTypes.func.isRequired,
+  clearDataRoomDispatch: PropTypes.func.isRequired,
   onLoadComments: PropTypes.func.isRequired,
   isCommentsLoaded: PropTypes.bool.isRequired,
   isNearbyLoaded: PropTypes.bool.isRequired,
   activeIdForMap: PropTypes.number,
+  changeFavoritesStatusDispatch: PropTypes.func.isRequired,
   comments: PropTypes.arrayOf(
       PropTypes.shape(
           propTypesComments
@@ -185,11 +222,13 @@ const mapStateToProps = (state) => ({
   offers: state.offers,
   isRoomLoaded: state.isRoomLoaded,
   isNearbyLoaded: state.isNearbyLoaded,
+  responseFavorites: state.responseFavorites,
   offer: state.offer,
   offerNearby: state.offerNearby,
   activeIdForMap: state.activeIdForMap,
   comments: state.comments,
   isCommentsLoaded: state.isCommentsLoaded,
+  changeFavoritesStatusDispatch: state.changeFavoritesStatusDispatch,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -205,6 +244,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeHoverEffectDispatch(needChangeMarker) {
     dispatch(ActionCreator.changeHoverEffect(needChangeMarker));
+  },
+  clearDataRoomDispatch(needChangeMarker) {
+    dispatch(ActionCreator.clearDataRoom(needChangeMarker));
+  },
+  changeFavoritesStatusDispatch(id, status, isNotUpdateRoom, responseFavorites) {
+    dispatch(changeFavoriteStatus(id, status, isNotUpdateRoom, responseFavorites));
   },
 });
 

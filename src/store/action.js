@@ -15,6 +15,7 @@ export const ActionType = {
   SORT_OFFERS: `offers/sortOffers`,
   SHOW_FILTER: `offers/showFilter`,
   HOVER_EFFECT: `map/changeHoverEffect`,
+  CLEAR_DATA_ROOM: `data/clearDataRoom`,
 };
 
 export const ActionCreator = {
@@ -80,6 +81,10 @@ export const ActionCreator = {
   }),
   changeHoverEffect: (data) => ({
     type: ActionType.HOVER_EFFECT,
+    payload: data,
+  }),
+  clearDataRoom: (data) => ({
+    type: ActionType.CLEAR_DATA_ROOM,
     payload: data,
   }),
 };

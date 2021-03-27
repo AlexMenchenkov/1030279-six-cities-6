@@ -1,4 +1,5 @@
 import {APIRoute, AuthorizationStatus} from '/src/consts.js';
+import {off} from "leaflet/src/dom/DomEvent.js";
 import {ActionCreator} from './action';
 
 const dataMappingOffers = (data) => {
@@ -33,6 +34,27 @@ export const fetchOffersList = () => (dispatch, _getState, api) => (
     .then(({data}) => {
       const offers = dataMappingOffers(data);
       dispatch(ActionCreator.loadOffers(offers, true));
+    })
+);
+
+export const fetchFavoritesList = () => (dispatch, _getState, api) => (
+  api.get(APIRoute.FAVORITES)
+    .then(({data}) => {
+      const offers = dataMappingOffers(data);
+      dispatch(ActionCreator.loadFavorites(offers));
+    })
+);
+
+export const changeFavoriteStatus = (id, status, isNotUpdateRoom, responseFavorites) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.FAVORITES}/${id}/${status}`)
+    .then(({data}) => {
+      const offer = dataMappingOffers(data);
+      responseFavorites = responseFavorites.filter((favoriteOffer) => favoriteOffer.id !== offer.id);
+      responseFavorites.push(offer);
+      dispatch(ActionCreator.changeFavoritesStatus({responseFavorites, isNotUpdateRoom}));
+    })
+    .catch(() => {
+      location.href = `/login`;
     })
 );
 

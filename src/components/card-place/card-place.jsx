@@ -5,39 +5,56 @@ import {Link} from 'react-router-dom';
 import {propTypesCard} from '/src/prop-types.js';
 import {FACTOR_RATE} from '/src/consts.js';
 import {ActionCreator} from '/src/store/action';
+import {changeFavoriteStatus} from '/src/store/api-actions.js';
 
 const CardPlace = ({
   offer,
   id,
-  classCard,
+  isFavoritePage,
   width,
   height,
   saveOfferId,
+  changeFavoritesStatusDispatch,
+  onClickCardhandler,
+  isNotUpdateRoom,
+  responseFavorites,
 }) => {
-  const handleMouseOver = (event) => {
+  const mouseOverHandle = (event) => {
     const idOffer = Number(event.currentTarget.id);
     saveOfferId(idOffer);
   };
 
-  return <article onMouseOver={handleMouseOver} id={id} className={`${classCard ? classCard + `__card ` : `cities__place-card`} place-card`}>
+  const clickHandle = (event) => {
+    const idCard = Number(event.currentTarget.id);
+    const status = Number(event.currentTarget.dataset.status);
+    changeFavoritesStatusDispatch(idCard, status, isNotUpdateRoom, responseFavorites);
+  };
+
+  return <article onMouseOver={mouseOverHandle} id={id} className={`${isFavoritePage ? isFavoritePage + `__card ` : `cities__place-card`} place-card`}>
     {offer.isPremium ?
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
       : ``
     }
-    <div className={classCard ? classCard + `__image-wrapper place-card__image-wrapper` : ``}>
+    <div className={isFavoritePage ? isFavoritePage + `__image-wrapper place-card__image-wrapper` : ``}>
       <Link to={`/offer/${offer.id}`}>
-        <img className="place-card__image" src={offer.previewImage} width={width} height={height}
+        <img onClick={onClickCardhandler} className="place-card__image" src={offer.previewImage} width={width} height={height}
           alt="Place image"/>
       </Link>
-      <div className={`${classCard ? classCard + `__card-info` : ``} place-card__info`}>
+      <div style={isFavoritePage ? {maxWidth: `200px`} : {}} className={`${isFavoritePage ? isFavoritePage + `__card-info` : ``} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`${classCard ? `place-card__bookmark-button--active` : ``} place-card__bookmark-button button`} type="button">
+          <button
+            onClick={clickHandle}
+            id={id}
+            data-status={Number(!offer.isFavorite)}
+            className={`${isFavoritePage || offer.isFavorite ?
+              `place-card__bookmark-button--active` : ``} place-card__bookmark-button button`}
+            type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
             </svg>
@@ -60,13 +77,21 @@ const CardPlace = ({
 };
 
 CardPlace.propTypes = {
-  classCard: PropTypes.string,
+  isFavoritePage: PropTypes.bool,
+  isNotUpdateRoom: PropTypes.bool,
   width: PropTypes.number,
   saveOfferId: PropTypes.func.isRequired,
+  onClickCardhandler: PropTypes.func,
+  changeFavoritesStatusDispatch: PropTypes.func.isRequired,
   height: PropTypes.number,
   id: PropTypes.number,
   offer: PropTypes.shape(
       propTypesCard.isRequired,
+  ),
+  responseFavorites: PropTypes.arrayOf(
+      PropTypes.shape(
+          propTypesCard,
+      ),
   ),
 };
 
@@ -74,11 +99,15 @@ const mapStateToProps = (state) => ({
   cityChecked: state.cityChecked,
   isDataLoaded: state.isDataLoaded,
   offers: state.offers,
+  responseFavorites: state.responseFavorites,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   saveOfferId(id) {
     dispatch(ActionCreator.saveactiveIdForMap(id));
+  },
+  changeFavoritesStatusDispatch(id, status, isNotUpdateRoom, responseFavorites) {
+    dispatch(changeFavoriteStatus(id, status, isNotUpdateRoom, responseFavorites));
   },
 });
 

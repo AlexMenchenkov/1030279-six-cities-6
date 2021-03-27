@@ -13,6 +13,7 @@ const initialState = {
   sortId: 0,
   isShow: false,
   needChangeMarker: true,
+  responseFavorites: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -81,6 +82,26 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         needChangeMarker: action.payload,
+      };
+    case ActionType.CLEAR_DATA_ROOM:
+      return {
+        ...state,
+        isCommentsLoaded: false,
+        isRoomLoaded: false,
+        isNearbyLoaded: false,
+      };
+    case ActionType.LOAD_FAVORITES:
+      return {
+        ...state,
+        favoritesList: action.payload,
+        isFavoritesLoaded: true,
+      };
+    case ActionType.CHANGE_FAVORITES:
+      return {
+        ...state,
+        responseFavorites: action.payload.responseFavorites,
+        isFavoritesLoaded: false,
+        isRoomLoaded: action.payload.isNotUpdateRoom,
       };
     default: {
       break;

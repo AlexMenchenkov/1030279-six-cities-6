@@ -32,19 +32,19 @@ const MainScreen = ({
       <LoadingScreen />
     );
   }
-  let filteredOffersonCity = offers.filter((offer) => offer.city.name === cityChecked);
+  let filteredOffersOnCity = offers.filter((offer) => offer.city.name === cityChecked);
   const sortByPriceLowToHigth = () => {
     sortOffersData.sort((a, b) => a.price > b.price ? ONE : INDEXOF_FAIL_CODE);
   };
   const sortByHigthToLow = (property) => {
     sortOffersData.sort((a, b) => a[property] < b[property] ? ONE : INDEXOF_FAIL_CODE);
   };
-  let sortOffersData = filteredOffersonCity;
+  let sortOffersData = filteredOffersOnCity;
 
   const sortOffersFunc = () => {
     switch (sortId) {
       case sectionsId.popular :
-        return filteredOffersonCity;
+        return filteredOffersOnCity;
       case sectionsId.highToLow :
         sortByPriceLowToHigth(sortOffersData);
         return sortOffersData;
@@ -55,7 +55,7 @@ const MainScreen = ({
         sortByHigthToLow(`rating`);
         return sortOffersData;
       default: {
-        return filteredOffersonCity;
+        return filteredOffersOnCity;
       }
     }
   };
@@ -64,7 +64,7 @@ const MainScreen = ({
 
   if (responseFavorites.length) {
     responseFavorites.forEach((favorite) => {
-      filteredOffersonCity = filteredOffersonCity.map((offer) => {
+      filteredOffersOnCity = filteredOffersOnCity.map((offer) => {
         if (offer.id === favorite.id) {
           return favorite;
         }
@@ -84,14 +84,14 @@ const MainScreen = ({
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{filteredOffersonCity.length} places to stay in {cityChecked}</b>
+            <b className="places__found">{filteredOffersOnCity.length} places to stay in {cityChecked}</b>
             <Filter
               sortId={sortId}
               isShow={isShow}
             />
             <div className="cities__places-list places__list tabs__content">
               <CardsList
-                offers={filteredOffersonCity}
+                offers={filteredOffersOnCity}
                 isNotUpdateRoom={false}
                 needChangeMarker={true}
               />
@@ -99,7 +99,7 @@ const MainScreen = ({
           </section>
           <div className="cities__right-section">
             <Map
-              offers={filteredOffersonCity}
+              offers={filteredOffersOnCity}
               styleMap={styleMapMain}
             />
           </div>

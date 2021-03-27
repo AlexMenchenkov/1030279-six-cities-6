@@ -5,7 +5,7 @@ import ReviewBlock from '/src/components/review-block/review-block';
 import {connect} from "react-redux";
 import {propTypesCard, propTypesComments} from '/src/prop-types';
 import {fetchActiveIdForMap, getComments, fetchNearbyOffers, changeFavoriteStatus} from '/src/store/api-actions';
-import {ZERO, FACTOR_RATE, styleMapRoom} from '/src/consts';
+import {ZERO, FACTOR_RATE, styleMapRoom, THIRD_ITEM_IN_PATH} from '/src/consts';
 import LoadingScreen from '/src/components/loading-screen/loading-screen';
 import Map from '/src/components/map/map';
 import CardsList from '/src/components/cards-list/cards-list';
@@ -24,9 +24,7 @@ const RoomScreen = ({
   responseFavorites,
   changeFavoritesStatusDispatch,
 }) => {
-  const THIRD_ITEM_IN_PATH = 2;
   const offerId = Number(window.location.pathname.split(`/`)[THIRD_ITEM_IN_PATH]);
-
   const handleLoadDataClick = (event) => {
     const id = Number(event.currentTarget.getAttribute(`href`).split(`/`)[THIRD_ITEM_IN_PATH]);
     onLoadData(id);

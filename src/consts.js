@@ -75,3 +75,5 @@ export const sizeCard = {
   height: 150,
   maxWidth: 200,
 };
+
+export const THIRD_ITEM_IN_PATH = 2;

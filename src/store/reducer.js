@@ -94,7 +94,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         responseFavorites: action.payload.responseFavorites,
-        isFavoritesLoaded: false,
         isRoomLoaded: action.payload.isNotUpdateRoom,
       };
     default: {

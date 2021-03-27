@@ -10,16 +10,20 @@ import {changeFavoriteStatus} from '/src/store/api-actions';
 const CardPlace = ({
   offer,
   id,
-  isFavoritePage,
   width,
   height,
+  maxWidth,
   saveOfferId,
   changeFavoritesStatusDispatch,
-  handleCardClick,
+  handleLoadDataClick,
   isNotUpdateRoom,
   responseFavorites,
+  needChangeMarker,
 }) => {
   const handleMouseOver = (event) => {
+    if (!needChangeMarker) {
+      return;
+    }
     const idOffer = Number(event.currentTarget.id);
     saveOfferId(idOffer);
   };
@@ -30,19 +34,19 @@ const CardPlace = ({
     changeFavoritesStatusDispatch(idCard, status, isNotUpdateRoom, responseFavorites);
   };
 
-  return <article onMouseOver={handleMouseOver} id={id} className={`${isFavoritePage ? isFavoritePage + `__card ` : `cities__place-card`} place-card`}>
+  return <article onMouseOver={handleMouseOver} id={id} className="cities__place-card place-card">
     {offer.isPremium ?
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
       : ``
     }
-    <div className={isFavoritePage ? isFavoritePage + `__image-wrapper place-card__image-wrapper` : ``}>
-      <Link to={`/offer/${offer.id}`}>
-        <img onClick={handleCardClick} className="place-card__image" src={offer.previewImage} width={width} height={height}
+    <div className="place-card__image-wrapper">
+      <Link onClick={handleLoadDataClick} to={`/offer/${offer.id}`}>
+        <img className="place-card__image" src={offer.previewImage} width={width} height={height}
           alt="Place image"/>
       </Link>
-      <div style={isFavoritePage ? {maxWidth: `200px`} : {}} className={`${isFavoritePage ? isFavoritePage + `__card-info` : ``} place-card__info`}>
+      <div style={{maxWidth}} className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}</b>
@@ -52,7 +56,7 @@ const CardPlace = ({
             onClick={handleClick}
             id={id}
             data-status={Number(!offer.isFavorite)}
-            className={`${isFavoritePage || offer.isFavorite ?
+            className={`${offer.isFavorite ?
               `place-card__bookmark-button--active` : ``} place-card__bookmark-button button`}
             type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
@@ -77,11 +81,12 @@ const CardPlace = ({
 };
 
 CardPlace.propTypes = {
-  isFavoritePage: PropTypes.bool,
+  maxWidth: PropTypes.number,
   isNotUpdateRoom: PropTypes.bool,
+  needChangeMarker: PropTypes.bool,
   width: PropTypes.number,
   saveOfferId: PropTypes.func.isRequired,
-  handleCardClick: PropTypes.func,
+  handleLoadDataClick: PropTypes.func,
   changeFavoritesStatusDispatch: PropTypes.func.isRequired,
   height: PropTypes.number,
   id: PropTypes.number,
@@ -97,6 +102,7 @@ CardPlace.propTypes = {
 
 const mapStateToProps = (state) => ({
   cityChecked: state.cityChecked,
+  needChangeMarker: state.needChangeMarker,
   isDataLoaded: state.isDataLoaded,
   offers: state.offers,
   responseFavorites: state.responseFavorites,

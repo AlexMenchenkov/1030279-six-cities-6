@@ -89,7 +89,7 @@ const reducer = (state = initialState, action) => {
         isCommentsLoaded: false,
         isRoomLoaded: false,
         isNearbyLoaded: false,
-      };place-card__image
+      };
     case ActionType.LOAD_FAVORITES:
       return {
         ...state,

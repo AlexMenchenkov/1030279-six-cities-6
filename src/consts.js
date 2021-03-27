@@ -69,3 +69,9 @@ export const AppRoute = {
   FAVORITES: `/favorites`,
   OFFER: `/offer/:id`,
 };
+
+export const sizeCard = {
+  width: 150,
+  height: 150,
+  maxWidth: 200,
+};

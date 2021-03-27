@@ -3,7 +3,7 @@ import React from 'react';
 import CardPlace from '/src/components/card-place/card-place';
 import {propTypesCard} from '/src/prop-types';
 
-const CardsList = ({offers, handleCardClick, isNotUpdateRoom}) => {
+const CardsList = ({offers, handleLoadDataClick, isNotUpdateRoom}) => {
 
   return (<>
     {offers.map((offer) => {
@@ -12,7 +12,7 @@ const CardsList = ({offers, handleCardClick, isNotUpdateRoom}) => {
           offer={offer}
           key={offer.id}
           id={offer.id}
-          handleCardClick={handleCardClick}
+          handleLoadDataClick={handleLoadDataClick}
           isNotUpdateRoom={isNotUpdateRoom}
         />
       );
@@ -27,7 +27,7 @@ CardsList.propTypes = {
           propTypesCard,
       ),
   ),
-  handleCardClick: PropTypes.func,
+  handleLoadDataClick: PropTypes.func,
   isNotUpdateRoom: PropTypes.bool,
 };
 

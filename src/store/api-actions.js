@@ -57,7 +57,7 @@ export const changeFavoriteStatus = (id, status, isNotUpdateRoom, responseFavori
     })
 );
 
-export const fetchactiveIdForMap = (id) => (dispatch, _getState, api) => (
+export const fetchActiveIdForMap = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.OFFERS}/${id}`)
     .then(({data}) => {
       const offer = dataMappingOffers(data);

@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MainScreen from '/src/components/main-screen/main-screen';
 import {propTypesCard} from '/src/prop-types';
-import Favorites from '/src/components/favorites/favorites';
+import FavoritesScreen from '/src/components/favorite-screen/favorite-screen';
 import NotFoundScreen from '/src/components/not-found-screen/notFoundScreen';
-import Room from '/src/components/room/room';
+import RoomScreen from '/src/components/room-screen/room-screen';
 import Login from '/src/components/login/login';
 import {Router as BrowserRouter, Route, Switch} from 'react-router-dom';
 import {AppRoute} from '/src/consts';
@@ -24,7 +24,7 @@ const App = () => {
         <Route path={AppRoute.OFFER} exact
           render={(props) => (
             <
-              Room
+              RoomScreen
               id={props}
             />
           )}
@@ -40,7 +40,7 @@ const App = () => {
           render={() => {
             return (
               <
-                Favorites
+                FavoritesScreen
               />
             );
           }}

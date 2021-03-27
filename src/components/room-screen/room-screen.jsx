@@ -4,14 +4,14 @@ import Header from '/src/components/header/header';
 import ReviewBlock from '/src/components/review-block/review-block';
 import {connect} from "react-redux";
 import {propTypesCard, propTypesComments} from '/src/prop-types';
-import {fetchactiveIdForMap, getComments, fetchNearbyOffers, changeFavoriteStatus} from '/src/store/api-actions';
+import {fetchActiveIdForMap, getComments, fetchNearbyOffers, changeFavoriteStatus} from '/src/store/api-actions';
 import {ZERO, FACTOR_RATE, styleMapRoom} from '/src/consts';
 import LoadingScreen from '/src/components/loading-screen/loading-screen';
 import Map from '/src/components/map/map';
 import CardsList from '/src/components/cards-list/cards-list';
 import {ActionCreator} from '/src/store/action';
 
-const Room = ({
+const RoomScreen = ({
   offer,
   offerNearby,
   isRoomLoaded,
@@ -20,7 +20,6 @@ const Room = ({
   comments,
   isCommentsLoaded,
   isNearbyLoaded,
-  activeIdForMap,
   changeHoverEffectDispatch,
   clearDataRoomDispatch,
   responseFavorites,
@@ -29,9 +28,10 @@ const Room = ({
   const THIRD_ITEM_IN_PATH = 2;
   const offerId = Number(window.location.pathname.split(`/`)[THIRD_ITEM_IN_PATH]);
 
-  const handleLoadDataClick = () => {
-    onLoadData(activeIdForMap);
-    onLoadComments(activeIdForMap);
+  const handleLoadDataClick = (event) => {
+    const id = Number(event.currentTarget.getAttribute(`href`).split(`/`)[THIRD_ITEM_IN_PATH]);
+    onLoadData(id);
+    onLoadComments(id);
     window.scrollTo({
       top: ZERO,
       left: ZERO,
@@ -176,7 +176,7 @@ const Room = ({
             <div className="near-places__list places__list">
               <CardsList
                 offers={offersForCardList}
-                handleCardClick={handleLoadDataClick}
+                handleLoadDataClick={handleLoadDataClick}
                 isNotUpdateRoom={true}
               />
             </div>
@@ -187,7 +187,7 @@ const Room = ({
   );
 };
 
-Room.propTypes = {
+RoomScreen.propTypes = {
   offerNearby: PropTypes.arrayOf(
       PropTypes.shape(
           propTypesCard,
@@ -209,7 +209,6 @@ Room.propTypes = {
   onLoadComments: PropTypes.func.isRequired,
   isCommentsLoaded: PropTypes.bool.isRequired,
   isNearbyLoaded: PropTypes.bool.isRequired,
-  activeIdForMap: PropTypes.number,
   changeFavoritesStatusDispatch: PropTypes.func.isRequired,
   comments: PropTypes.arrayOf(
       PropTypes.shape(
@@ -225,7 +224,6 @@ const mapStateToProps = (state) => ({
   responseFavorites: state.responseFavorites,
   offer: state.offer,
   offerNearby: state.offerNearby,
-  activeIdForMap: state.activeIdForMap,
   comments: state.comments,
   isCommentsLoaded: state.isCommentsLoaded,
   changeFavoritesStatusDispatch: state.changeFavoritesStatusDispatch,
@@ -233,7 +231,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadData(offerId) {
-    dispatch(fetchactiveIdForMap(offerId))
+    dispatch(fetchActiveIdForMap(offerId))
       .then(() => dispatch(fetchNearbyOffers(offerId)));
   },
   onLoadComments(offerId) {
@@ -253,5 +251,5 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export {Room};
-export default connect(mapStateToProps, mapDispatchToProps)(Room);
+export {RoomScreen};
+export default connect(mapStateToProps, mapDispatchToProps)(RoomScreen);

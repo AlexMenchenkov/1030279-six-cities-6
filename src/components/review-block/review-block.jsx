@@ -5,7 +5,7 @@ import {propTypesReview} from '/src/prop-types.js';
 import SelfReview from '/src/components/self-review/self-review.jsx';
 import {AuthorizationStatus} from '/src/consts.js';
 import {connect} from "react-redux";
-import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
+import LoadingScreen from '/src/components/loading-screen/loading-screen.jsx';
 
 const ReviewBlock = ({comments, checkedAuth, statusAuth}) => {
   if (!checkedAuth) {

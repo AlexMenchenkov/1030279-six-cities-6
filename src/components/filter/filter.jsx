@@ -7,13 +7,13 @@ import {ActionCreator} from '/src/store/action.js';
 
 const Filter = ({sortId, isShow, showFilterDispatch}) => {
 
-  const sortHandle = () => {
+  const handleSortClick = () => {
     showFilterDispatch(!isShow);
   };
 
   return (<form className="places__sorting" action="#" method="get">
     <span style={{marginRight: `10px`}} className="places__sorting-caption">Sort by</span>
-    <span onClick={sortHandle} className="places__sorting-type" tabIndex="0">
+    <span onClick={handleSortClick} className="places__sorting-type" tabIndex="0">
       {sectionsNames[sortId]}
       <svg className="places__sorting-arrow" width="7" height="4">
         <use xlinkHref="#icon-arrow-select"> </use>

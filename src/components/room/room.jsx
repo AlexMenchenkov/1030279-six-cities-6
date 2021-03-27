@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {propTypesCard, propTypesComments} from '/src/prop-types.js';
 import {fetchactiveIdForMap, getComments, fetchNearbyOffers, changeFavoriteStatus} from '/src/store/api-actions.js';
 import {ZERO, FACTOR_RATE, styleMapRoom} from '/src/consts.js';
-import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
+import LoadingScreen from '/src/components/loading-screen/loading-screen.jsx';
 import Map from '/src/components/map/map.jsx';
 import CardsList from '/src/components/cards-list/cards-list.jsx';
 import {ActionCreator} from '/src/store/action.js';
@@ -29,7 +29,7 @@ const Room = ({
   const THIRD_ITEM_IN_PATH = 2;
   const offerId = Number(window.location.pathname.split(`/`)[THIRD_ITEM_IN_PATH]);
 
-  const loadDataHandle = () => {
+  const handleLoadDataClick = () => {
     onLoadData(activeIdForMap);
     onLoadComments(activeIdForMap);
     window.scrollTo({
@@ -39,7 +39,7 @@ const Room = ({
     });
   };
 
-  const addFavoriteHandle = (event) => {
+  const handleAddFavoriteClick = (event) => {
     const status = Number(event.currentTarget.dataset.status);
     changeFavoritesStatusDispatch(offerId, status, true, responseFavorites);
   };
@@ -103,7 +103,7 @@ const Room = ({
                 <h1 className="property__name">
                   {offer.title}
                 </h1>
-                <button onClick={addFavoriteHandle} data-status={Number(!offer.isFavorite)} className={`${offer.isFavorite ? `property__bookmark-button--active` : `property__bookmark-button`} button`} type="button">
+                <button onClick={handleAddFavoriteClick} data-status={Number(!offer.isFavorite)} className={`${offer.isFavorite ? `property__bookmark-button--active` : `property__bookmark-button`} button`} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>
@@ -176,7 +176,7 @@ const Room = ({
             <div className="near-places__list places__list">
               <CardsList
                 offers={offersForCardList}
-                onClickCardhandler={loadDataHandle}
+                handleCardClick={handleLoadDataClick}
                 isNotUpdateRoom={true}
               />
             </div>

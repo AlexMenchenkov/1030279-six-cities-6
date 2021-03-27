@@ -7,7 +7,7 @@ import Map from '/src/components/map/map.jsx';
 import CityPanel from '/src/components/city-panel/city-panel.jsx';
 import {connect} from 'react-redux';
 import {fetchOffersList} from '/src/store/api-actions.js';
-import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
+import LoadingScreen from '/src/components/loading-screen/loading-screen.jsx';
 import Filter from '/src/components/filter/filter.jsx';
 import {ONE, INDEXOF_FAIL_CODE, sectionsId, styleMapMain} from '/src/consts.js';
 import {ActionCreator} from '/src/store/action.js';

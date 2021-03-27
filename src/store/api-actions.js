@@ -1,5 +1,4 @@
 import {APIRoute, AuthorizationStatus} from '/src/consts.js';
-import {off} from "leaflet/src/dom/DomEvent.js";
 import {ActionCreator} from './action';
 
 const dataMappingOffers = (data) => {

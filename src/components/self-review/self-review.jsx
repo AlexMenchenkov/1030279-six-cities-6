@@ -11,7 +11,7 @@ const SelfReview = ({submitReviewDispatch}) => {
   const THIRD_ITEM_IN_PATH = 2;
   const offerId = Number(window.location.pathname.split(`/`)[THIRD_ITEM_IN_PATH]);
 
-  const submitReviewHandle = (event) => {
+  const handleReviewsubmit = (event) => {
     event.preventDefault();
     const checkedInput = (starRate.current).querySelector(`input:checked`);
     submitReviewDispatch({
@@ -24,7 +24,7 @@ const SelfReview = ({submitReviewDispatch}) => {
   };
 
   return (
-    <form onSubmit={submitReviewHandle} className="reviews__form form" action="#" method="post">
+    <form onSubmit={handleReviewsubmit} className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div ref={starRate} className="reviews__rating-form form__rating">
         <RowStars/>

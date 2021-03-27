@@ -15,22 +15,22 @@ const CardPlace = ({
   height,
   saveOfferId,
   changeFavoritesStatusDispatch,
-  onClickCardhandler,
+  handleCardClick,
   isNotUpdateRoom,
   responseFavorites,
 }) => {
-  const mouseOverHandle = (event) => {
+  const handleMouseOver = (event) => {
     const idOffer = Number(event.currentTarget.id);
     saveOfferId(idOffer);
   };
 
-  const clickHandle = (event) => {
+  const handleClick = (event) => {
     const idCard = Number(event.currentTarget.id);
     const status = Number(event.currentTarget.dataset.status);
     changeFavoritesStatusDispatch(idCard, status, isNotUpdateRoom, responseFavorites);
   };
 
-  return <article onMouseOver={mouseOverHandle} id={id} className={`${isFavoritePage ? isFavoritePage + `__card ` : `cities__place-card`} place-card`}>
+  return <article onMouseOver={handleMouseOver} id={id} className={`${isFavoritePage ? isFavoritePage + `__card ` : `cities__place-card`} place-card`}>
     {offer.isPremium ?
       <div className="place-card__mark">
         <span>Premium</span>
@@ -39,7 +39,7 @@ const CardPlace = ({
     }
     <div className={isFavoritePage ? isFavoritePage + `__image-wrapper place-card__image-wrapper` : ``}>
       <Link to={`/offer/${offer.id}`}>
-        <img onClick={onClickCardhandler} className="place-card__image" src={offer.previewImage} width={width} height={height}
+        <img onClick={handleCardClick} className="place-card__image" src={offer.previewImage} width={width} height={height}
           alt="Place image"/>
       </Link>
       <div style={isFavoritePage ? {maxWidth: `200px`} : {}} className={`${isFavoritePage ? isFavoritePage + `__card-info` : ``} place-card__info`}>
@@ -49,7 +49,7 @@ const CardPlace = ({
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            onClick={clickHandle}
+            onClick={handleClick}
             id={id}
             data-status={Number(!offer.isFavorite)}
             className={`${isFavoritePage || offer.isFavorite ?
@@ -81,7 +81,7 @@ CardPlace.propTypes = {
   isNotUpdateRoom: PropTypes.bool,
   width: PropTypes.number,
   saveOfferId: PropTypes.func.isRequired,
-  onClickCardhandler: PropTypes.func,
+  handleCardClick: PropTypes.func,
   changeFavoritesStatusDispatch: PropTypes.func.isRequired,
   height: PropTypes.number,
   id: PropTypes.number,

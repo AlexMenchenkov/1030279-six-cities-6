@@ -5,7 +5,7 @@ import Footer from '/src/components/footer/footer.jsx';
 import CardPlace from '/src/components/card-place/card-place.jsx';
 import {propTypesCard} from '/src/prop-types.js';
 import {connect} from "react-redux";
-import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
+import LoadingScreen from '/src/components/loading-screen/loading-screen.jsx';
 import {fetchFavoritesList} from '/src/store/api-actions.js';
 
 const Favorites = ({favoritesList, isFavoritesLoaded, onLoadFavorites}) => {

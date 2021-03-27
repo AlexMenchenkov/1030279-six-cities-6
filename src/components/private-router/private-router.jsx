@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {AuthorizationStatus, AppRoute} from '/src/consts.js';
-import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
+import LoadingScreen from '/src/components/loading-screen/loading-screen.jsx';
 
 const PrivateRoute = ({render, path, exact, statusAuth, checkedAuth}) => {
 

@@ -6,7 +6,7 @@ import {ActionCreator} from '/src/store/action.js';
 
 const FilterSection = ({isShow, showFilterDispatch, sortDispatch}) => {
 
-  const selectedHandle = (event) => {
+  const handleSortClick = (event) => {
     const sortId = event.currentTarget.tabIndex;
     showFilterDispatch(!isShow);
     sortDispatch(sortId);
@@ -21,7 +21,7 @@ const FilterSection = ({isShow, showFilterDispatch, sortDispatch}) => {
       <ul className="places__options places__options--custom places__options--opened">
         {sectionsNames.map((section, index) => {
           return (
-            <li onClick={selectedHandle} key={index} className="places__option places__option--active" tabIndex={index}>{section}</li>
+            <li onClick={handleSortClick} key={index} className="places__option places__option--active" tabIndex={index}>{section}</li>
           );
         })}
       </ul>

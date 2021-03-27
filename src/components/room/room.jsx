@@ -240,7 +240,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(getComments(offerId));
   },
   saveOfferId(id) {
-    dispatch(ActionCreator.saveactiveIdForMap(id));
+    dispatch(ActionCreator.saveActiveIdForMap(id));
   },
   changeHoverEffectDispatch(needChangeMarker) {
     dispatch(ActionCreator.changeHoverEffect(needChangeMarker));

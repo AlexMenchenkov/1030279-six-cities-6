@@ -8,7 +8,7 @@ export const ActionType = {
   LOAD_NEARBY_OFFERS: `offers/loadNearbyOffers`,
   REDIRECT_TO_ROUTE: `route/redirectToRoute`,
   USER_DATA: `user/saveUserData`,
-  CURRENT_OFFER: `offers/saveactiveIdForMap`,
+  CURRENT_OFFER: `offers/saveActiveIdForMap`,
   LOG_HISTORY: `history/saveHistory`,
   GET_COMMENTS: `comments/saveComments`,
   SEND_COMMENT: `comments/sendComment`,
@@ -55,7 +55,7 @@ export const ActionCreator = {
     type: ActionType.USER_DATA,
     payload: data,
   }),
-  saveactiveIdForMap: (id) => ({
+  saveActiveIdForMap: (id) => ({
     type: ActionType.CURRENT_OFFER,
     payload: id,
   }),

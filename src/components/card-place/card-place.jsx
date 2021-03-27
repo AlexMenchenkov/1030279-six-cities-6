@@ -104,7 +104,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   saveOfferId(id) {
-    dispatch(ActionCreator.saveactiveIdForMap(id));
+    dispatch(ActionCreator.saveActiveIdForMap(id));
   },
   changeFavoritesStatusDispatch(id, status, isNotUpdateRoom, responseFavorites) {
     dispatch(changeFavoriteStatus(id, status, isNotUpdateRoom, responseFavorites));

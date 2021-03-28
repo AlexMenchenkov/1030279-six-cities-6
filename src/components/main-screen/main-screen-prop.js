@@ -16,5 +16,5 @@ export const props = {
   onLoadData: PropTypes.func.isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
   sortId: PropTypes.number.isRequired,
-  isShow: PropTypes.bool.isRequired,
+  showFilterPanel: PropTypes.bool.isRequired,
 };

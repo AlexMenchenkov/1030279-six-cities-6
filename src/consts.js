@@ -68,6 +68,7 @@ export const AppRoute = {
   ROOT: `/`,
   FAVORITES: `/favorites`,
   OFFER: `/offer/:id`,
+  NOT_FOUND: `/404`,
 };
 
 export const sizeCard = {

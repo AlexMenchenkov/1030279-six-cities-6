@@ -17,7 +17,7 @@ const MainScreen = ({
   isDataLoaded,
   onLoadData,
   sortId,
-  isShow,
+  showFilterPanel,
   responseFavorites,
 }) => {
 
@@ -94,7 +94,7 @@ const MainScreen = ({
             <b className="places__found">{getOffers().length} places to stay in {cityChecked}</b>
             <Filter
               sortId={sortId}
-              isShow={isShow}
+              showFilterPanel={showFilterPanel}
             />
             <div className="cities__places-list places__list tabs__content">
               <CardsList
@@ -120,13 +120,13 @@ const MainScreen = ({
 
 MainScreen.propTypes = props;
 
-const mapStateToProps = (state) => ({
-  cityChecked: state.cityChecked,
-  isDataLoaded: state.isDataLoaded,
-  responseFavorites: state.responseFavorites,
-  offers: state.offers,
-  sortId: state.sortId,
-  isShow: state.isShow,
+const mapStateToProps = ({USER, DATA}) => ({
+  isDataLoaded: DATA.isDataLoaded,
+  responseFavorites: DATA.responseFavorites,
+  offers: DATA.offers,
+  sortId: USER.sortId,
+  cityChecked: USER.cityChecked,
+  showFilterPanel: USER.showFilterPanel,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -64,8 +64,8 @@ const Map = ({getOffers, activeIdForMap, styleMap, roomId}) => {
 
 Map.propTypes = props;
 
-const mapStateToProps = (state) => ({
-  activeIdForMap: state.activeIdForMap,
+const mapStateToProps = ({USER}) => ({
+  activeIdForMap: USER.activeIdForMap,
 });
 
 export {Map};

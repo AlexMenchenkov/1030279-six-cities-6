@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
 import React from 'react';
 import CardPlace from '/src/components/card-place/card-place';
+import {props} from './card-list-prop';
 
 const CardsList = ({handleLoadDataClick, isNotUpdateRoom, needChangeMarker, getOffers}) => {
   return (<>
@@ -20,11 +20,6 @@ const CardsList = ({handleLoadDataClick, isNotUpdateRoom, needChangeMarker, getO
   );
 };
 
-CardsList.propTypes = {
-  handleLoadDataClick: PropTypes.func,
-  getOffers: PropTypes.func,
-  isNotUpdateRoom: PropTypes.bool,
-  needChangeMarker: PropTypes.bool,
-};
+CardsList.propTypes = props;
 
 export default React.memo(CardsList);

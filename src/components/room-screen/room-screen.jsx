@@ -194,16 +194,15 @@ const RoomScreen = ({
 
 RoomScreen.propTypes = props;
 
-const mapStateToProps = (state) => ({
-  offers: state.offers,
-  isRoomLoaded: state.isRoomLoaded,
-  isNearbyLoaded: state.isNearbyLoaded,
-  responseFavorites: state.responseFavorites,
-  offer: state.offer,
-  offerNearby: state.offerNearby,
-  comments: state.comments,
-  isCommentsLoaded: state.isCommentsLoaded,
-  changeFavoritesStatusDispatch: state.changeFavoritesStatusDispatch,
+const mapStateToProps = ({DATA}) => ({
+  offers: DATA.offers,
+  isRoomLoaded: DATA.isRoomLoaded,
+  isNearbyLoaded: DATA.isNearbyLoaded,
+  responseFavorites: DATA.responseFavorites,
+  offer: DATA.offer,
+  offerNearby: DATA.offerNearby,
+  comments: DATA.comments,
+  isCommentsLoaded: DATA.isCommentsLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({

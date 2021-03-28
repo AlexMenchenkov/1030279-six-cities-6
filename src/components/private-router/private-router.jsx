@@ -30,9 +30,9 @@ const PrivateRoute = ({render, path, exact, statusAuth, checkedAuth}) => {
 
 PrivateRoute.propTypes = props;
 
-const mapStateToProps = (state) => ({
-  statusAuth: state.statusAuth,
-  checkedAuth: state.checkedAuth,
+const mapStateToProps = ({USER}) => ({
+  statusAuth: USER.statusAuth,
+  checkedAuth: USER.checkedAuth,
 });
 
 

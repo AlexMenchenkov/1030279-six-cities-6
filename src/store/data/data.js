@@ -1,28 +1,17 @@
-import {ActionType} from '/src/store/action';
-import {ZERO} from '/src/consts.js';
+import {ActionType} from '/src/store/action.js';
 
 const initialState = {
-  cityChecked: `Paris`,
+  offers: [],
   isDataLoaded: false,
   isNearbyLoaded: false,
-  statusAuth: `NO_AUTH`,
-  checkedAuth: false,
   isRoomLoaded: false,
-  activeIdForMap: null,
-  history: `/`,
   isCommentsLoaded: false,
-  sortId: ZERO,
-  isShow: false,
   responseFavorites: [],
+  data: {},
 };
 
-const reducer = (state = initialState, action) => {
+const data = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.CHANGE_CITY:
-      return {
-        ...state,
-        cityChecked: action.payload,
-      };
     case ActionType.LOAD_OFFERS:
       return {
         ...state,
@@ -41,42 +30,16 @@ const reducer = (state = initialState, action) => {
         offerNearby: action.payload,
         isNearbyLoaded: true,
       };
-    case ActionType.REQUIRED_AUTHORIZATION:
-      return {
-        ...state,
-        statusAuth: action.payload.auth,
-        checkedAuth: action.payload.checkedAuth,
-      };
     case ActionType.USER_DATA:
       return {
         ...state,
         data: action.payload,
-      };
-    case ActionType.ACTIVE_OFFER:
-      return {
-        ...state,
-        activeIdForMap: action.payload,
-      };
-    case ActionType.LOG_HISTORY:
-      return {
-        ...state,
-        history: action.payload,
       };
     case ActionType.GET_COMMENTS:
       return {
         ...state,
         comments: action.payload,
         isCommentsLoaded: true,
-      };
-    case ActionType.SORT_OFFERS:
-      return {
-        ...state,
-        sortId: action.payload,
-      };
-    case ActionType.SHOW_FILTER:
-      return {
-        ...state,
-        isShow: action.payload,
       };
     case ActionType.CLEAR_DATA_ROOM:
       return {
@@ -97,12 +60,9 @@ const reducer = (state = initialState, action) => {
         responseFavorites: action.payload.responseFavorites,
         isRoomLoaded: action.payload.isNotUpdateRoom,
       };
-    default: {
-      break;
-    }
   }
 
   return state;
 };
 
-export {reducer};
+export {data};

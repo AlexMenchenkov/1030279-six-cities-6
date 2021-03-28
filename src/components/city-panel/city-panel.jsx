@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
 import React from 'react';
 import {cities} from '/src/consts';
 import CityBrick from '/src/components/city-brick/city-brick';
+import {props} from './city-brick-prop';
 
 const CityPanel = ({cityChecked}) => {
 
@@ -23,9 +23,7 @@ const CityPanel = ({cityChecked}) => {
   );
 };
 
-CityPanel.propTypes = {
-  cityChecked: PropTypes.string.isRequired,
-};
+CityPanel.propTypes = props;
 
 export default React.memo(CityPanel);
 

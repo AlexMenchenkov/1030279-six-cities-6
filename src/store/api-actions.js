@@ -1,4 +1,5 @@
 import {APIRoute, AuthorizationStatus} from '/src/consts';
+import {AppRoute} from '/src/consts.js';
 import {
   loadOffers,
   loadFavorites,
@@ -59,12 +60,12 @@ export const changeFavoriteStatus = (id, status, isNotUpdateRoom) => (dispatch, 
   api.post(`${APIRoute.FAVORITES}/${id}/${status}`)
     .then(({data}) => {
       const offer = dataMappingOffers(data);
-      const responseFavorites = _getState().responseFavorites.filter((favoriteOffer) => favoriteOffer.id !== offer.id);
+      const responseFavorites = _getState().DATA.responseFavorites.filter((favoriteOffer) => favoriteOffer.id !== offer.id);
       responseFavorites.push(offer);
       dispatch(changeFavoritesStatus({responseFavorites, isNotUpdateRoom}));
     })
     .catch(() => {
-      location.href = `/login`;
+      location.href = AppRoute.LOGIN;
     })
 );
 
@@ -75,7 +76,7 @@ export const fetchActiveIdForMap = (id) => (dispatch, _getState, api) => (
       dispatch(loadOffer(offer));
     })
     .catch(() => {
-      location.href = `/404`;
+      location.href = AppRoute.NOT_FOUND;
     })
 );
 
@@ -83,10 +84,10 @@ export const fetchNearbyOffers = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.OFFERS}/${id}/nearby`)
     .then(({data}) => {
       const offers = dataMappingOffers(data);
-      dispatch(loadNearbyOffers([...offers, _getState().offer]));
+      dispatch(loadNearbyOffers([...offers, _getState().DATA.offer]));
     })
     .catch(() => {
-      location.href = `/404`;
+      location.href = AppRoute.NOT_FOUND;
     })
 );
 
@@ -107,7 +108,7 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
       auth: AuthorizationStatus.AUTH,
       checkedAuth: true,
     })))
-    .then(() => dispatch(redirectToRoute(_getState().history)))
+    .then(() => dispatch(redirectToRoute(_getState().ROUTE.history)))
 );
 
 export const logout = () => (dispatch, _getState, api) => (

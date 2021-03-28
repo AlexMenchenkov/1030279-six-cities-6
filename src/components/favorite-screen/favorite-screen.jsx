@@ -65,10 +65,10 @@ const FavoritesScreen = ({favoritesList, isFavoritesLoaded, onLoadFavorites, res
 
 FavoritesScreen.propTypes = props;
 
-const mapStateToProps = (state) => ({
-  favoritesList: state.favoritesList,
-  isFavoritesLoaded: state.isFavoritesLoaded,
-  responseFavorites: state.responseFavorites,
+const mapStateToProps = ({DATA}) => ({
+  favoritesList: DATA.favoritesList,
+  isFavoritesLoaded: DATA.isFavoritesLoaded,
+  responseFavorites: DATA.responseFavorites,
 });
 
 const mapDispatchToProps = (dispatch) => ({

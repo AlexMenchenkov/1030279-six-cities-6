@@ -1,9 +1,9 @@
 import React, {useRef} from 'react';
-import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {login} from '/src/store/api-actions';
 import {AppRoute, AuthorizationStatus} from '/src/consts';
 import {Redirect} from "react-router-dom";
+import {props} from './login-screen-prop';
 
 const LoginScreen = ({onAuthSubmit, statusAuth}) => {
 
@@ -56,13 +56,10 @@ const LoginScreen = ({onAuthSubmit, statusAuth}) => {
   );
 };
 
-LoginScreen.propTypes = {
-  onAuthSubmit: PropTypes.func.isRequired,
-  statusAuth: PropTypes.string.isRequired,
-};
+LoginScreen.propTypes = props;
 
-const mapStateToProps = (state) => ({
-  statusAuth: state.statusAuth,
+const mapStateToProps = ({USER}) => ({
+  statusAuth: USER.statusAuth,
 });
 
 const mapDispatchToProps = (dispatch) => ({

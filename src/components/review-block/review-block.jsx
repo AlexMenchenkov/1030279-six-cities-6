@@ -32,9 +32,9 @@ const ReviewBlock = ({comments, checkedAuth, statusAuth}) => {
 
 ReviewBlock.propTypes = props;
 
-const mapStateToProps = (state) => ({
-  statusAuth: state.statusAuth,
-  checkedAuth: state.checkedAuth,
+const mapStateToProps = ({USER}) => ({
+  statusAuth: USER.statusAuth,
+  checkedAuth: USER.checkedAuth,
 });
 
 export {ReviewBlock};

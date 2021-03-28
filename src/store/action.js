@@ -4,17 +4,17 @@ export const ActionType = {
   CHANGE_FAVORITES: `data/changeFavorites`,
   LOAD_OFFER: `data/loadOffer`,
   LOAD_NEARBY_OFFERS: `data/loadNearbyOffers`,
-  REDIRECT_TO_ROUTE: `route/redirectToRoute`,
-  LOG_HISTORY: `route/saveHistory`,
-  ACTIVE_OFFER: `map/saveActiveIdForMap`,
   GET_COMMENTS: `data/saveComments`,
   SEND_COMMENT: `data/sendComment`,
   CLEAR_DATA_ROOM: `data/clearDataRoom`,
+  USER_DATA: `data/saveUserData`,
+  REDIRECT_TO_ROUTE: `route/redirectToRoute`,
+  LOG_HISTORY: `route/saveHistory`,
+  ACTIVE_OFFER: `user/saveActiveIdForMap`,
   SORT_OFFERS: `user/sortOffers`,
   SHOW_FILTER: `user/showFilter`,
   CHANGE_CITY: `user/changeCity`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
-  USER_DATA: `user/saveUserData`,
 };
 
 export const changeCity = (city) => ({

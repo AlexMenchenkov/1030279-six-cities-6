@@ -1,14 +1,14 @@
-import PropTypes from "prop-types";
 import React from 'react';
 import FilterSection from '/src/components/filter-section/filter-section';
 import {sectionsNames} from '/src/consts';
 import {connect} from "react-redux";
 import {showFilter} from '/src/store/action';
+import {props} from './filter-prop';
 
-const Filter = ({sortId, isShow, showFilterDispatch}) => {
+const Filter = ({sortId, showFilterPanel, showFilterDispatch}) => {
 
   const handleSortClick = () => {
-    showFilterDispatch(!isShow);
+    showFilterDispatch(!showFilterPanel);
   };
 
   return (<form className="places__sorting" action="#" method="get">
@@ -20,21 +20,17 @@ const Filter = ({sortId, isShow, showFilterDispatch}) => {
       </svg>
     </span>
     <FilterSection
-      isShow={isShow}
+      showFilterPanel={showFilterPanel}
     />
   </form>
   );
 };
 
-Filter.propTypes = {
-  sortId: PropTypes.number.isRequired,
-  isShow: PropTypes.bool.isRequired,
-  showFilterDispatch: PropTypes.func.isRequired,
-};
+Filter.propTypes = props;
 
 const mapDispatchToProps = (dispatch) => ({
-  showFilterDispatch(isShow) {
-    dispatch(showFilter(isShow));
+  showFilterDispatch(showFilterPanel) {
+    dispatch(showFilter(showFilterPanel));
   }
 });
 

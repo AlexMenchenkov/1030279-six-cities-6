@@ -1,8 +1,7 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import CardPlace from '/src/components/card-place/card-place';
-import {propTypesCard} from '/src/prop-types';
 import {sizeCard} from '/src/consts';
+import {props} from './favorite-city-list-prop';
 
 const FavoriteCityList = ({favoriteOffers, city}) => {
   return (
@@ -32,13 +31,6 @@ const FavoriteCityList = ({favoriteOffers, city}) => {
   );
 };
 
-FavoriteCityList.propTypes = {
-  favoriteOffers: PropTypes.arrayOf(
-      PropTypes.shape(
-          propTypesCard,
-      ),
-  ),
-  city: PropTypes.string.isRequired,
-};
+FavoriteCityList.propTypes = props;
 
 export default FavoriteCityList;

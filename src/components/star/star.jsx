@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
 import React from 'react';
+import {props} from './star-prop';
 
 const Star = ({id, title, handleClickStar}) => {
 
@@ -15,10 +15,6 @@ const Star = ({id, title, handleClickStar}) => {
   );
 };
 
-Star.propTypes = {
-  handleClickStar: PropTypes.func,
-  id: PropTypes.number,
-  title: PropTypes.string,
-};
+Star.propTypes = props;
 
 export default Star;

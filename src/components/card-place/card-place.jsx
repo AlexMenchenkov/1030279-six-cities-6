@@ -80,10 +80,10 @@ const CardPlace = ({
 
 CardPlace.propTypes = props;
 
-const mapStateToProps = (state) => ({
-  cityChecked: state.cityChecked,
-  isDataLoaded: state.isDataLoaded,
-  offers: state.offers,
+const mapStateToProps = ({USER, DATA}) => ({
+  cityChecked: USER.cityChecked,
+  isDataLoaded: DATA.isDataLoaded,
+  offers: DATA.offers,
 });
 
 const mapDispatchToProps = (dispatch) => ({

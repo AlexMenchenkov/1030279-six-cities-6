@@ -1,10 +1,10 @@
-import PropTypes from "prop-types";
 import React from 'react';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {AuthorizationStatus} from '/src/consts';
 import {logout} from '/src/store/api-actions';
 import {saveHistory} from '/src/store/action';
+import {props} from './header-prop';
 
 const Header = ({email, statusAuth, handleLogoutSubmit, handleLogHistory}) => {
 
@@ -47,12 +47,7 @@ const Header = ({email, statusAuth, handleLogoutSubmit, handleLogHistory}) => {
   );
 };
 
-Header.propTypes = {
-  email: PropTypes.string,
-  statusAuth: PropTypes.string.isRequired,
-  handleLogoutSubmit: PropTypes.func.isRequired,
-  handleLogHistory: PropTypes.func,
-};
+Header.propTypes = props;
 
 const mapDispatchToProps = (dispatch) => ({
   handleLogoutSubmit() {
@@ -63,9 +58,9 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-const mapStateToProps = (state) => ({
-  email: state.data && state.data.email,
-  statusAuth: state.statusAuth,
+const mapStateToProps = ({DATA, USER}) => ({
+  email: DATA.data.email,
+  statusAuth: USER.statusAuth,
 });
 
 export {Header};

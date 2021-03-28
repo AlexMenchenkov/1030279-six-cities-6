@@ -1,18 +1,18 @@
-import PropTypes from "prop-types";
 import React from 'react';
 import {sectionsNames} from '/src/consts';
 import {connect} from "react-redux";
 import {showFilter, sortOffers} from '/src/store/action';
+import {props} from './filter-section-prop';
 
-const FilterSection = ({isShow, showFilterDispatch, sortDispatch}) => {
+const FilterSection = ({showFilterPanel, showFilterDispatch, sortDispatch}) => {
 
   const handleSortClick = (event) => {
     const sortId = event.currentTarget.tabIndex;
-    showFilterDispatch(!isShow);
+    showFilterDispatch(!showFilterPanel);
     sortDispatch(sortId);
   };
 
-  if (!isShow) {
+  if (!showFilterPanel) {
     return (<></>);
   }
 
@@ -30,19 +30,15 @@ const FilterSection = ({isShow, showFilterDispatch, sortDispatch}) => {
   );
 };
 
-FilterSection.propTypes = {
-  isShow: PropTypes.bool.isRequired,
-  showFilterDispatch: PropTypes.func.isRequired,
-  sortDispatch: PropTypes.func.isRequired,
-};
+FilterSection.propTypes = props;
 
-const mapStateToProps = (state) => ({
-  sortId: state.sortId,
+const mapStateToProps = ({USER}) => ({
+  sortId: USER.sortId,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  showFilterDispatch(isShow) {
-    dispatch(showFilter(isShow));
+  showFilterDispatch(showFilterPanel) {
+    dispatch(showFilter(showFilterPanel));
   },
   sortDispatch(sortId) {
     dispatch(sortOffers(sortId));

@@ -1,7 +1,6 @@
-import PropTypes from "prop-types";
 import React from 'react';
-import {propTypesReview} from '/src/prop-types';
 import {FACTOR_RATE} from '/src/consts';
+import {props} from './review-prop';
 
 const Review = ({review}) => {
 
@@ -34,10 +33,6 @@ const Review = ({review}) => {
   );
 };
 
-Review.propTypes = {
-  review: PropTypes.shape(
-      propTypesReview.isRequired
-  )
-};
+Review.propTypes = props;
 
 export default React.memo(Review);

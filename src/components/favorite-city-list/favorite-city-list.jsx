@@ -5,7 +5,6 @@ import {propTypesCard} from '/src/prop-types';
 import {sizeCard} from '/src/consts';
 
 const FavoriteCityList = ({favoriteOffers, city}) => {
-
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">

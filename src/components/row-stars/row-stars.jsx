@@ -4,6 +4,7 @@ import {ONE} from '/src/consts';
 import {starsData} from '/src/consts';
 
 const RowStars = () => {
+
   let maxStarId = starsData.length + ONE;
 
   return (

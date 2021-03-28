@@ -3,10 +3,8 @@ import React from 'react';
 import {propTypesReview} from '/src/prop-types';
 import {FACTOR_RATE} from '/src/consts';
 
-const Review = (props) => {
-  const {
-    review,
-  } = props;
+const Review = ({review}) => {
+
   return (
     <ul className="reviews__list">
       <li className="reviews__item">
@@ -42,4 +40,4 @@ Review.propTypes = {
   )
 };
 
-export default Review;
+export default React.memo(Review);

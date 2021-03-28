@@ -2,13 +2,13 @@ import PropTypes from "prop-types";
 import React, {useRef, useEffect} from 'react';
 import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
-import {propTypesCard} from '/src/prop-types';
 import {connect} from "react-redux";
 import {iconData, iconDataOrange, ONE, ZERO} from '/src/consts';
 
-const Map = ({offers, activeIdForMap, styleMap, roomId}) => {
-  console.log('RENDER MAP');
+const Map = ({getOffers, activeIdForMap, styleMap, roomId}) => {
+
   const mapRef = useRef(null);
+  const offers = getOffers();
   const points = offers.map((offer) => [offer.location, {id: offer.id}]);
   const location = offers.map((offer) => offer.city.location);
   const titles = offers.map((offer) => offer.title);
@@ -63,11 +63,7 @@ const Map = ({offers, activeIdForMap, styleMap, roomId}) => {
 };
 
 Map.propTypes = {
-  offers: PropTypes.arrayOf(
-      PropTypes.shape(
-          propTypesCard,
-      ),
-  ),
+  getOffers: PropTypes.func,
   styleMap: PropTypes.shape(
       {
         width: PropTypes.string.isRequired,

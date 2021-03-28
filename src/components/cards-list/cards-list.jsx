@@ -1,12 +1,10 @@
 import PropTypes from "prop-types";
 import React from 'react';
 import CardPlace from '/src/components/card-place/card-place';
-import {propTypesCard} from '/src/prop-types';
 
-const CardsList = ({offers, handleLoadDataClick, isNotUpdateRoom, needChangeMarker}) => {
-
+const CardsList = ({handleLoadDataClick, isNotUpdateRoom, needChangeMarker, getOffers}) => {
   return (<>
-    {offers.map((offer) => {
+    {getOffers().map((offer) => {
       return (
         <CardPlace
           offer={offer}
@@ -23,14 +21,10 @@ const CardsList = ({offers, handleLoadDataClick, isNotUpdateRoom, needChangeMark
 };
 
 CardsList.propTypes = {
-  offers: PropTypes.arrayOf(
-      PropTypes.shape(
-          propTypesCard,
-      ),
-  ),
   handleLoadDataClick: PropTypes.func,
+  getOffers: PropTypes.func,
   isNotUpdateRoom: PropTypes.bool,
   needChangeMarker: PropTypes.bool,
 };
 
-export default CardsList;
+export default React.memo(CardsList);

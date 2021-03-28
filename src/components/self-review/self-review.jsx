@@ -6,6 +6,7 @@ import {sendComment, getComments} from '/src/store/api-actions';
 import {THIRD_ITEM_IN_PATH} from '/src/consts';
 
 const SelfReview = ({submitReviewDispatch}) => {
+
   const textReview = useRef(null);
   const starRate = useRef(null);
   const offerId = Number(window.location.pathname.split(`/`)[THIRD_ITEM_IN_PATH]);

@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import LoadingScreen from '/src/components/loading-screen/loading-screen';
 
 const ReviewBlock = ({comments, checkedAuth, statusAuth}) => {
+
   if (!checkedAuth) {
     return (
       <LoadingScreen />

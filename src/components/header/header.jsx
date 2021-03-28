@@ -6,8 +6,8 @@ import {AuthorizationStatus} from '/src/consts';
 import {logout} from '/src/store/api-actions';
 import {ActionCreator} from '/src/store/action';
 
-const Header = ({email, statusAuth, onLogoutSubmit, logHistory}) => {
-  console.log('RENDER HEADER');
+const Header = ({email, statusAuth, handleLogoutSubmit, handleLogHistory}) => {
+
   return (
     <header className="header">
       <div className="container">
@@ -29,12 +29,12 @@ const Header = ({email, statusAuth, onLogoutSubmit, logHistory}) => {
                     </Link>
                     <div style={{marginTop: `20px`}}>
                       <a>
-                        <span onClick={() => onLogoutSubmit()} className="header__user-name user__name">Выйти</span>
+                        <span onClick={handleLogoutSubmit} className="header__user-name user__name">Выйти</span>
                       </a>
                     </div>
                   </>
                   :
-                  <Link to={`/login`} onClick={() => logHistory(location.pathname)} className="header__logo-link header__logo-link--active">
+                  <Link to={`/login`} onClick={handleLogHistory(location.pathname)} className="header__logo-link header__logo-link--active">
                     <span className="header__user-name user__name">Войти</span>
                   </Link>
                 }
@@ -50,15 +50,15 @@ const Header = ({email, statusAuth, onLogoutSubmit, logHistory}) => {
 Header.propTypes = {
   email: PropTypes.string,
   statusAuth: PropTypes.string.isRequired,
-  onLogoutSubmit: PropTypes.func.isRequired,
-  logHistory: PropTypes.func,
+  handleLogoutSubmit: PropTypes.func.isRequired,
+  handleLogHistory: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onLogoutSubmit() {
+  handleLogoutSubmit() {
     dispatch(logout());
   },
-  logHistory(path) {
+  handleLogHistory(path) {
     dispatch(ActionCreator.saveHistory(path));
   }
 });
@@ -69,4 +69,4 @@ const mapStateToProps = (state) => ({
 });
 
 export {Header};
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default React.memo(connect(mapStateToProps, mapDispatchToProps)(Header));

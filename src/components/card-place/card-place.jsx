@@ -17,10 +17,8 @@ const CardPlace = ({
   changeFavoritesStatusDispatch,
   handleLoadDataClick,
   isNotUpdateRoom,
-  responseFavorites,
   needChangeMarker,
 }) => {
-  console.log('RENDER CARD_OFFER');
   const handleMouseOver = (event) => {
     if (!needChangeMarker) {
       return;
@@ -32,7 +30,7 @@ const CardPlace = ({
   const handleClick = (event) => {
     const idCard = Number(event.currentTarget.id);
     const status = Number(event.currentTarget.dataset.status);
-    changeFavoritesStatusDispatch(idCard, status, isNotUpdateRoom, responseFavorites);
+    changeFavoritesStatusDispatch(idCard, status, isNotUpdateRoom);
   };
 
   return <article onMouseOver={handleMouseOver} id={id} className="cities__place-card place-card">
@@ -94,28 +92,22 @@ CardPlace.propTypes = {
   offer: PropTypes.shape(
       propTypesCard.isRequired,
   ),
-  responseFavorites: PropTypes.arrayOf(
-      PropTypes.shape(
-          propTypesCard,
-      ),
-  ),
 };
 
 const mapStateToProps = (state) => ({
   cityChecked: state.cityChecked,
   isDataLoaded: state.isDataLoaded,
   offers: state.offers,
-  responseFavorites: state.responseFavorites,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   saveOfferId(id) {
     dispatch(ActionCreator.saveActiveIdForMap(id));
   },
-  changeFavoritesStatusDispatch(id, status, isNotUpdateRoom, responseFavorites) {
-    dispatch(changeFavoriteStatus(id, status, isNotUpdateRoom, responseFavorites));
+  changeFavoritesStatusDispatch(id, status, isNotUpdateRoom) {
+    dispatch(changeFavoriteStatus(id, status, isNotUpdateRoom));
   },
 });
 
 export {CardPlace};
-export default connect(mapStateToProps, mapDispatchToProps)(CardPlace);
+export default React.memo(connect(mapStateToProps, mapDispatchToProps)(CardPlace));

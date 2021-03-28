@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useCallback} from 'react';
 import PropTypes from 'prop-types';
 import CardsList from '/src/components/cards-list/cards-list';
 import {propTypesCard} from '/src/prop-types';
@@ -21,78 +21,85 @@ const MainScreen = ({
   isShow,
   responseFavorites,
 }) => {
-console.log('RENDER APP');
+
   useEffect(() => {
     if (!isDataLoaded) {
       onLoadData();
     }
   }, [isDataLoaded]);
 
+  const getOffers = useCallback(
+      () => {
+        let filteredOffersOnCity = offers.filter((offer) => offer.city.name === cityChecked);
+        const sortByPriceLowToHigth = () => {
+          sortOffersData.sort((a, b) => a.price > b.price ? ONE : INDEXOF_FAIL_CODE);
+        };
+        const sortByHigthToLow = (property) => {
+          sortOffersData.sort((a, b) => a[property] < b[property] ? ONE : INDEXOF_FAIL_CODE);
+        };
+        let sortOffersData = filteredOffersOnCity;
+
+        const sortOffersFunc = () => {
+          switch (sortId) {
+            case sectionsId.popular :
+              return filteredOffersOnCity;
+            case sectionsId.highToLow :
+              sortByPriceLowToHigth(sortOffersData);
+              return sortOffersData;
+            case sectionsId.lowToHigh :
+              sortByHigthToLow(`price`);
+              return sortOffersData;
+            case sectionsId.rate :
+              sortByHigthToLow(`rating`);
+              return sortOffersData;
+            default: {
+              return filteredOffersOnCity;
+            }
+          }
+        };
+
+        sortOffersData = sortOffersFunc();
+        if (responseFavorites.length) {
+          responseFavorites.forEach((favorite) => {
+            filteredOffersOnCity = filteredOffersOnCity.map((offer) => {
+              if (offer.id === favorite.id) {
+                return favorite;
+              }
+              return offer;
+            });
+          });
+        }
+        return filteredOffersOnCity;
+      }, [offers, sortId, cityChecked, responseFavorites]
+  );
+
   if (!isDataLoaded) {
     return (
       <LoadingScreen />
     );
   }
-  let filteredOffersOnCity = offers.filter((offer) => offer.city.name === cityChecked);
-  const sortByPriceLowToHigth = () => {
-    sortOffersData.sort((a, b) => a.price > b.price ? ONE : INDEXOF_FAIL_CODE);
-  };
-  const sortByHigthToLow = (property) => {
-    sortOffersData.sort((a, b) => a[property] < b[property] ? ONE : INDEXOF_FAIL_CODE);
-  };
-  let sortOffersData = filteredOffersOnCity;
 
-  const sortOffersFunc = () => {
-    switch (sortId) {
-      case sectionsId.popular :
-        return filteredOffersOnCity;
-      case sectionsId.highToLow :
-        sortByPriceLowToHigth(sortOffersData);
-        return sortOffersData;
-      case sectionsId.lowToHigh :
-        sortByHigthToLow(`price`);
-        return sortOffersData;
-      case sectionsId.rate :
-        sortByHigthToLow(`rating`);
-        return sortOffersData;
-      default: {
-        return filteredOffersOnCity;
-      }
-    }
-  };
-
-  sortOffersData = sortOffersFunc();
-
-  if (responseFavorites.length) {
-    responseFavorites.forEach((favorite) => {
-      filteredOffersOnCity = filteredOffersOnCity.map((offer) => {
-        if (offer.id === favorite.id) {
-          return favorite;
-        }
-        return offer;
-      });
-    });
-  }
-
-  return <div className="page page--gray page--main">
+  return (<div className="page page--gray page--main">
     <Header/>
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
-        <CityPanel />
+        <CityPanel
+          cityChecked={cityChecked}
+        />
       </div>
       <div className="cities">
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{filteredOffersOnCity.length} places to stay in {cityChecked}</b>
+            <b className="places__found">{getOffers().length} places to stay in {cityChecked}</b>
             <Filter
               sortId={sortId}
               isShow={isShow}
             />
             <div className="cities__places-list places__list tabs__content">
               <CardsList
-                offers={filteredOffersOnCity}
+                getOffers={getOffers}
                 isNotUpdateRoom={false}
                 needChangeMarker={true}
               />
@@ -100,7 +107,7 @@ console.log('RENDER APP');
           </section>
           <div className="cities__right-section">
             <Map
-              offers={filteredOffersOnCity}
+              getOffers={getOffers}
               styleMap={styleMapMain}
             />
           </div>
@@ -108,7 +115,8 @@ console.log('RENDER APP');
       </div>
     </main>
     <Footer/>
-  </div>;
+  </div>
+  );
 };
 
 MainScreen.propTypes = {

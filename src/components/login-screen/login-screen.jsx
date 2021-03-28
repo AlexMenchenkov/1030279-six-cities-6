@@ -5,7 +5,8 @@ import {login} from '/src/store/api-actions';
 import {AppRoute, AuthorizationStatus} from '/src/consts';
 import {Redirect} from "react-router-dom";
 
-const Login = ({onAuthSubmit, statusAuth}) => {
+const LoginScreen = ({onAuthSubmit, statusAuth}) => {
+
   if (statusAuth === AuthorizationStatus.AUTH) {
     return (
       <Redirect to={AppRoute.ROOT}/>
@@ -55,7 +56,7 @@ const Login = ({onAuthSubmit, statusAuth}) => {
   );
 };
 
-Login.propTypes = {
+LoginScreen.propTypes = {
   onAuthSubmit: PropTypes.func.isRequired,
   statusAuth: PropTypes.string.isRequired,
 };
@@ -70,5 +71,5 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export {Login};
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export {LoginScreen};
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

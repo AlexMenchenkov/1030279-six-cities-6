@@ -3,9 +3,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {ActionCreator} from '/src/store/action';
 
-const CityBrick = ({city, onClickCity, cityChecked}) => {
-  console.log('RENDER BLOCK ', city);
-  const checked = cityChecked === city;
+const CityBrick = ({city, onClickCity, checked}) => {
 
   return (
     <li className="locations__item">
@@ -19,12 +17,9 @@ const CityBrick = ({city, onClickCity, cityChecked}) => {
 CityBrick.propTypes = {
   city: PropTypes.string.isRequired,
   onClickCity: PropTypes.func.isRequired,
-  cityChecked: PropTypes.string.isRequired,
+  cityChecked: PropTypes.string,
+  checked: PropTypes.bool.isRequired,
 };
-
-const mapStateToProps = (state) => ({
-  cityChecked: state.cityChecked,
-});
 
 const mapDispatchToProps = (dispatch) => ({
   onClickCity(event) {
@@ -33,4 +28,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {CityBrick};
-export default connect(mapStateToProps, mapDispatchToProps)(CityBrick);
+export default React.memo(connect(null, mapDispatchToProps)(CityBrick));

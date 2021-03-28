@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {useEffect} from 'react';
 import Header from '/src/components/header/header';
 import Footer from '/src/components/footer/footer';
-import FavoriteCityList from '/src/components/favorite-screen/favorite-city-list';
+import FavoriteCityList from '/src/components/favorite-city-list/favorite-city-list';
 import {propTypesCard} from '/src/prop-types';
 import {connect} from "react-redux";
 import LoadingScreen from '/src/components/loading-screen/loading-screen';

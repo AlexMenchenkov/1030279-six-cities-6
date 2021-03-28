@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 
 const Footer = () => {
-  console.log('RENDER FOOTER');
+
   return (
     <footer className="footer container">
       <Link to={`/`} className="footer__logo-link">
@@ -12,4 +12,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default React.memo(Footer);

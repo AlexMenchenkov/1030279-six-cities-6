@@ -44,11 +44,11 @@ export const fetchFavoritesList = () => (dispatch, _getState, api) => (
     })
 );
 
-export const changeFavoriteStatus = (id, status, isNotUpdateRoom, responseFavorites) => (dispatch, _getState, api) => (
+export const changeFavoriteStatus = (id, status, isNotUpdateRoom) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.FAVORITES}/${id}/${status}`)
     .then(({data}) => {
       const offer = dataMappingOffers(data);
-      responseFavorites = responseFavorites.filter((favoriteOffer) => favoriteOffer.id !== offer.id);
+      const responseFavorites = _getState().responseFavorites.filter((favoriteOffer) => favoriteOffer.id !== offer.id);
       responseFavorites.push(offer);
       dispatch(ActionCreator.changeFavoritesStatus({responseFavorites, isNotUpdateRoom}));
     })

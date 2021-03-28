@@ -5,7 +5,7 @@ import {propTypesCard} from '/src/prop-types';
 import FavoritesScreen from '/src/components/favorite-screen/favorite-screen';
 import NotFoundScreen from '/src/components/not-found-screen/notFoundScreen';
 import RoomScreen from '/src/components/room-screen/room-screen';
-import Login from '/src/components/login/login';
+import Login from '/src/components/login-screen/login-screen';
 import {Router as BrowserRouter, Route, Switch} from 'react-router-dom';
 import {AppRoute} from '/src/consts';
 import PrivateRoute from '/src/components/private-router/private-router';

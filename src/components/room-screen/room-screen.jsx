@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, {useEffect} from 'react';
+import React, {useEffect, useCallback} from 'react';
 import Header from '/src/components/header/header';
 import ReviewBlock from '/src/components/review-block/review-block';
 import {connect} from "react-redux";
@@ -24,8 +24,9 @@ const RoomScreen = ({
   responseFavorites,
   changeFavoritesStatusDispatch,
 }) => {
+
   const offerId = Number(window.location.pathname.split(`/`)[THIRD_ITEM_IN_PATH]);
-  const handleLoadDataClick = (event) => {
+  const handleLoadDataClick = useCallback((event) => {
     const id = Number(event.currentTarget.getAttribute(`href`).split(`/`)[THIRD_ITEM_IN_PATH]);
     onLoadData(id);
     onLoadComments(id);
@@ -34,7 +35,7 @@ const RoomScreen = ({
       left: ZERO,
       behavior: `smooth`
     });
-  };
+  }, [offerNearby]);
 
   const handleAddFavoriteClick = (event) => {
     const status = Number(event.currentTarget.dataset.status);
@@ -52,26 +53,33 @@ const RoomScreen = ({
     };
   }, []);
 
+  const getNearOffers = useCallback(() => offerNearby, [offerNearby]);
+
   if (!isRoomLoaded || (!isCommentsLoaded || !isNearbyLoaded)) {
     return (
       <LoadingScreen />
     );
   }
-  let offersForCardList = offerNearby.filter((room) => room.id !== offer.id);
 
-  if (responseFavorites.length) {
-    responseFavorites.forEach((favorite) => {
-      offersForCardList = offersForCardList.map((offerForCard) => {
-        if (offerForCard.id === favorite.id) {
-          return favorite;
-        }
-        return offerForCard;
+  const getOffers = () => {
+    let offersForCardList = offerNearby.filter((room) => room.id !== offer.id);
+
+    if (responseFavorites.length) {
+      responseFavorites.forEach((favorite) => {
+        offersForCardList = offersForCardList.map((offerForCard) => {
+          if (offerForCard.id === favorite.id) {
+            return favorite;
+          }
+          return offerForCard;
+        });
       });
-    });
-    const offerUpFavorite = responseFavorites.filter((elem) => elem.id === offer.id);
-    if (offerUpFavorite.length) {
-      offer = offerUpFavorite[ZERO];
     }
+    return offersForCardList;
+  };
+
+  const offerUpFavorite = responseFavorites.filter((elem) => elem.id === offer.id);
+  if (offerUpFavorite.length) {
+    offer = offerUpFavorite[ZERO];
   }
 
   return (
@@ -161,7 +169,7 @@ const RoomScreen = ({
           </div>
           <section className="property__map map">
             <Map
-              offers={offerNearby}
+              getOffers={getNearOffers}
               styleMap={styleMapRoom}
               roomId={offerId}
             />
@@ -172,7 +180,7 @@ const RoomScreen = ({
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               <CardsList
-                offers={offersForCardList}
+                getOffers={getOffers}
                 handleLoadDataClick={handleLoadDataClick}
                 isNotUpdateRoom={true}
                 needChangeMarker={false}

@@ -1,9 +1,9 @@
-import PropTypes from "prop-types";
 import React, {useRef, useEffect} from 'react';
 import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
 import {connect} from "react-redux";
 import {iconData, iconDataOrange, ONE, ZERO} from '/src/consts';
+import {props} from './map-prop';
 
 const Map = ({getOffers, activeIdForMap, styleMap, roomId}) => {
 
@@ -62,18 +62,7 @@ const Map = ({getOffers, activeIdForMap, styleMap, roomId}) => {
   return (<div id="map" style={styleMap} />);
 };
 
-Map.propTypes = {
-  getOffers: PropTypes.func,
-  styleMap: PropTypes.shape(
-      {
-        width: PropTypes.string.isRequired,
-        height: PropTypes.string.isRequired,
-        margin: PropTypes.string,
-      },
-  ),
-  activeIdForMap: PropTypes.number,
-  roomId: PropTypes.number,
-};
+Map.propTypes = props;
 
 const mapStateToProps = (state) => ({
   activeIdForMap: state.activeIdForMap,

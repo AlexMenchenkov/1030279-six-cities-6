@@ -1,4 +1,5 @@
 import {ActionType} from '/src/store/action';
+import {ZERO} from '/src/consts.js';
 
 const initialState = {
   cityChecked: `Paris`,
@@ -10,7 +11,7 @@ const initialState = {
   activeIdForMap: null,
   history: `/`,
   isCommentsLoaded: false,
-  sortId: 0,
+  sortId: ZERO,
   isShow: false,
   responseFavorites: [],
 };

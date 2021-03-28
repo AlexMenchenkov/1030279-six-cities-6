@@ -1,15 +1,14 @@
-import PropTypes from "prop-types";
 import React, {useEffect, useCallback} from 'react';
 import Header from '/src/components/header/header';
 import ReviewBlock from '/src/components/review-block/review-block';
 import {connect} from "react-redux";
-import {propTypesCard, propTypesComments} from '/src/prop-types';
 import {fetchActiveIdForMap, getComments, fetchNearbyOffers, changeFavoriteStatus} from '/src/store/api-actions';
 import {ZERO, FACTOR_RATE, styleMapRoom, THIRD_ITEM_IN_PATH} from '/src/consts';
 import LoadingScreen from '/src/components/loading-screen/loading-screen';
 import Map from '/src/components/map/map';
 import CardsList from '/src/components/cards-list/cards-list';
-import {ActionCreator} from '/src/store/action';
+import {clearDataRoom} from '/src/store/action';
+import {props} from './room-screen-prop';
 
 const RoomScreen = ({
   offer,
@@ -193,33 +192,7 @@ const RoomScreen = ({
   );
 };
 
-RoomScreen.propTypes = {
-  offerNearby: PropTypes.arrayOf(
-      PropTypes.shape(
-          propTypesCard,
-      ),
-  ),
-  offer: PropTypes.shape(
-      propTypesCard,
-  ),
-  responseFavorites: PropTypes.arrayOf(
-      PropTypes.shape(
-          propTypesCard,
-      ),
-  ),
-  isRoomLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired,
-  clearDataRoomDispatch: PropTypes.func.isRequired,
-  onLoadComments: PropTypes.func.isRequired,
-  isCommentsLoaded: PropTypes.bool.isRequired,
-  isNearbyLoaded: PropTypes.bool.isRequired,
-  changeFavoritesStatusDispatch: PropTypes.func.isRequired,
-  comments: PropTypes.arrayOf(
-      PropTypes.shape(
-          propTypesComments
-      ),
-  ),
-};
+RoomScreen.propTypes = props;
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
@@ -242,7 +215,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(getComments(offerId));
   },
   clearDataRoomDispatch(needChangeMarker) {
-    dispatch(ActionCreator.clearDataRoom(needChangeMarker));
+    dispatch(clearDataRoom(needChangeMarker));
   },
   changeFavoritesStatusDispatch(id, status, isNotUpdateRoom, responseFavorites) {
     dispatch(changeFavoriteStatus(id, status, isNotUpdateRoom, responseFavorites));

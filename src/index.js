@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '/src/components/app/app';
 import {createAPI} from '/src/api/api';
-import {ActionCreator} from '/src/store/action';
+import {requireAuthorization} from '/src/store/action';
 import {AuthorizationStatus} from '/src/consts';
 import {checkAuth} from '/src/store/api-actions';
 import {redirect} from '/src/store/middlewares/redirect';
@@ -13,7 +13,7 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
 const api = createAPI(
-    () => store.dispatch(ActionCreator.requireAuthorization({
+    () => store.dispatch(requireAuthorization({
       auth: AuthorizationStatus.NO_AUTH,
       checkedAuth: true,
     }))

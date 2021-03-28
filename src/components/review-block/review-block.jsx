@@ -1,11 +1,10 @@
-import PropTypes from "prop-types";
 import React from 'react';
 import Review from '/src/components/review/review';
-import {propTypesReview} from '/src/prop-types';
 import SelfReview from '/src/components/self-review/self-review';
 import {AuthorizationStatus} from '/src/consts';
 import {connect} from "react-redux";
 import LoadingScreen from '/src/components/loading-screen/loading-screen';
+import {props} from './reviwe-block-prop';
 
 const ReviewBlock = ({comments, checkedAuth, statusAuth}) => {
 
@@ -31,15 +30,7 @@ const ReviewBlock = ({comments, checkedAuth, statusAuth}) => {
   );
 };
 
-ReviewBlock.propTypes = {
-  comments: PropTypes.arrayOf(
-      PropTypes.shape(
-          propTypesReview.isRequired,
-      ),
-  ).isRequired,
-  statusAuth: PropTypes.string.isRequired,
-  checkedAuth: PropTypes.bool.isRequired,
-};
+ReviewBlock.propTypes = props;
 
 const mapStateToProps = (state) => ({
   statusAuth: state.statusAuth,

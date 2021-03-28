@@ -1,12 +1,11 @@
-import PropTypes from 'prop-types';
 import React, {useEffect} from 'react';
 import Header from '/src/components/header/header';
 import Footer from '/src/components/footer/footer';
 import FavoriteCityList from '/src/components/favorite-city-list/favorite-city-list';
-import {propTypesCard} from '/src/prop-types';
 import {connect} from "react-redux";
 import LoadingScreen from '/src/components/loading-screen/loading-screen';
 import {fetchFavoritesList} from '/src/store/api-actions';
+import {props} from './favorite-screen-prop';
 
 const FavoritesScreen = ({favoritesList, isFavoritesLoaded, onLoadFavorites, responseFavorites}) => {
 
@@ -64,20 +63,7 @@ const FavoritesScreen = ({favoritesList, isFavoritesLoaded, onLoadFavorites, res
   );
 };
 
-FavoritesScreen.propTypes = {
-  favoritesList: PropTypes.arrayOf(
-      PropTypes.shape(
-          propTypesCard,
-      ),
-  ),
-  responseFavorites: PropTypes.arrayOf(
-      PropTypes.shape(
-          propTypesCard,
-      ),
-  ),
-  isFavoritesLoaded: PropTypes.bool,
-  onLoadFavorites: PropTypes.func.isRequired,
-};
+FavoritesScreen.propTypes = props;
 
 const mapStateToProps = (state) => ({
   favoritesList: state.favoritesList,

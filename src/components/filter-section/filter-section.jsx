@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from 'react';
 import {sectionsNames} from '/src/consts';
 import {connect} from "react-redux";
-import {ActionCreator} from '/src/store/action';
+import {showFilter, sortOffers} from '/src/store/action';
 
 const FilterSection = ({isShow, showFilterDispatch, sortDispatch}) => {
 
@@ -42,10 +42,10 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   showFilterDispatch(isShow) {
-    dispatch(ActionCreator.showFilter(isShow));
+    dispatch(showFilter(isShow));
   },
   sortDispatch(sortId) {
-    dispatch(ActionCreator.sortOffers(sortId));
+    dispatch(sortOffers(sortId));
   }
 });
 

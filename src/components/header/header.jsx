@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {AuthorizationStatus} from '/src/consts';
 import {logout} from '/src/store/api-actions';
-import {ActionCreator} from '/src/store/action';
+import {saveHistory} from '/src/store/action';
 
 const Header = ({email, statusAuth, handleLogoutSubmit, handleLogHistory}) => {
 
@@ -59,7 +59,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(logout());
   },
   handleLogHistory(path) {
-    dispatch(ActionCreator.saveHistory(path));
+    dispatch(saveHistory(path));
   }
 });
 

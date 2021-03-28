@@ -1,11 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
-import {propTypesCard} from '/src/prop-types';
 import {FACTOR_RATE} from '/src/consts';
-import {ActionCreator} from '/src/store/action';
+import {saveActiveIdForMap} from '/src/store/action';
 import {changeFavoriteStatus} from '/src/store/api-actions';
+import {props} from './card-place-prop';
 
 const CardPlace = ({
   offer,
@@ -79,20 +78,7 @@ const CardPlace = ({
   </article>;
 };
 
-CardPlace.propTypes = {
-  maxWidth: PropTypes.number,
-  isNotUpdateRoom: PropTypes.bool,
-  needChangeMarker: PropTypes.bool,
-  width: PropTypes.number,
-  saveOfferId: PropTypes.func.isRequired,
-  handleLoadDataClick: PropTypes.func,
-  changeFavoritesStatusDispatch: PropTypes.func.isRequired,
-  height: PropTypes.number,
-  id: PropTypes.number,
-  offer: PropTypes.shape(
-      propTypesCard.isRequired,
-  ),
-};
+CardPlace.propTypes = props;
 
 const mapStateToProps = (state) => ({
   cityChecked: state.cityChecked,
@@ -102,7 +88,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   saveOfferId(id) {
-    dispatch(ActionCreator.saveActiveIdForMap(id));
+    dispatch(saveActiveIdForMap(id));
   },
   changeFavoritesStatusDispatch(id, status, isNotUpdateRoom) {
     dispatch(changeFavoriteStatus(id, status, isNotUpdateRoom));

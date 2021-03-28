@@ -1,7 +1,5 @@
 import React, {useEffect, useCallback} from 'react';
-import PropTypes from 'prop-types';
 import CardsList from '/src/components/cards-list/cards-list';
-import {propTypesCard} from '/src/prop-types';
 import Header from '/src/components/header/header';
 import Map from '/src/components/map/map';
 import CityPanel from '/src/components/city-panel/city-panel';
@@ -11,6 +9,7 @@ import LoadingScreen from '/src/components/loading-screen/loading-screen';
 import Filter from '/src/components/filter/filter';
 import {ONE, INDEXOF_FAIL_CODE, sectionsId, styleMapMain} from '/src/consts';
 import Footer from '/src/components/footer/footer';
+import {props} from './main-screen-prop';
 
 const MainScreen = ({
   offers,
@@ -119,23 +118,7 @@ const MainScreen = ({
   );
 };
 
-MainScreen.propTypes = {
-  offers: PropTypes.arrayOf(
-      PropTypes.shape(
-          propTypesCard,
-      ),
-  ),
-  responseFavorites: PropTypes.arrayOf(
-      PropTypes.shape(
-          propTypesCard,
-      ),
-  ),
-  cityChecked: PropTypes.string.isRequired,
-  onLoadData: PropTypes.func.isRequired,
-  isDataLoaded: PropTypes.bool.isRequired,
-  sortId: PropTypes.number.isRequired,
-  isShow: PropTypes.bool.isRequired,
-};
+MainScreen.propTypes = props;
 
 const mapStateToProps = (state) => ({
   cityChecked: state.cityChecked,

@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
 import {getRatingWidth} from '/src/utils';

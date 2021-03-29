@@ -6,15 +6,18 @@ import {iconData, iconDataOrange, ONE, ZERO} from '/src/consts';
 import {getActiveIdForMap} from '/src/store/user/selectors';
 import {props} from './map-prop';
 
-const Map = ({offers, activeIdForMap, styleMap, roomId}) => {
+const Map = ({
+  points,
+  titles,
+  latitude,
+  longitude,
+  coordinatesCity,
+  zoom,
+  activeIdForMap,
+  styleMap,
+  roomId,
+}) => {
   const mapRef = useRef(null);
-  const points = offers.map((offer) => [offer.location, {id: offer.id}]);
-  const location = offers.map((offer) => offer.city.location);
-  const titles = offers.map((offer) => offer.title);
-  const coordinatesCity = location.filter(((offer) => ({id}) => !offer.has(id) && offer.add(id))(new Set()));
-  const [latitude] = coordinatesCity.map((offer) => offer.latitude);
-  const [longitude] = coordinatesCity.map((offer) => offer.longitude);
-  const [zoom] = coordinatesCity.map((offer) => offer.zoom);
 
   useEffect(() => {
     mapRef.current = leaflet.map(`map`, {

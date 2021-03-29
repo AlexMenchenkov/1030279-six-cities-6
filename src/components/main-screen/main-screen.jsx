@@ -10,17 +10,29 @@ import Filter from '/src/components/filter/filter';
 import {styleMapMain} from '/src/consts';
 import Footer from '/src/components/footer/footer';
 import {props} from './main-screen-prop';
-import {getResponseFavorites, getIsDataLoaded, getOffers} from '/src/store/data/selectors';
-import {getCityChecked, getSortId, getShowFilterPanel} from '/src/store/user/selectors';
+import {
+  getResponseFavorites,
+  getIsDataLoaded,
+  getOffers,
+  getOffersForMap
+} from '/src/store/data/selectors';
+import {
+  getCityChecked,
+  getSortId,
+  getShowFilterPanel,
+  getActiveIdForMap
+} from '/src/store/user/selectors';
 
 const MainScreen = ({
-  storeOffers,
+  offers,
   cityChecked,
   isDataLoaded,
   onLoadData,
   sortId,
   showFilterPanel,
   responseFavorites,
+  offersForMap,
+  activeIdForMap,
 }) => {
 
   useEffect(() => {
@@ -29,7 +41,8 @@ const MainScreen = ({
     }
   }, [isDataLoaded]);
 
-  const offers = useCallback(storeOffers, [storeOffers, sortId, cityChecked, responseFavorites]);
+  offers = useCallback(offers, [isDataLoaded, sortId, cityChecked, responseFavorites]);
+  offersForMap = useCallback(offersForMap, [activeIdForMap, isDataLoaded, cityChecked]);
   if (!isDataLoaded) {
     return (
       <LoadingScreen />
@@ -64,7 +77,12 @@ const MainScreen = ({
           </section>
           <div className="cities__right-section">
             <Map
-              offers={offers}
+              points={offersForMap.points}
+              titles={offersForMap.titles}
+              latitude={offersForMap.latitude}
+              longitude={offersForMap.longitude}
+              zoom={offersForMap.zoom}
+              coordinatesCity={offersForMap.coordinatesCity}
               styleMap={styleMapMain}
             />
           </div>
@@ -81,10 +99,12 @@ MainScreen.propTypes = props;
 const mapStateToProps = (state) => ({
   isDataLoaded: getIsDataLoaded(state),
   responseFavorites: getResponseFavorites(state),
-  storeOffers: getOffers(state),
+  offers: getOffers(state),
+  offersForMap: getOffersForMap(state),
   sortId: getSortId(state),
   cityChecked: getCityChecked(state),
   showFilterPanel: getShowFilterPanel(state),
+  activeIdForMap: getActiveIdForMap(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

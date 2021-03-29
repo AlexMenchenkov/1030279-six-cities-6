@@ -11,7 +11,6 @@ const Map = ({
   titles,
   latitude,
   longitude,
-  coordinatesCity,
   zoom,
   activeIdForMap,
   styleMap,
@@ -59,7 +58,7 @@ const Map = ({
     return () => {
       mapRef.current.remove();
     };
-  }, [coordinatesCity]);
+  }, [latitude, longitude, activeIdForMap]);
 
   return (<div id="map" style={styleMap} />);
 };

@@ -43,6 +43,7 @@ const MainScreen = ({
 
   offers = useCallback(offers, [isDataLoaded, sortId, cityChecked, responseFavorites]);
   offersForMap = useCallback(offersForMap, [activeIdForMap, isDataLoaded, cityChecked]);
+
   if (!isDataLoaded) {
     return (
       <LoadingScreen />
@@ -82,7 +83,6 @@ const MainScreen = ({
               latitude={offersForMap.latitude}
               longitude={offersForMap.longitude}
               zoom={offersForMap.zoom}
-              coordinatesCity={offersForMap.coordinatesCity}
               styleMap={styleMapMain}
             />
           </div>

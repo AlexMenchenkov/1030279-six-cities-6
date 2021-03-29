@@ -1,12 +1,6 @@
 import PropTypes from "prop-types";
-import {propTypesCard} from '/src/prop-types';
 
 export const props = {
-  offers: PropTypes.arrayOf(
-      PropTypes.shape(
-          propTypesCard,
-      ),
-  ),
   styleMap: PropTypes.shape(
       {
         width: PropTypes.string.isRequired,
@@ -16,4 +10,9 @@ export const props = {
   ),
   activeIdForMap: PropTypes.number,
   roomId: PropTypes.number,
+  points: PropTypes.array,
+  titles: PropTypes.array,
+  latitude: PropTypes.number,
+  longitude: PropTypes.number,
+  zoom: PropTypes.number,
 };

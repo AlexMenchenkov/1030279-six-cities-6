@@ -19,7 +19,6 @@ export const getOffersForMap = (state) => {
     latitude,
     longitude,
     zoom,
-    coordinatesCity,
   };
 };
 

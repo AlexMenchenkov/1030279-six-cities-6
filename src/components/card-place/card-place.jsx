@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
-import {FACTOR_RATE} from '/src/consts';
+import {getRatingWidth} from '/src/utils';
 import {saveActiveIdForMap} from '/src/store/action';
 import {changeFavoriteStatus} from '/src/store/api-actions';
 import {props} from './card-place-prop';
@@ -65,7 +65,7 @@ const CardPlace = ({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${Math.round(offer.rating) * FACTOR_RATE}%`}}> </span>
+            <span style={{width: getRatingWidth(offer.rating)}}> </span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
-import {FACTOR_RATE} from '/src/consts';
 import {props} from './review-prop';
+import {getRatingWidth} from '/src/utils';
 
 const Review = ({review}) => {
 
@@ -19,7 +19,7 @@ const Review = ({review}) => {
         <div className="reviews__info">
           <div className="reviews__rating rating">
             <div className="reviews__stars rating__stars">
-              <span style={{width: Math.round(review.rating) * FACTOR_RATE}}/>
+              <span style={{width: getRatingWidth(review.rating)}}/>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>

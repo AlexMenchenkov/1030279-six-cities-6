@@ -3,7 +3,8 @@ import Header from '/src/components/header/header';
 import ReviewBlock from '/src/components/review-block/review-block';
 import {connect} from "react-redux";
 import {fetchActiveIdForMap, getComments, fetchNearbyOffers, changeFavoriteStatus} from '/src/store/api-actions';
-import {ZERO, FACTOR_RATE, styleMapRoom, THIRD_ITEM_IN_PATH} from '/src/consts';
+import {ZERO, styleMapRoom, THIRD_ITEM_IN_PATH} from '/src/consts';
+import {getRatingWidth} from '/src/utils';
 import LoadingScreen from '/src/components/loading-screen/loading-screen';
 import Map from '/src/components/map/map';
 import CardsList from '/src/components/cards-list/cards-list';
@@ -116,7 +117,7 @@ const RoomScreen = ({
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `${(Math.round(offer.rating) * FACTOR_RATE)}%`}}/>
+                  <span style={{width: getRatingWidth(offer.rating)}}/>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{Math.round(offer.rating)}</span>

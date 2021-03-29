@@ -1,4 +1,4 @@
-import {sectionsId, ZERO} from '/src/consts.js';
+import {sectionsId, ZERO} from '/src/consts';
 import {nameSpace} from '/src/store/root-reducer';
 import {getCityChecked, getSortId} from '/src/store/user/selectors';
 import {sortByHigthToLow, sortByPriceLowToHigth} from '/src/utils';

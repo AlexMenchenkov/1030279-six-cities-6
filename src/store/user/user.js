@@ -1,5 +1,5 @@
-import {ZERO} from '/src/consts.js';
-import {ActionType} from '/src/store/action.js';
+import {ZERO} from '/src/consts';
+import {ActionType} from '/src/store/action';
 
 const initialState = {
   cityChecked: `Paris`,

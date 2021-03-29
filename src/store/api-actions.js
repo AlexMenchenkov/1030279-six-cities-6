@@ -1,5 +1,5 @@
 import {APIRoute, AuthorizationStatus} from '/src/consts';
-import {AppRoute} from '/src/consts.js';
+import {AppRoute} from '/src/consts';
 import {nameSpace} from '/src/store/root-reducer';
 import {dataMappingOffers, dataMappingUser, dataMappingComments} from '/src/utils';
 import {

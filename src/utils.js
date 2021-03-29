@@ -1,4 +1,4 @@
-import {FACTOR_RATE, INDEXOF_FAIL_CODE, ONE} from '/src/consts.js';
+import {FACTOR_RATE, INDEXOF_FAIL_CODE, ONE} from '/src/consts';
 
 export const sortByPriceLowToHigth = (cardA, cardB) => cardA.price - cardB.price;
 export const sortByHigthToLow = (property) => (cardA, cardB) => cardA[property] < cardB[property] ? ONE : INDEXOF_FAIL_CODE;

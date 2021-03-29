@@ -1,4 +1,4 @@
-import {ActionType} from '/src/store/action.js';
+import {ActionType} from '/src/store/action';
 
 const initialState = {
   offers: [],

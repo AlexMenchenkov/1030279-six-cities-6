@@ -1,4 +1,4 @@
-import {nameSpace} from '/src/store/root-reducer.js';
+import {nameSpace} from '/src/store/root-reducer';
 
 export const getCityChecked = (state) => state[nameSpace.USER].cityChecked;
 export const getSortId = (state) => state[nameSpace.USER].sortId;

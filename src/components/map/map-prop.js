@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import {propTypesCard} from '/src/prop-types.js';
+import {propTypesCard} from '/src/prop-types';
 
 export const props = {
   offers: PropTypes.arrayOf(

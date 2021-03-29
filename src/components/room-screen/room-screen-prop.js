@@ -2,13 +2,18 @@ import PropTypes from "prop-types";
 import {propTypesCard, propTypesComments} from '/src/prop-types';
 
 export const props = {
-  offerNearby: PropTypes.arrayOf(
+  offerNearbyForCardList: PropTypes.arrayOf(
       PropTypes.shape(
           propTypesCard,
       ),
   ),
   offer: PropTypes.shape(
       propTypesCard,
+  ),
+  offerNearbyStore: PropTypes.arrayOf(
+      PropTypes.shape(
+          propTypesCard,
+      ),
   ),
   responseFavorites: PropTypes.arrayOf(
       PropTypes.shape(

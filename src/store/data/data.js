@@ -7,7 +7,14 @@ const initialState = {
   isRoomLoaded: false,
   isCommentsLoaded: false,
   responseFavorites: [],
-  data: {},
+  data: {
+    avatarUrl: ``,
+    isPro: false,
+    id: null,
+    email: ``,
+    name: ``,
+  },
+  offerNearby: [],
 };
 
 const data = (state = initialState, action) => {

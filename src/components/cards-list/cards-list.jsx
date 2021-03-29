@@ -2,9 +2,9 @@ import React from 'react';
 import CardPlace from '/src/components/card-place/card-place';
 import {props} from './card-list-prop';
 
-const CardsList = ({handleLoadDataClick, isNotUpdateRoom, needChangeMarker, getOffers}) => {
+const CardsList = ({handleLoadDataClick, isNotUpdateRoom, needChangeMarker, offers}) => {
   return (<>
-    {getOffers().map((offer) => {
+    {offers.map((offer) => {
       return (
         <CardPlace
           offer={offer}

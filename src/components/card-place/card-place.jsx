@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
 import {getRatingWidth} from '/src/utils';
 import {saveActiveIdForMap} from '/src/store/action';
 import {changeFavoriteStatus} from '/src/store/api-actions';
+import {getIsDataLoaded} from '/src/store/data/selectors';
+import {getCityChecked} from '/src/store/user/selectors';
 import {props} from './card-place-prop';
 
 const CardPlace = ({
@@ -80,10 +82,9 @@ const CardPlace = ({
 
 CardPlace.propTypes = props;
 
-const mapStateToProps = ({USER, DATA}) => ({
-  cityChecked: USER.cityChecked,
-  isDataLoaded: DATA.isDataLoaded,
-  offers: DATA.offers,
+const mapStateToProps = (state) => ({
+  cityChecked: getCityChecked(state),
+  isDataLoaded: getIsDataLoaded(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

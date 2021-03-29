@@ -1,7 +1,12 @@
 import PropTypes from "prop-types";
+import {propTypesCard} from '/src/prop-types.js';
 
 export const props = {
-  getOffers: PropTypes.func,
+  offers: PropTypes.arrayOf(
+      PropTypes.shape(
+          propTypesCard,
+      ),
+  ),
   styleMap: PropTypes.shape(
       {
         width: PropTypes.string.isRequired,

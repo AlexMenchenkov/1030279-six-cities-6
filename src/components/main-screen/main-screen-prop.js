@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import {propTypesCard} from '/src/prop-types';
 
 export const props = {
-  offers: PropTypes.arrayOf(
+  storeOffers: PropTypes.arrayOf(
       PropTypes.shape(
           propTypesCard,
       ),

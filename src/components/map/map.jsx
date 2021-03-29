@@ -3,12 +3,11 @@ import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
 import {connect} from "react-redux";
 import {iconData, iconDataOrange, ONE, ZERO} from '/src/consts';
+import {getActiveIdForMap} from '/src/store/user/selectors';
 import {props} from './map-prop';
 
-const Map = ({getOffers, activeIdForMap, styleMap, roomId}) => {
-
+const Map = ({offers, activeIdForMap, styleMap, roomId}) => {
   const mapRef = useRef(null);
-  const offers = getOffers();
   const points = offers.map((offer) => [offer.location, {id: offer.id}]);
   const location = offers.map((offer) => offer.city.location);
   const titles = offers.map((offer) => offer.title);
@@ -64,9 +63,9 @@ const Map = ({getOffers, activeIdForMap, styleMap, roomId}) => {
 
 Map.propTypes = props;
 
-const mapStateToProps = ({USER}) => ({
-  activeIdForMap: USER.activeIdForMap,
+const mapStateToProps = (state) => ({
+  activeIdForMap: getActiveIdForMap(state),
 });
 
 export {Map};
-export default connect(mapStateToProps)(Map);
+export default React.memo(connect(mapStateToProps)(Map));

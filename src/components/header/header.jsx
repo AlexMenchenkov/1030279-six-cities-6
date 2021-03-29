@@ -5,6 +5,8 @@ import {AuthorizationStatus} from '/src/consts';
 import {logout} from '/src/store/api-actions';
 import {saveHistory} from '/src/store/action';
 import {props} from './header-prop';
+import {getStatusAuth} from '/src/store/user/selectors';
+import {getEmail} from '/src/store/data/selectors';
 
 const Header = ({email, statusAuth, handleLogoutSubmit, handleLogHistory}) => {
 
@@ -34,7 +36,7 @@ const Header = ({email, statusAuth, handleLogoutSubmit, handleLogHistory}) => {
                     </div>
                   </>
                   :
-                  <Link to={`/login`} onClick={handleLogHistory(location.pathname)} className="header__logo-link header__logo-link--active">
+                  <Link to={`/login`} onClick={() => handleLogHistory(location.pathname)} className="header__logo-link header__logo-link--active">
                     <span className="header__user-name user__name">Войти</span>
                   </Link>
                 }
@@ -58,9 +60,9 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-const mapStateToProps = ({DATA, USER}) => ({
-  email: DATA.data.email,
-  statusAuth: USER.statusAuth,
+const mapStateToProps = (state) => ({
+  email: getEmail(state),
+  statusAuth: getStatusAuth(state),
 });
 
 export {Header};

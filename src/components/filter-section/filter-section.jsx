@@ -3,6 +3,7 @@ import {sectionsNames} from '/src/consts';
 import {connect} from "react-redux";
 import {showFilter, sortOffers} from '/src/store/action';
 import {props} from './filter-section-prop';
+import {getSortId} from '/src/store/user/selectors';
 
 const FilterSection = ({showFilterPanel, showFilterDispatch, sortDispatch}) => {
 
@@ -32,8 +33,8 @@ const FilterSection = ({showFilterPanel, showFilterDispatch, sortDispatch}) => {
 
 FilterSection.propTypes = props;
 
-const mapStateToProps = ({USER}) => ({
-  sortId: USER.sortId,
+const mapStateToProps = (state) => ({
+  sortId: getSortId(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

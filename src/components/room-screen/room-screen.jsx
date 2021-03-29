@@ -9,11 +9,21 @@ import LoadingScreen from '/src/components/loading-screen/loading-screen';
 import Map from '/src/components/map/map';
 import CardsList from '/src/components/cards-list/cards-list';
 import {clearDataRoom} from '/src/store/action';
+import {
+  getIsRoomLoaded,
+  getIsNearbyLoaded,
+  getResponseFavorites,
+  getOffer,
+  getOfferNearby,
+  getCommentsStore,
+  getIsCommentsLoaded,
+  getOfferNearbyForCardList,
+} from '/src/store/data/selectors';
 import {props} from './room-screen-prop';
 
 const RoomScreen = ({
   offer,
-  offerNearby,
+  offerNearbyStore,
   isRoomLoaded,
   onLoadData,
   onLoadComments,
@@ -23,8 +33,8 @@ const RoomScreen = ({
   clearDataRoomDispatch,
   responseFavorites,
   changeFavoritesStatusDispatch,
+  offerNearbyForCardList,
 }) => {
-
   const offerId = Number(window.location.pathname.split(`/`)[THIRD_ITEM_IN_PATH]);
   const handleLoadDataClick = useCallback((event) => {
     const id = Number(event.currentTarget.getAttribute(`href`).split(`/`)[THIRD_ITEM_IN_PATH]);
@@ -35,7 +45,7 @@ const RoomScreen = ({
       left: ZERO,
       behavior: `smooth`
     });
-  }, [offerNearby]);
+  }, [offerNearbyStore]);
 
   const handleAddFavoriteClick = (event) => {
     const status = Number(event.currentTarget.dataset.status);
@@ -53,33 +63,12 @@ const RoomScreen = ({
     };
   }, []);
 
-  const getNearOffers = useCallback(() => offerNearby, [offerNearby]);
+  const offerNearby = useCallback(offerNearbyStore, [offerNearbyStore]);
 
   if (!isRoomLoaded || (!isCommentsLoaded || !isNearbyLoaded)) {
     return (
       <LoadingScreen />
     );
-  }
-
-  const getOffers = () => {
-    let offersForCardList = offerNearby.filter((room) => room.id !== offer.id);
-
-    if (responseFavorites.length) {
-      responseFavorites.forEach((favorite) => {
-        offersForCardList = offersForCardList.map((offerForCard) => {
-          if (offerForCard.id === favorite.id) {
-            return favorite;
-          }
-          return offerForCard;
-        });
-      });
-    }
-    return offersForCardList;
-  };
-
-  const offerUpFavorite = responseFavorites.filter((elem) => elem.id === offer.id);
-  if (offerUpFavorite.length) {
-    offer = offerUpFavorite[ZERO];
   }
 
   return (
@@ -169,7 +158,7 @@ const RoomScreen = ({
           </div>
           <section className="property__map map">
             <Map
-              getOffers={getNearOffers}
+              offers={offerNearby}
               styleMap={styleMapRoom}
               roomId={offerId}
             />
@@ -180,7 +169,7 @@ const RoomScreen = ({
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               <CardsList
-                getOffers={getOffers}
+                offers={offerNearbyForCardList}
                 handleLoadDataClick={handleLoadDataClick}
                 isNotUpdateRoom={true}
                 needChangeMarker={false}
@@ -195,15 +184,15 @@ const RoomScreen = ({
 
 RoomScreen.propTypes = props;
 
-const mapStateToProps = ({DATA}) => ({
-  offers: DATA.offers,
-  isRoomLoaded: DATA.isRoomLoaded,
-  isNearbyLoaded: DATA.isNearbyLoaded,
-  responseFavorites: DATA.responseFavorites,
-  offer: DATA.offer,
-  offerNearby: DATA.offerNearby,
-  comments: DATA.comments,
-  isCommentsLoaded: DATA.isCommentsLoaded,
+const mapStateToProps = (state) => ({
+  isRoomLoaded: getIsRoomLoaded(state),
+  isNearbyLoaded: getIsNearbyLoaded(state),
+  responseFavorites: getResponseFavorites(state),
+  offer: getOffer(state),
+  offerNearbyStore: getOfferNearby(state),
+  comments: getCommentsStore(state),
+  isCommentsLoaded: getIsCommentsLoaded(state),
+  offerNearbyForCardList: getOfferNearbyForCardList(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

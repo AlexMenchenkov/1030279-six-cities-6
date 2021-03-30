@@ -1,32 +1,14 @@
 import {sectionsId, ZERO} from '/src/consts';
 import {nameSpace} from '/src/store/root-reducer';
-import {getCityChecked, getSortId} from '/src/store/user/selectors';
+import {getCityCheckedSelector, getSortIdSelector} from '/src/store/user/selectors';
 import {sortByHigthToLow, sortByPriceLowToHigth} from '/src/utils';
+import {createSelector} from 'reselect';
 
-export const getOffersForMap = (state) => {
-  const offers = getOffers(state);
-  const points = offers.map((offer) => [offer.location, {id: offer.id}]);
-  const location = offers.map((offer) => offer.city.location);
-  const titles = offers.map((offer) => offer.title);
-  const coordinatesCity = location.filter(((offer) => ({id}) => !offer.has(id) && offer.add(id))(new Set()));
-  const [latitude] = coordinatesCity.map((offer) => offer.latitude);
-  const [longitude] = coordinatesCity.map((offer) => offer.longitude);
-  const [zoom] = coordinatesCity.map((offer) => offer.zoom);
-
-  return {
-    points,
-    titles,
-    latitude,
-    longitude,
-    zoom,
-  };
-};
-
-export const getOffers = (state) => {
-  let filteredOffersOnCity = state[nameSpace.DATA].offers.filter((offer) => offer.city.name === getCityChecked(state));
+export const getOffersSelector = (state) => {
+  let filteredOffersOnCity = state[nameSpace.DATA].offers.filter((offer) => offer.city.name === getCityCheckedSelector(state));
   let sortOffersData = filteredOffersOnCity;
   const sortOffersFunc = () => {
-    switch (getSortId(state)) {
+    switch (getSortIdSelector(state)) {
       case sectionsId.popular :
         return filteredOffersOnCity;
       case sectionsId.highToLow :
@@ -42,8 +24,8 @@ export const getOffers = (state) => {
   };
 
   sortOffersData = sortOffersFunc();
-  if (getResponseFavorites(state).length) {
-    getResponseFavorites(state).forEach((favorite) => {
+  if (getResponseFavoritesSelector(state).length) {
+    getResponseFavoritesSelector(state).forEach((favorite) => {
       filteredOffersOnCity = filteredOffersOnCity.map((offer) => {
         if (offer.id === favorite.id) {
           return favorite;
@@ -55,37 +37,77 @@ export const getOffers = (state) => {
   return filteredOffersOnCity;
 };
 
-export const getIsDataLoaded = (state) => state[nameSpace.DATA].isDataLoaded;
-export const getFavoritesList = (state) => state[nameSpace.DATA].favoritesList;
-export const getIsFavoritesLoaded = (state) => state[nameSpace.DATA].isFavoritesLoaded;
-export const getResponseFavorites = (state) => state[nameSpace.DATA].responseFavorites;
-export const getIsNearbyLoaded = (state) => state[nameSpace.DATA].isNearbyLoaded;
+const offersForMapSelector = () => {
+  return (
+    (offers) => {
+      const points = offers.map((offer) => [offer.location, {id: offer.id}]);
+      const location = offers.map((offer) => offer.city.location);
+      const titles = offers.map((offer) => offer.title);
+      const coordinatesCity = location.filter(((offer) => ({id}) => !offer.has(id) && offer.add(id))(new Set()));
+      const [latitude] = coordinatesCity.map((offer) => offer.latitude);
+      const [longitude] = coordinatesCity.map((offer) => offer.longitude);
+      const [zoom] = coordinatesCity.map((offer) => offer.zoom);
 
-export const getOffer = (state) => {
-  const offerUpFavorite = getResponseFavorites(state).filter((elem) => elem.id === state[nameSpace.DATA].offer.id);
+      return {
+        points,
+        titles,
+        latitude,
+        longitude,
+        zoom,
+      };
+    }
+  );
+};
+
+export const getOfferNearbySelector = (state) => state[nameSpace.DATA].offerNearby;
+export const getOffersSelectorForMapMain = createSelector(
+    getOffersSelector,
+    offersForMapSelector,
+    (offers, func) => func(offers)
+);
+
+export const getOffersSelectorForMapRoom = createSelector(
+    getOfferNearbySelector,
+    offersForMapSelector,
+    (offers, func) => func(offers)
+);
+
+export const getIsDataLoadedSelector = (state) => state[nameSpace.DATA].isDataLoaded;
+export const getFavoritesListSelector = (state) => state[nameSpace.DATA].favoritesList;
+export const getIsFavoritesLoadedSelector = (state) => state[nameSpace.DATA].isFavoritesLoaded;
+export const getResponseFavoritesSelector = (state) => state[nameSpace.DATA].responseFavorites;
+export const getIsNearbyLoadedSelector = (state) => state[nameSpace.DATA].isNearbyLoaded;
+
+export const getOfferSelector = (state) => {
+  const offerUpFavorite = getResponseFavoritesSelector(state).filter((elem) => elem.id === state[nameSpace.DATA].offer.id);
   if (offerUpFavorite.length) {
     return offerUpFavorite[ZERO];
   }
   return state[nameSpace.DATA].offer;
 };
 
-export const getIsRoomLoaded = (state) => state[nameSpace.DATA].isRoomLoaded;
-export const getOfferNearby = (state) => state[nameSpace.DATA].offerNearby;
-export const getCommentsStore = (state) => state[nameSpace.DATA].comments;
-export const getIsCommentsLoaded = (state) => state[nameSpace.DATA].isCommentsLoaded;
+export const getIsRoomLoadedSelector = (state) => state[nameSpace.DATA].isRoomLoaded;
+export const getCommentsStoreSelector = (state) => state[nameSpace.DATA].comments;
+export const getIsCommentsLoadedSelector = (state) => state[nameSpace.DATA].isCommentsLoaded;
 
-export const getOfferNearbyForCardList = (state) => {
-  let offersForCardList = getOfferNearby(state).filter((room) => room.id !== getOffer(state).id);
-  if (getResponseFavorites(state).length) {
-    getResponseFavorites(state).forEach((favorite) => {
-      offersForCardList = offersForCardList.map((offerForCard) => {
-        if (offerForCard.id === favorite.id) {
-          return favorite;
-        }
-        return offerForCard;
-      });
-    });
-  }
-  return offersForCardList;
-};
-export const getEmail = (state) => state[nameSpace.DATA].data.email;
+export const getOfferNearbyForCardListSelector = createSelector(
+    getOfferNearbySelector,
+    getOfferSelector,
+    getResponseFavoritesSelector,
+    (offerNearby, offer, responseFavorites) => {
+      let offersForCardList = offerNearby.filter((room) => room.id !== offer.id);
+      if (responseFavorites.length) {
+        responseFavorites.forEach((favorite) => {
+          offersForCardList = offersForCardList.map((offerForCard) => {
+            if (offerForCard.id === favorite.id) {
+              return favorite;
+            }
+            return offerForCard;
+          });
+        });
+      }
+      return offersForCardList;
+    }
+);
+
+export const getEmailSelector = (state) => state[nameSpace.DATA].data.email;

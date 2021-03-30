@@ -10,21 +10,20 @@ import Map from '/src/components/map/map';
 import CardsList from '/src/components/cards-list/cards-list';
 import {clearDataRoom} from '/src/store/action';
 import {
-  getIsRoomLoaded,
-  getIsNearbyLoaded,
-  getResponseFavorites,
-  getOffer,
-  // getOfferNearby,
-  getCommentsStore,
-  getIsCommentsLoaded,
-  getOfferNearbyForCardList,
-  // getOfferNearby1
+  getIsRoomLoadedSelector,
+  getIsNearbyLoadedSelector,
+  getResponseFavoritesSelector,
+  getOfferSelector,
+  getOffersSelectorForMapRoom,
+  getCommentsStoreSelector,
+  getIsCommentsLoadedSelector,
+  getOfferNearbyForCardListSelector,
 } from '/src/store/data/selectors';
 import {props} from './room-screen-prop';
 
 const RoomScreen = ({
   offer,
-  // offerNearby,
+  offerNearby,
   isRoomLoaded,
   onLoadData,
   onLoadComments,
@@ -36,7 +35,9 @@ const RoomScreen = ({
   changeFavoritesStatusDispatch,
   offerNearbyForCardList,
 }) => {
+
   const offerId = Number(window.location.pathname.split(`/`)[THIRD_ITEM_IN_PATH]);
+
   const handleLoadDataClick = useCallback((event) => {
     const id = Number(event.currentTarget.getAttribute(`href`).split(`/`)[THIRD_ITEM_IN_PATH]);
     onLoadData(id);
@@ -46,7 +47,7 @@ const RoomScreen = ({
       left: ZERO,
       behavior: `smooth`
     });
-  // }, [offerNearby]);
+  }, [isRoomLoaded]);
 
   const handleAddFavoriteClick = (event) => {
     const status = Number(event.currentTarget.dataset.status);
@@ -64,7 +65,7 @@ const RoomScreen = ({
     };
   }, []);
 
-  // offerNearby = useCallback(offerNearby, [offerNearby]);
+  offerNearby = useCallback(offerNearby, [isNearbyLoaded]);
 
   if (!isRoomLoaded || (!isCommentsLoaded || !isNearbyLoaded)) {
     return (
@@ -159,12 +160,13 @@ const RoomScreen = ({
           </div>
           <section className="property__map map">
             <Map
-              // points={offerNearby.points}
-              // titles={offerNearby.titles}
-              // latitude={offerNearby.latitude}
-              // longitude={offerNearby.longitude}
-              // zoom={offerNearby.zoom}
+              points={offerNearby.points}
+              titles={offerNearby.titles}
+              latitude={offerNearby.latitude}
+              longitude={offerNearby.longitude}
+              zoom={offerNearby.zoom}
               styleMap={styleMapRoom}
+              roomId={offerId}
             />
           </section>
         </section>
@@ -189,14 +191,14 @@ const RoomScreen = ({
 RoomScreen.propTypes = props;
 
 const mapStateToProps = (state) => ({
-  isRoomLoaded: getIsRoomLoaded(state),
-  isNearbyLoaded: getIsNearbyLoaded(state),
-  responseFavorites: getResponseFavorites(state),
-  offer: getOffer(state),
-  // offerNearby: getOfferNearby1(state),
-  comments: getCommentsStore(state),
-  isCommentsLoaded: getIsCommentsLoaded(state),
-  offerNearbyForCardList: getOfferNearbyForCardList(state),
+  isRoomLoaded: getIsRoomLoadedSelector(state),
+  isNearbyLoaded: getIsNearbyLoadedSelector(state),
+  responseFavorites: getResponseFavoritesSelector(state),
+  offer: getOfferSelector(state),
+  offerNearby: getOffersSelectorForMapRoom(state),
+  comments: getCommentsStoreSelector(state),
+  isCommentsLoaded: getIsCommentsLoadedSelector(state),
+  offerNearbyForCardList: getOfferNearbyForCardListSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

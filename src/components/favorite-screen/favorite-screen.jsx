@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import LoadingScreen from '/src/components/loading-screen/loading-screen';
 import {fetchFavoritesList} from '/src/store/api-actions';
 import {props} from './favorite-screen-prop';
-import {getFavoritesList, getIsFavoritesLoaded, getResponseFavorites} from '/src/store/data/selectors';
+import {getFavoritesListSelector, getIsFavoritesLoadedSelector, getResponseFavoritesSelector} from '/src/store/data/selectors';
 
 const FavoritesScreen = ({favoritesList, isFavoritesLoaded, onLoadFavorites, responseFavorites}) => {
 
@@ -67,9 +67,9 @@ const FavoritesScreen = ({favoritesList, isFavoritesLoaded, onLoadFavorites, res
 FavoritesScreen.propTypes = props;
 
 const mapStateToProps = (state) => ({
-  favoritesList: getFavoritesList(state),
-  isFavoritesLoaded: getIsFavoritesLoaded(state),
-  responseFavorites: getResponseFavorites(state),
+  favoritesList: getFavoritesListSelector(state),
+  isFavoritesLoaded: getIsFavoritesLoadedSelector(state),
+  responseFavorites: getResponseFavoritesSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

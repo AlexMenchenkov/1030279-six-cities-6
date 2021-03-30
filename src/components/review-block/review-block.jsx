@@ -4,7 +4,7 @@ import SelfReview from '/src/components/self-review/self-review';
 import {AuthorizationStatus} from '/src/consts';
 import {connect} from "react-redux";
 import LoadingScreen from '/src/components/loading-screen/loading-screen';
-import {getCheckedAuth, getStatusAuth} from '/src/store/user/selectors';
+import {getCheckedAuthSelector, getStatusAuthSelector} from '/src/store/user/selectors';
 import {props} from './reviwe-block-prop';
 
 const ReviewBlock = ({comments, checkedAuth, statusAuth}) => {
@@ -34,8 +34,8 @@ const ReviewBlock = ({comments, checkedAuth, statusAuth}) => {
 ReviewBlock.propTypes = props;
 
 const mapStateToProps = (state) => ({
-  statusAuth: getStatusAuth(state),
-  checkedAuth: getCheckedAuth(state),
+  statusAuth: getStatusAuthSelector(state),
+  checkedAuth: getCheckedAuthSelector(state),
 });
 
 export {ReviewBlock};

@@ -3,7 +3,7 @@ import RowStars from '/src/components/row-stars/row-stars';
 import {connect} from "react-redux";
 import {sendComment, getComments} from '/src/store/api-actions';
 import {THIRD_ITEM_IN_PATH} from '/src/consts';
-import {getCityChecked} from '/src/store/user/selectors';
+import {getCityCheckedSelector} from '/src/store/user/selectors';
 import {props} from './self-review-prop';
 
 const SelfReview = ({submitReviewDispatch}) => {
@@ -45,7 +45,7 @@ const SelfReview = ({submitReviewDispatch}) => {
 SelfReview.propTypes = props;
 
 const mapStateToProps = (state) => ({
-  cityChecked: getCityChecked(state),
+  cityChecked: getCityCheckedSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -4,8 +4,8 @@ import {Link} from 'react-router-dom';
 import {getRatingWidth} from '/src/utils';
 import {saveActiveIdForMap} from '/src/store/action';
 import {changeFavoriteStatus} from '/src/store/api-actions';
-import {getIsDataLoaded} from '/src/store/data/selectors';
-import {getCityChecked} from '/src/store/user/selectors';
+import {getIsDataLoadedSelector} from '/src/store/data/selectors';
+import {getCityCheckedSelector} from '/src/store/user/selectors';
 import {props} from './card-place-prop';
 
 const CardPlace = ({
@@ -83,8 +83,8 @@ const CardPlace = ({
 CardPlace.propTypes = props;
 
 const mapStateToProps = (state) => ({
-  cityChecked: getCityChecked(state),
-  isDataLoaded: getIsDataLoaded(state),
+  cityChecked: getCityCheckedSelector(state),
+  isDataLoaded: getIsDataLoadedSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

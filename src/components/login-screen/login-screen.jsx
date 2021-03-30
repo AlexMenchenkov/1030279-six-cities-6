@@ -4,7 +4,7 @@ import {login} from '/src/store/api-actions';
 import {AppRoute, AuthorizationStatus} from '/src/consts';
 import {Redirect} from "react-router-dom";
 import {props} from './login-screen-prop';
-import {getStatusAuth} from '/src/store/user/selectors';
+import {getStatusAuthSelector} from '/src/store/user/selectors';
 
 const LoginScreen = ({onAuthSubmit, statusAuth}) => {
 
@@ -60,7 +60,7 @@ const LoginScreen = ({onAuthSubmit, statusAuth}) => {
 LoginScreen.propTypes = props;
 
 const mapStateToProps = (state) => ({
-  statusAuth: getStatusAuth(state),
+  statusAuth: getStatusAuthSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

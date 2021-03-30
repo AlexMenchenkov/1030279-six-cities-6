@@ -11,16 +11,14 @@ import {styleMapMain} from '/src/consts';
 import Footer from '/src/components/footer/footer';
 import {props} from './main-screen-prop';
 import {
-  getResponseFavorites,
-  getIsDataLoaded,
-  getOffers,
-  getOffersForMap
+  getIsDataLoadedSelector,
+  getOffersSelector,
+  getOffersSelectorForMapMain,
 } from '/src/store/data/selectors';
 import {
-  getCityChecked,
-  getSortId,
-  getShowFilterPanel,
-  getActiveIdForMap
+  getCityCheckedSelector,
+  getSortIdSelector,
+  getShowFilterPanelSelector,
 } from '/src/store/user/selectors';
 
 const MainScreen = ({
@@ -30,9 +28,7 @@ const MainScreen = ({
   onLoadData,
   sortId,
   showFilterPanel,
-  responseFavorites,
   offersForMap,
-  activeIdForMap,
 }) => {
 
   useEffect(() => {
@@ -41,8 +37,7 @@ const MainScreen = ({
     }
   }, [isDataLoaded]);
 
-  offers = useCallback(offers, [isDataLoaded, sortId, cityChecked, responseFavorites]);
-  offersForMap = useCallback(offersForMap, [activeIdForMap, isDataLoaded, cityChecked]);
+  offersForMap = useCallback(offersForMap, [isDataLoaded, cityChecked]);
 
   if (!isDataLoaded) {
     return (
@@ -97,14 +92,12 @@ const MainScreen = ({
 MainScreen.propTypes = props;
 
 const mapStateToProps = (state) => ({
-  isDataLoaded: getIsDataLoaded(state),
-  responseFavorites: getResponseFavorites(state),
-  offers: getOffers(state),
-  offersForMap: getOffersForMap(state),
-  sortId: getSortId(state),
-  cityChecked: getCityChecked(state),
-  showFilterPanel: getShowFilterPanel(state),
-  activeIdForMap: getActiveIdForMap(state),
+  isDataLoaded: getIsDataLoadedSelector(state),
+  offers: getOffersSelector(state),
+  offersForMap: getOffersSelectorForMapMain(state),
+  sortId: getSortIdSelector(state),
+  cityChecked: getCityCheckedSelector(state),
+  showFilterPanel: getShowFilterPanelSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

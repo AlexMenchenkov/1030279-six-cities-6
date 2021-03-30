@@ -5,8 +5,8 @@ import {AuthorizationStatus} from '/src/consts';
 import {logout} from '/src/store/api-actions';
 import {saveHistory} from '/src/store/action';
 import {props} from './header-prop';
-import {getStatusAuth} from '/src/store/user/selectors';
-import {getEmail} from '/src/store/data/selectors';
+import {getStatusAuthSelector} from '/src/store/user/selectors';
+import {getEmailSelector} from '/src/store/data/selectors';
 
 const Header = ({email, statusAuth, handleLogoutSubmit, handleLogHistory}) => {
 
@@ -61,8 +61,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  email: getEmail(state),
-  statusAuth: getStatusAuth(state),
+  email: getEmailSelector(state),
+  statusAuth: getStatusAuthSelector(state),
 });
 
 export {Header};

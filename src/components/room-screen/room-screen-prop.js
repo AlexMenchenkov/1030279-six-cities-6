@@ -20,7 +20,7 @@ export const props = {
           propTypesCard,
       ),
   ),
-  isRoomLoaded: PropTypes.bool.isRequired,
+  isRoomLoaded: PropTypes.bool,
   onLoadData: PropTypes.func.isRequired,
   clearDataRoomDispatch: PropTypes.func.isRequired,
   onLoadComments: PropTypes.func.isRequired,

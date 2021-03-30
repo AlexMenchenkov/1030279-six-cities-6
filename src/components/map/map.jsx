@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
 import {connect} from "react-redux";
 import {iconData, iconDataOrange, ONE, ZERO} from '/src/consts';
-import {getActiveIdForMap} from '/src/store/user/selectors';
+import {getActiveIdForMapSelector} from '/src/store/user/selectors';
 import {props} from './map-prop';
 
 const Map = ({
@@ -58,7 +58,7 @@ const Map = ({
     return () => {
       mapRef.current.remove();
     };
-  }, [latitude, longitude, activeIdForMap]);
+  }, [latitude, longitude, activeIdForMap, roomId]);
 
   return (<div id="map" style={styleMap} />);
 };
@@ -66,7 +66,7 @@ const Map = ({
 Map.propTypes = props;
 
 const mapStateToProps = (state) => ({
-  activeIdForMap: getActiveIdForMap(state),
+  activeIdForMap: getActiveIdForMapSelector(state),
 });
 
 export {Map};

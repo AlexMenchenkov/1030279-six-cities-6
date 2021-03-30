@@ -72,19 +72,33 @@ export const getOffersSelectorForMapRoom = createSelector(
     (offers, func) => func(offers)
 );
 
-export const getIsDataLoadedSelector = (state) => state[nameSpace.DATA].isDataLoaded;
-export const getFavoritesListSelector = (state) => state[nameSpace.DATA].favoritesList;
-export const getIsFavoritesLoadedSelector = (state) => state[nameSpace.DATA].isFavoritesLoaded;
 export const getResponseFavoritesSelector = (state) => state[nameSpace.DATA].responseFavorites;
-export const getIsNearbyLoadedSelector = (state) => state[nameSpace.DATA].isNearbyLoaded;
+export const getIsDataLoadedSelector = (state) => state[nameSpace.DATA].isDataLoaded;
+export const getFavoritesSelector = (state) => state[nameSpace.DATA].favoritesList;
+export const getIsFavoritesLoadedSelector = (state) => state[nameSpace.DATA].isFavoritesLoaded;
 
-export const getOfferSelector = (state) => {
-  const offerUpFavorite = getResponseFavoritesSelector(state).filter((elem) => elem.id === state[nameSpace.DATA].offer.id);
-  if (offerUpFavorite.length) {
-    return offerUpFavorite[ZERO];
-  }
-  return state[nameSpace.DATA].offer;
-};
+export const getUniqueCityesSelector = createSelector(
+    getFavoritesSelector,
+    (favoritesList) => {
+      const cityesArray = favoritesList.map((offer) => offer.city.name);
+      return [...new Set(cityesArray)];
+    }
+);
+
+export const getIsNearbyLoadedSelector = (state) => state[nameSpace.DATA].isNearbyLoaded;
+export const getOfferSelector1 = (state) => state[nameSpace.DATA].offer;
+
+export const getOfferSelector = createSelector(
+    getResponseFavoritesSelector,
+    getOfferSelector1,
+    (responseFavorites, offer) => {
+      const offerUpFavorite = responseFavorites.filter((elem) => elem.id === (offer && offer.id));
+      if (offerUpFavorite.length) {
+        return offerUpFavorite[ZERO];
+      }
+      return offer;
+    }
+);
 
 export const getIsRoomLoadedSelector = (state) => state[nameSpace.DATA].isRoomLoaded;
 export const getCommentsStoreSelector = (state) => state[nameSpace.DATA].comments;

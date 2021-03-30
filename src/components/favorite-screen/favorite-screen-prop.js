@@ -13,5 +13,6 @@ export const props = {
       ),
   ),
   isFavoritesLoaded: PropTypes.bool,
+  uniqueCityes: PropTypes.array,
   onLoadFavorites: PropTypes.func.isRequired,
 };

@@ -15,6 +15,7 @@ const initialState = {
     name: ``,
   },
   offerNearby: [],
+  favoritesList: [],
 };
 
 const data = (state = initialState, action) => {

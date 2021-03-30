@@ -2,7 +2,7 @@ import React, {useEffect, useCallback} from 'react';
 import Header from '/src/components/header/header';
 import ReviewBlock from '/src/components/review-block/review-block';
 import {connect} from "react-redux";
-import {fetchActiveIdForMap, getComments, fetchNearbyOffers, changeFavoriteStatus} from '/src/store/api-actions';
+import {fetchLoadOffer, getComments, fetchNearbyOffers, changeFavoriteStatus} from '/src/store/api-actions';
 import {ZERO, styleMapRoom, THIRD_ITEM_IN_PATH} from '/src/consts';
 import {getRatingWidth} from '/src/utils';
 import LoadingScreen from '/src/components/loading-screen/loading-screen';
@@ -203,7 +203,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadData(offerId) {
-    dispatch(fetchActiveIdForMap(offerId))
+    dispatch(fetchLoadOffer(offerId))
       .then(() => dispatch(fetchNearbyOffers(offerId)));
   },
   onLoadComments(offerId) {

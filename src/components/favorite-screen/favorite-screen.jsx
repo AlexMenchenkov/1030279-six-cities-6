@@ -6,9 +6,9 @@ import {connect} from "react-redux";
 import LoadingScreen from '/src/components/loading-screen/loading-screen';
 import {fetchFavoritesList} from '/src/store/api-actions';
 import {props} from './favorite-screen-prop';
-import {getFavoritesListSelector, getIsFavoritesLoadedSelector, getResponseFavoritesSelector} from '/src/store/data/selectors';
+import {getFavoritesSelector, getUniqueCityesSelector, getIsFavoritesLoadedSelector, getResponseFavoritesSelector} from '/src/store/data/selectors';
 
-const FavoritesScreen = ({favoritesList, isFavoritesLoaded, onLoadFavorites, responseFavorites}) => {
+const FavoritesScreen = ({favoritesList, isFavoritesLoaded, onLoadFavorites, responseFavorites, uniqueCityes}) => {
 
   useEffect(() => {
     if (!isFavoritesLoaded || responseFavorites.length) {
@@ -21,21 +21,6 @@ const FavoritesScreen = ({favoritesList, isFavoritesLoaded, onLoadFavorites, res
       <LoadingScreen />
     );
   }
-
-  const cityesArray = favoritesList.map((offer) => offer.city.name);
-  const uniqueCityes = [...new Set(cityesArray)];
-  if (responseFavorites.length) {
-    responseFavorites.forEach((favorite) => {
-      favoritesList = favoritesList.map((offer) => {
-        if (offer.id === favorite.id) {
-          return favorite;
-        }
-        return offer;
-      });
-    });
-  }
-
-  favoritesList = favoritesList.filter((offer) => offer.isFavorite === true);
 
   return (
     <div className="page">
@@ -67,8 +52,9 @@ const FavoritesScreen = ({favoritesList, isFavoritesLoaded, onLoadFavorites, res
 FavoritesScreen.propTypes = props;
 
 const mapStateToProps = (state) => ({
-  favoritesList: getFavoritesListSelector(state),
+  favoritesList: getFavoritesSelector(state),
   isFavoritesLoaded: getIsFavoritesLoadedSelector(state),
+  uniqueCityes: getUniqueCityesSelector(state),
   responseFavorites: getResponseFavoritesSelector(state),
 });
 

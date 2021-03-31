@@ -9,6 +9,7 @@ import LoadingScreen from '/src/components/loading-screen/loading-screen';
 import Filter from '/src/components/filter/filter';
 import {styleMapMain} from '/src/consts';
 import Footer from '/src/components/footer/footer';
+import EmptyBody from '/src/components/empty-body/empty-body.jsx';
 import {props} from './main-screen-prop';
 import {
   getIsDataLoadedSelector,
@@ -55,7 +56,8 @@ const MainScreen = ({
         />
       </div>
       <div className="cities">
-        <div className="cities__places-container container">
+        {!offers.length && <EmptyBody cityChecked={cityChecked}/>}
+        {offers.length && <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{offers.length} places to stay in {cityChecked}</b>
@@ -81,7 +83,7 @@ const MainScreen = ({
               styleMap={styleMapMain}
             />
           </div>
-        </div>
+        </div>}
       </div>
     </main>
     <Footer/>

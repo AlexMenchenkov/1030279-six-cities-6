@@ -36,7 +36,7 @@ const Map = ({
 
     points.forEach((point, index) => {
       let iconActive;
-      if (point[ONE].id === (activeIdForMap || roomId)) {
+      if (point[ONE].id === (roomId || activeIdForMap)) {
         iconActive = iconDataOrange;
       } else {
         iconActive = iconData;

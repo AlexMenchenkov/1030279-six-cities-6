@@ -1,6 +1,6 @@
 import {APIRoute, AuthorizationStatus} from '/src/consts';
 import {AppRoute} from '/src/consts';
-import {nameSpace} from '/src/store/root-reducer';
+import {NameSpace} from '/src/store/root-reducer';
 import {dataMappingOffers, dataMappingUser, dataMappingComments} from '/src/utils';
 import {
   loadOffers,
@@ -35,7 +35,7 @@ export const changeFavoriteStatus = (id, status, isNotUpdateRoom) => (dispatch, 
   api.post(`${APIRoute.FAVORITES}/${id}/${status}`)
     .then(({data}) => {
       const offer = dataMappingOffers(data);
-      const responseFavorites = _getState()[nameSpace.DATA].responseFavorites.filter((favoriteOffer) => favoriteOffer.id !== offer.id);
+      const responseFavorites = _getState()[NameSpace.DATA].responseFavorites.filter((favoriteOffer) => favoriteOffer.id !== offer.id);
       responseFavorites.push(offer);
       dispatch(changeFavoritesStatus({responseFavorites, isNotUpdateRoom}));
     })
@@ -59,7 +59,7 @@ export const fetchNearbyOffers = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.OFFERS}/${id}/nearby`)
     .then(({data}) => {
       const offers = dataMappingOffers(data);
-      dispatch(loadNearbyOffers([...offers, _getState()[nameSpace.DATA].offer]));
+      dispatch(loadNearbyOffers([...offers, _getState()[NameSpace.DATA].offer]));
     })
     .catch(() => {
       location.href = AppRoute.NOT_FOUND;
@@ -83,7 +83,7 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
       auth: AuthorizationStatus.AUTH,
       checkedAuth: true,
     })))
-    .then(() => dispatch(redirectToRoute(_getState()[nameSpace.ROUTE].history)))
+    .then(() => dispatch(redirectToRoute(_getState()[NameSpace.ROUTE].history)))
 );
 
 export const logout = () => (dispatch, _getState, api) => (

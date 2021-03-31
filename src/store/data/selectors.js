@@ -1,11 +1,11 @@
 import {sectionsId, ZERO} from '/src/consts';
-import {nameSpace} from '/src/store/root-reducer';
+import {NameSpace} from '/src/store/root-reducer';
 import {getCityCheckedSelector, getSortIdSelector} from '/src/store/user/selectors';
 import {sortByHigthToLow, sortByPriceLowToHigth} from '/src/utils';
 import {createSelector} from 'reselect';
 
-export const getOffersSelectorOrigin = (state) => state[nameSpace.DATA].offers;
-export const getResponseFavoritesSelector = (state) => state[nameSpace.DATA].responseFavorites;
+export const getOffersSelectorOrigin = (state) => state[NameSpace.DATA].offers;
+export const getResponseFavoritesSelector = (state) => state[NameSpace.DATA].responseFavorites;
 
 export const getOffersSelector = createSelector(
     getOffersSelectorOrigin,
@@ -68,7 +68,7 @@ const offersForMapSelector = () => {
   );
 };
 
-export const getOfferNearbySelector = (state) => state[nameSpace.DATA].offerNearby;
+export const getOfferNearbySelector = (state) => state[NameSpace.DATA].offerNearby;
 export const getOffersSelectorForMapMain = createSelector(
     getOffersSelector,
     offersForMapSelector,
@@ -81,9 +81,9 @@ export const getOffersSelectorForMapRoom = createSelector(
     (offers, func) => func(offers)
 );
 
-export const getIsDataLoadedSelector = (state) => state[nameSpace.DATA].isDataLoaded;
-export const getFavoritesSelector = (state) => state[nameSpace.DATA].favoritesList;
-export const getIsFavoritesLoadedSelector = (state) => state[nameSpace.DATA].isFavoritesLoaded;
+export const getIsDataLoadedSelector = (state) => state[NameSpace.DATA].isDataLoaded;
+export const getFavoritesSelector = (state) => state[NameSpace.DATA].favoritesList;
+export const getIsFavoritesLoadedSelector = (state) => state[NameSpace.DATA].isFavoritesLoaded;
 
 export const getUniqueCityesSelector = createSelector(
     getFavoritesSelector,
@@ -93,8 +93,8 @@ export const getUniqueCityesSelector = createSelector(
     }
 );
 
-export const getIsNearbyLoadedSelector = (state) => state[nameSpace.DATA].isNearbyLoaded;
-export const getOfferSelectorOrigin = (state) => state[nameSpace.DATA].offer;
+export const getIsNearbyLoadedSelector = (state) => state[NameSpace.DATA].isNearbyLoaded;
+export const getOfferSelectorOrigin = (state) => state[NameSpace.DATA].offer;
 
 export const getOfferSelector = createSelector(
     getResponseFavoritesSelector,
@@ -108,9 +108,9 @@ export const getOfferSelector = createSelector(
     }
 );
 
-export const getIsRoomLoadedSelector = (state) => state[nameSpace.DATA].isRoomLoaded;
-export const getCommentsStoreSelector = (state) => state[nameSpace.DATA].comments;
-export const getIsCommentsLoadedSelector = (state) => state[nameSpace.DATA].isCommentsLoaded;
+export const getIsRoomLoadedSelector = (state) => state[NameSpace.DATA].isRoomLoaded;
+export const getCommentsStoreSelector = (state) => state[NameSpace.DATA].comments;
+export const getIsCommentsLoadedSelector = (state) => state[NameSpace.DATA].isCommentsLoaded;
 
 export const getOfferNearbyForCardListSelector = createSelector(
     getOfferNearbySelector,
@@ -132,4 +132,4 @@ export const getOfferNearbyForCardListSelector = createSelector(
     }
 );
 
-export const getEmailSelector = (state) => state[nameSpace.DATA].data.email;
+export const getEmailSelector = (state) => state[NameSpace.DATA].data.email;

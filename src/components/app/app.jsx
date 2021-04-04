@@ -1,15 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import MainScreen from '/src/components/main-screen/main-screen.jsx';
-import {propTypesCard} from '/src/prop-types.js';
-import Favorites from '/src/components/favorites/favorites.jsx';
-import NotFoundScreen from '/src/components/not-found-screen/notFoundScreen.jsx';
-import Room from '/src/components/room/room.jsx';
-import Login from '/src/components/login/login.jsx';
+import MainScreen from '/src/components/main-screen/main-screen';
+import FavoritesScreen from '/src/components/favorite-screen/favorite-screen';
+import NotFoundScreen from '/src/components/not-found-screen/notFoundScreen';
+import RoomScreen from '/src/components/room-screen/room-screen';
+import Login from '/src/components/login-screen/login-screen';
 import {Router as BrowserRouter, Route, Switch} from 'react-router-dom';
-import {AppRoute} from '/src/consts.js';
+import {AppRoute} from '/src/consts';
 import PrivateRoute from '/src/components/private-router/private-router';
-import browserHistory from '/src/browser-history.js';
+import browserHistory from '/src/browser-history';
+import {props as appProps} from './app-prop';
 
 const App = () => {
 
@@ -24,7 +23,7 @@ const App = () => {
         <Route path={AppRoute.OFFER} exact
           render={(props) => (
             <
-              Room
+              RoomScreen
               id={props}
             />
           )}
@@ -40,7 +39,7 @@ const App = () => {
           render={() => {
             return (
               <
-                Favorites
+                FavoritesScreen
               />
             );
           }}
@@ -53,12 +52,6 @@ const App = () => {
   );
 };
 
-App.propTypes = {
-  offers: PropTypes.arrayOf(
-      PropTypes.objectOf(PropTypes.shape(
-          propTypesCard,
-      )),
-  ),
-};
+App.propTypes = appProps;
 
 export default App;

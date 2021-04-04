@@ -1,18 +1,19 @@
-import PropTypes from "prop-types";
 import React from 'react';
-import {sectionsNames} from '/src/consts.js';
+import {sectionsNames} from '/src/consts';
 import {connect} from "react-redux";
-import {ActionCreator} from '/src/store/action.js';
+import {showFilter, sortOffers} from '/src/store/action';
+import {props} from './filter-section-prop';
+import {getSortIdSelector} from '/src/store/user/selectors';
 
-const FilterSection = ({isShow, showFilterDispatch, sortDispatch}) => {
+const FilterSection = ({showFilterPanel, showFilterDispatch, sortDispatch}) => {
 
-  const selectedHandle = (event) => {
+  const handleSortClick = (event) => {
     const sortId = event.currentTarget.tabIndex;
-    showFilterDispatch(!isShow);
+    showFilterDispatch(!showFilterPanel);
     sortDispatch(sortId);
   };
 
-  if (!isShow) {
+  if (!showFilterPanel) {
     return (<></>);
   }
 
@@ -21,7 +22,7 @@ const FilterSection = ({isShow, showFilterDispatch, sortDispatch}) => {
       <ul className="places__options places__options--custom places__options--opened">
         {sectionsNames.map((section, index) => {
           return (
-            <li onClick={selectedHandle} key={index} className="places__option places__option--active" tabIndex={index}>{section}</li>
+            <li onClick={handleSortClick} key={index} className="places__option places__option--active" tabIndex={index}>{section}</li>
           );
         })}
       </ul>
@@ -30,22 +31,18 @@ const FilterSection = ({isShow, showFilterDispatch, sortDispatch}) => {
   );
 };
 
-FilterSection.propTypes = {
-  isShow: PropTypes.bool.isRequired,
-  showFilterDispatch: PropTypes.func.isRequired,
-  sortDispatch: PropTypes.func.isRequired,
-};
+FilterSection.propTypes = props;
 
 const mapStateToProps = (state) => ({
-  sortId: state.sortId,
+  sortId: getSortIdSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  showFilterDispatch(isShow) {
-    dispatch(ActionCreator.showFilter(isShow));
+  showFilterDispatch(showFilterPanel) {
+    dispatch(showFilter(showFilterPanel));
   },
   sortDispatch(sortId) {
-    dispatch(ActionCreator.sortOffers(sortId));
+    dispatch(sortOffers(sortId));
   }
 });
 

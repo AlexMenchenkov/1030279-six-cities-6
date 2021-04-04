@@ -1,13 +1,14 @@
-import PropTypes from "prop-types";
 import React from 'react';
-import Review from '/src/components/review/review.jsx';
-import {propTypesReview} from '/src/prop-types.js';
-import SelfReview from '/src/components/self-review/self-review.jsx';
-import {AuthorizationStatus} from '/src/consts.js';
+import Review from '/src/components/review/review';
+import SelfReview from '/src/components/self-review/self-review';
+import {AuthorizationStatus} from '/src/consts';
 import {connect} from "react-redux";
-import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
+import LoadingScreen from '/src/components/loading-screen/loading-screen';
+import {getCheckedAuthSelector, getStatusAuthSelector} from '/src/store/user/selectors';
+import {props} from './reviwe-block-prop';
 
 const ReviewBlock = ({comments, checkedAuth, statusAuth}) => {
+
   if (!checkedAuth) {
     return (
       <LoadingScreen />
@@ -30,19 +31,11 @@ const ReviewBlock = ({comments, checkedAuth, statusAuth}) => {
   );
 };
 
-ReviewBlock.propTypes = {
-  comments: PropTypes.arrayOf(
-      PropTypes.shape(
-          propTypesReview.isRequired,
-      ),
-  ).isRequired,
-  statusAuth: PropTypes.string.isRequired,
-  checkedAuth: PropTypes.bool.isRequired,
-};
+ReviewBlock.propTypes = props;
 
 const mapStateToProps = (state) => ({
-  statusAuth: state.statusAuth,
-  checkedAuth: state.checkedAuth,
+  statusAuth: getStatusAuthSelector(state),
+  checkedAuth: getCheckedAuthSelector(state),
 });
 
 export {ReviewBlock};

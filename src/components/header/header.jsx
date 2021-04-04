@@ -1,12 +1,15 @@
-import PropTypes from "prop-types";
 import React from 'react';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {AuthorizationStatus} from '/src/consts';
-import {logout} from '/src/store/api-actions.js';
-import {ActionCreator} from '/src/store/action.js';
+import {logout} from '/src/store/api-actions';
+import {saveHistory} from '/src/store/action';
+import {props} from './header-prop';
+import {getStatusAuthSelector} from '/src/store/user/selectors';
+import {getEmailSelector} from '/src/store/data/selectors';
 
-const Header = ({email, statusAuth, onLogoutSubmit, logHistory}) => {
+const Header = ({email, statusAuth, handleLogoutSubmit, handleLogHistory}) => {
+
   return (
     <header className="header">
       <div className="container">
@@ -28,12 +31,12 @@ const Header = ({email, statusAuth, onLogoutSubmit, logHistory}) => {
                     </Link>
                     <div style={{marginTop: `20px`}}>
                       <a>
-                        <span onClick={() => onLogoutSubmit()} className="header__user-name user__name">Выйти</span>
+                        <span onClick={handleLogoutSubmit} className="header__user-name user__name">Выйти</span>
                       </a>
                     </div>
                   </>
                   :
-                  <Link to={`/login`} onClick={() => logHistory(location.pathname)} className="header__logo-link header__logo-link--active">
+                  <Link to={`/login`} onClick={() => handleLogHistory(location.pathname)} className="header__logo-link header__logo-link--active">
                     <span className="header__user-name user__name">Войти</span>
                   </Link>
                 }
@@ -46,26 +49,21 @@ const Header = ({email, statusAuth, onLogoutSubmit, logHistory}) => {
   );
 };
 
-Header.propTypes = {
-  email: PropTypes.string,
-  statusAuth: PropTypes.string.isRequired,
-  onLogoutSubmit: PropTypes.func.isRequired,
-  logHistory: PropTypes.func,
-};
+Header.propTypes = props;
 
 const mapDispatchToProps = (dispatch) => ({
-  onLogoutSubmit() {
+  handleLogoutSubmit() {
     dispatch(logout());
   },
-  logHistory(path) {
-    dispatch(ActionCreator.saveHistory(path));
+  handleLogHistory(path) {
+    dispatch(saveHistory(path));
   }
 });
 
 const mapStateToProps = (state) => ({
-  email: state.data && state.data.email,
-  statusAuth: state.statusAuth,
+  email: getEmailSelector(state),
+  statusAuth: getStatusAuthSelector(state),
 });
 
 export {Header};
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default React.memo(connect(mapStateToProps, mapDispatchToProps)(Header));

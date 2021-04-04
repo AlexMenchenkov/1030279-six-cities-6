@@ -1,12 +1,9 @@
-import PropTypes from "prop-types";
 import React from 'react';
-import {propTypesReview} from '/src/prop-types.js';
-import {FACTOR_RATE} from '/src/consts.js';
+import {props} from './review-prop';
+import {getRatingWidth} from '/src/utils';
 
-const Review = (props) => {
-  const {
-    review,
-  } = props;
+const Review = ({review}) => {
+
   return (
     <ul className="reviews__list">
       <li className="reviews__item">
@@ -22,7 +19,7 @@ const Review = (props) => {
         <div className="reviews__info">
           <div className="reviews__rating rating">
             <div className="reviews__stars rating__stars">
-              <span style={{width: Math.round(review.rating) * FACTOR_RATE}}/>
+              <span style={{width: getRatingWidth(review.rating)}}/>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
@@ -36,10 +33,6 @@ const Review = (props) => {
   );
 };
 
-Review.propTypes = {
-  review: PropTypes.shape(
-      propTypesReview.isRequired
-  )
-};
+Review.propTypes = props;
 
-export default Review;
+export default React.memo(Review);

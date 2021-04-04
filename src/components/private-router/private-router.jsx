@@ -1,9 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {AuthorizationStatus, AppRoute} from '/src/consts.js';
-import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
+import {AuthorizationStatus, AppRoute} from '/src/consts';
+import LoadingScreen from '/src/components/loading-screen/loading-screen';
+import {getStatusAuthSelector, getCheckedAuthSelector} from '/src/store/user/selectors';
+import {props} from './private-router-prop';
 
 const PrivateRoute = ({render, path, exact, statusAuth, checkedAuth}) => {
 
@@ -28,19 +29,12 @@ const PrivateRoute = ({render, path, exact, statusAuth, checkedAuth}) => {
   );
 };
 
-PrivateRoute.propTypes = {
-  statusAuth: PropTypes.string.isRequired,
-  exact: PropTypes.bool.isRequired,
-  path: PropTypes.string.isRequired,
-  render: PropTypes.func.isRequired,
-  checkedAuth: PropTypes.bool.isRequired,
-};
+PrivateRoute.propTypes = props;
 
 const mapStateToProps = (state) => ({
-  statusAuth: state.statusAuth,
-  checkedAuth: state.checkedAuth,
+  statusAuth: getStatusAuthSelector(state),
+  checkedAuth: getCheckedAuthSelector(state),
 });
-
 
 export {PrivateRoute};
 export default connect(mapStateToProps)(PrivateRoute);

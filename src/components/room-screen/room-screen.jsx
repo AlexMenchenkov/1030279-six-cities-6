@@ -1,17 +1,27 @@
-import PropTypes from "prop-types";
-import React, {useEffect} from 'react';
-import Header from '/src/components/header/header.jsx';
-import ReviewBlock from '/src/components/review-block/review-block.jsx';
+import React, {useEffect, useCallback} from 'react';
+import Header from '/src/components/header/header';
+import ReviewBlock from '/src/components/review-block/review-block';
 import {connect} from "react-redux";
-import {propTypesCard, propTypesComments} from '/src/prop-types.js';
-import {fetchcurrentHoverId, getComments, fetchNearbyOffers} from '/src/store/api-actions.js';
-import {ZERO, FACTOR_RATE, styleMapRoom} from '/src/consts.js';
-import LoadingScreen from '/src/components/loading-screen/loading-screen.js';
-import Map from '/src/components/map/map.jsx';
-import CardsList from '/src/components/cards-list/cards-list.jsx';
-import {ActionCreator} from '/src/store/action.js';
+import {fetchLoadOffer, getComments, fetchNearbyOffers, changeFavoriteStatus} from '/src/store/api-actions';
+import {ZERO, styleMapRoom, THIRD_ITEM_IN_PATH} from '/src/consts';
+import {getRatingWidth} from '/src/utils';
+import LoadingScreen from '/src/components/loading-screen/loading-screen';
+import Map from '/src/components/map/map';
+import CardsList from '/src/components/cards-list/cards-list';
+import {clearDataRoom} from '/src/store/action';
+import {
+  getIsRoomLoadedSelector,
+  getIsNearbyLoadedSelector,
+  getResponseFavoritesSelector,
+  getOfferSelector,
+  getOffersSelectorForMapRoom,
+  getCommentsStoreSelector,
+  getIsCommentsLoadedSelector,
+  getOfferNearbyForCardListSelector,
+} from '/src/store/data/selectors';
+import {props} from './room-screen-prop';
 
-const Room = ({
+const RoomScreen = ({
   offer,
   offerNearby,
   isRoomLoaded,
@@ -20,20 +30,28 @@ const Room = ({
   comments,
   isCommentsLoaded,
   isNearbyLoaded,
-  currentHoverId,
-  changeHoverEffectDispatch,
+  clearDataRoomDispatch,
+  responseFavorites,
+  changeFavoritesStatusDispatch,
+  offerNearbyForCardList,
 }) => {
-  const THIRD_ITEM_IN_PATH = 2;
+
   const offerId = Number(window.location.pathname.split(`/`)[THIRD_ITEM_IN_PATH]);
 
-  const handleClick = () => {
-    onLoadData(currentHoverId);
-    onLoadComments(currentHoverId);
+  const handleLoadDataClick = useCallback((event) => {
+    const id = Number(event.currentTarget.getAttribute(`href`).split(`/`)[THIRD_ITEM_IN_PATH]);
+    onLoadData(id);
+    onLoadComments(id);
     window.scrollTo({
       top: ZERO,
       left: ZERO,
       behavior: `smooth`
     });
+  }, [isRoomLoaded]);
+
+  const handleAddFavoriteClick = (event) => {
+    const status = Number(event.currentTarget.dataset.status);
+    changeFavoritesStatusDispatch(offerId, status, true, responseFavorites);
   };
 
   useEffect(() => {
@@ -41,15 +59,19 @@ const Room = ({
       onLoadData(offerId);
     }
     onLoadComments(offerId);
-    changeHoverEffectDispatch(false);
+
+    return () => {
+      clearDataRoomDispatch(false);
+    };
   }, []);
+
+  offerNearby = useCallback(offerNearby, [isNearbyLoaded]);
 
   if (!isRoomLoaded || (!isCommentsLoaded || !isNearbyLoaded)) {
     return (
       <LoadingScreen />
     );
   }
-  const offersForCardList = offerNearby.filter((room) => room.id !== offer.id);
 
   return (
     <div className="page">
@@ -77,7 +99,7 @@ const Room = ({
                 <h1 className="property__name">
                   {offer.title}
                 </h1>
-                <button className={`${offer.isFavorite ? `property__bookmark-button--active` : `property__bookmark-button`} button`} type="button">
+                <button onClick={handleAddFavoriteClick} data-status={Number(!offer.isFavorite)} className={`${offer.isFavorite ? `property__bookmark-button--active` : `property__bookmark-button`} button`} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>
@@ -86,7 +108,7 @@ const Room = ({
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `${(Math.round(offer.rating) * FACTOR_RATE)}%`}}/>
+                  <span style={{width: getRatingWidth(offer.rating)}}/>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{Math.round(offer.rating)}</span>
@@ -138,7 +160,11 @@ const Room = ({
           </div>
           <section className="property__map map">
             <Map
-              offers={offerNearby}
+              points={offerNearby.points}
+              titles={offerNearby.titles}
+              latitude={offerNearby.latitude}
+              longitude={offerNearby.longitude}
+              zoom={offerNearby.zoom}
               styleMap={styleMapRoom}
               roomId={offerId}
             />
@@ -147,8 +173,13 @@ const Room = ({
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div onClick={handleClick} className="near-places__list places__list">
-              <CardsList offers={offersForCardList}/>
+            <div className="near-places__list places__list">
+              <CardsList
+                offers={offerNearbyForCardList}
+                handleLoadDataClick={handleLoadDataClick}
+                isNotUpdateRoom={true}
+                needChangeMarker={false}
+              />
             </div>
           </section>
         </div>
@@ -157,56 +188,34 @@ const Room = ({
   );
 };
 
-Room.propTypes = {
-  offerNearby: PropTypes.arrayOf(
-      PropTypes.shape(
-          propTypesCard,
-      ),
-  ),
-  offer: PropTypes.shape(
-      propTypesCard,
-  ),
-  isRoomLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired,
-  changeHoverEffectDispatch: PropTypes.func.isRequired,
-  saveOfferId: PropTypes.func.isRequired,
-  onLoadComments: PropTypes.func.isRequired,
-  isCommentsLoaded: PropTypes.bool.isRequired,
-  isNearbyLoaded: PropTypes.bool.isRequired,
-  currentHoverId: PropTypes.number,
-  comments: PropTypes.arrayOf(
-      PropTypes.shape(
-          propTypesComments
-      ),
-  ),
-};
+RoomScreen.propTypes = props;
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
-  isRoomLoaded: state.isRoomLoaded,
-  isNearbyLoaded: state.isNearbyLoaded,
-  offer: state.offer,
-  offerNearby: state.offerNearby,
-  currentHoverId: state.currentHoverId,
-  comments: state.comments,
-  isCommentsLoaded: state.isCommentsLoaded,
+  isRoomLoaded: getIsRoomLoadedSelector(state),
+  isNearbyLoaded: getIsNearbyLoadedSelector(state),
+  responseFavorites: getResponseFavoritesSelector(state),
+  offer: getOfferSelector(state),
+  offerNearby: getOffersSelectorForMapRoom(state),
+  comments: getCommentsStoreSelector(state),
+  isCommentsLoaded: getIsCommentsLoadedSelector(state),
+  offerNearbyForCardList: getOfferNearbyForCardListSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadData(offerId) {
-    dispatch(fetchcurrentHoverId(offerId))
+    dispatch(fetchLoadOffer(offerId))
       .then(() => dispatch(fetchNearbyOffers(offerId)));
   },
   onLoadComments(offerId) {
     dispatch(getComments(offerId));
   },
-  saveOfferId(id) {
-    dispatch(ActionCreator.savecurrentHoverId(id));
+  clearDataRoomDispatch(needChangeMarker) {
+    dispatch(clearDataRoom(needChangeMarker));
   },
-  changeHoverEffectDispatch(needHover) {
-    dispatch(ActionCreator.changeHoverEffect(needHover));
+  changeFavoritesStatusDispatch(id, status, isNotUpdateRoom, responseFavorites) {
+    dispatch(changeFavoriteStatus(id, status, isNotUpdateRoom, responseFavorites));
   },
 });
 
-export {Room};
-export default connect(mapStateToProps, mapDispatchToProps)(Room);
+export {RoomScreen};
+export default connect(mapStateToProps, mapDispatchToProps)(RoomScreen);

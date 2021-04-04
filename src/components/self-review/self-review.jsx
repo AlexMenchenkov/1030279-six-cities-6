@@ -1,17 +1,17 @@
 import React, {useRef} from 'react';
-import PropTypes from "prop-types";
-import RowStars from '/src/components/row-stars/row-stars.jsx';
+import RowStars from '/src/components/row-stars/row-stars';
 import {connect} from "react-redux";
 import {sendComment, getComments} from '/src/store/api-actions';
+import {THIRD_ITEM_IN_PATH} from '/src/consts';
+import {getCityCheckedSelector} from '/src/store/user/selectors';
+import {props} from './self-review-prop';
 
 const SelfReview = ({submitReviewDispatch}) => {
   const textReview = useRef(null);
   const starRate = useRef(null);
-
-  const THIRD_ITEM_IN_PATH = 2;
   const offerId = Number(window.location.pathname.split(`/`)[THIRD_ITEM_IN_PATH]);
 
-  const submitReviewHandle = (event) => {
+  const handleReviewSubmit = (event) => {
     event.preventDefault();
     const checkedInput = (starRate.current).querySelector(`input:checked`);
     submitReviewDispatch({
@@ -24,7 +24,7 @@ const SelfReview = ({submitReviewDispatch}) => {
   };
 
   return (
-    <form onSubmit={submitReviewHandle} className="reviews__form form" action="#" method="post">
+    <form onSubmit={handleReviewSubmit} className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div ref={starRate} className="reviews__rating-form form__rating">
         <RowStars/>
@@ -42,12 +42,10 @@ const SelfReview = ({submitReviewDispatch}) => {
   );
 };
 
-SelfReview.propTypes = {
-  submitReviewDispatch: PropTypes.func.isRequired,
-};
+SelfReview.propTypes = props;
 
 const mapStateToProps = (state) => ({
-  cityChecked: state.cityChecked,
+  cityChecked: getCityCheckedSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

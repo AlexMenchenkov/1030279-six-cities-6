@@ -1,11 +1,13 @@
 import React, {useRef} from 'react';
-import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {login} from '/src/store/api-actions';
-import {AppRoute, AuthorizationStatus} from '/src/consts.js';
+import {AppRoute, AuthorizationStatus} from '/src/consts';
 import {Redirect} from "react-router-dom";
+import {props} from './login-screen-prop';
+import {getStatusAuthSelector} from '/src/store/user/selectors';
 
-const Login = ({onAuthSubmit, statusAuth}) => {
+const LoginScreen = ({onAuthSubmit, statusAuth}) => {
+
   if (statusAuth === AuthorizationStatus.AUTH) {
     return (
       <Redirect to={AppRoute.ROOT}/>
@@ -55,13 +57,10 @@ const Login = ({onAuthSubmit, statusAuth}) => {
   );
 };
 
-Login.propTypes = {
-  onAuthSubmit: PropTypes.func.isRequired,
-  statusAuth: PropTypes.string.isRequired,
-};
+LoginScreen.propTypes = props;
 
 const mapStateToProps = (state) => ({
-  statusAuth: state.statusAuth,
+  statusAuth: getStatusAuthSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -70,5 +69,5 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export {Login};
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export {LoginScreen};
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

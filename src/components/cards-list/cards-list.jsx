@@ -1,10 +1,8 @@
-import PropTypes from "prop-types";
 import React from 'react';
-import CardPlace from '/src/components/card-place/card-place.jsx';
-import {propTypesCard} from '/src/prop-types.js';
+import CardPlace from '/src/components/card-place/card-place';
+import {props} from './card-list-prop';
 
-const CardsList = ({offers}) => {
-
+const CardsList = ({handleLoadDataClick, isNotUpdateRoom, needChangeMarker, offers}) => {
   return (<>
     {offers.map((offer) => {
       return (
@@ -12,6 +10,9 @@ const CardsList = ({offers}) => {
           offer={offer}
           key={offer.id}
           id={offer.id}
+          handleLoadDataClick={handleLoadDataClick}
+          isNotUpdateRoom={isNotUpdateRoom}
+          needChangeMarker={needChangeMarker}
         />
       );
     })}
@@ -19,12 +20,6 @@ const CardsList = ({offers}) => {
   );
 };
 
-CardsList.propTypes = {
-  offers: PropTypes.arrayOf(
-      PropTypes.shape(
-          propTypesCard,
-      ),
-  ),
-};
+CardsList.propTypes = props;
 
-export default CardsList;
+export default React.memo(CardsList);

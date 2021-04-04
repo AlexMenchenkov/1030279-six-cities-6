@@ -60,6 +60,7 @@ export const APIRoute = {
   LOGIN: `/login`,
   LOGIN_OUT: `/logout`,
   COMMENTS: `/comments`,
+  FAVORITES: `/favorite`,
 };
 
 export const AppRoute = {
@@ -67,4 +68,13 @@ export const AppRoute = {
   ROOT: `/`,
   FAVORITES: `/favorites`,
   OFFER: `/offer/:id`,
+  NOT_FOUND: `/404`,
 };
+
+export const sizeCard = {
+  width: 150,
+  height: 150,
+  maxWidth: 200,
+};
+
+export const THIRD_ITEM_IN_PATH = 2;

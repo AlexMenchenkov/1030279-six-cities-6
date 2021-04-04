@@ -1,49 +1,57 @@
-import {APIRoute, AuthorizationStatus} from '/src/consts.js';
-import {ActionCreator} from './action';
-
-const dataMappingOffers = (data) => {
-  // eslint-disable-next-line camelcase
-  const renameData = ({is_favorite, is_premium, max_adults, preview_image, host: {avatar_url, is_pro, id, name}, ...object}) =>
-    // eslint-disable-next-line camelcase
-    ({isFavorite: is_favorite, isPremium: is_premium, maxAdults: max_adults, previewImage: preview_image, host: {avatarUrl: avatar_url, isPro: is_pro, id, name}, ...object});
-  if (data.constructor.name === `Object`) {
-    return renameData(data);
-  }
-  return data.map((offer) => renameData(offer));
-};
-
-const dataMappingUser = (data) => {
-  // eslint-disable-next-line camelcase
-  const renameData = ({avatar_url, is_pro, ...object}) =>
-    // eslint-disable-next-line camelcase
-    ({avatarUrl: avatar_url, isPro: is_pro, ...object});
-  return renameData(data);
-};
-
-const dataMappingComments = (data) => {
-  // eslint-disable-next-line camelcase
-  const renameData = ({user: {avatar_url, is_pro, id, name}, ...object}) =>
-    // eslint-disable-next-line camelcase
-    ({user: {avatarUrl: avatar_url, isPro: is_pro, id, name}, ...object});
-  return data.map((offer) => renameData(offer));
-};
+import {APIRoute, AuthorizationStatus} from '/src/consts';
+import {AppRoute} from '/src/consts';
+import {NameSpace} from '/src/store/root-reducer';
+import {dataMappingOffers, dataMappingUser, dataMappingComments} from '/src/utils';
+import {
+  loadOffers,
+  loadFavorites,
+  changeFavoritesStatus,
+  loadOffer,
+  loadNearbyOffers,
+  saveUserData,
+  requireAuthorization,
+  redirectToRoute,
+  submitReview,
+  saveComments,
+} from './action';
 
 export const fetchOffersList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFERS)
     .then(({data}) => {
       const offers = dataMappingOffers(data);
-      dispatch(ActionCreator.loadOffers(offers, true));
+      dispatch(loadOffers(offers, true));
     })
 );
 
-export const fetchcurrentHoverId = (id) => (dispatch, _getState, api) => (
+export const fetchFavoritesList = () => (dispatch, _getState, api) => (
+  api.get(APIRoute.FAVORITES)
+    .then(({data}) => {
+      const offers = dataMappingOffers(data);
+      dispatch(loadFavorites(offers));
+    })
+);
+
+export const changeFavoriteStatus = (id, status, isNotUpdateRoom) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.FAVORITES}/${id}/${status}`)
+    .then(({data}) => {
+      const offer = dataMappingOffers(data);
+      const responseFavorites = _getState()[NameSpace.DATA].responseFavorites.filter((favoriteOffer) => favoriteOffer.id !== offer.id);
+      responseFavorites.push(offer);
+      dispatch(changeFavoritesStatus({responseFavorites, isNotUpdateRoom}));
+    })
+    .catch(() => {
+      location.href = AppRoute.LOGIN;
+    })
+);
+
+export const fetchLoadOffer = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.OFFERS}/${id}`)
     .then(({data}) => {
       const offer = dataMappingOffers(data);
-      dispatch(ActionCreator.loadOffer(offer));
+      dispatch(loadOffer(offer));
     })
     .catch(() => {
-      location.href = `/404`;
+      location.href = AppRoute.NOT_FOUND;
     })
 );
 
@@ -51,17 +59,17 @@ export const fetchNearbyOffers = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.OFFERS}/${id}/nearby`)
     .then(({data}) => {
       const offers = dataMappingOffers(data);
-      dispatch(ActionCreator.loadNearbyOffers([...offers, _getState().offer]));
+      dispatch(loadNearbyOffers([...offers, _getState()[NameSpace.DATA].offer]));
     })
     .catch(() => {
-      location.href = `/404`;
+      location.href = AppRoute.NOT_FOUND;
     })
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then((response) => dispatch(ActionCreator.saveUserData(dataMappingUser(response.data))))
-    .then(() => dispatch(ActionCreator.requireAuthorization({
+    .then((response) => dispatch(saveUserData(dataMappingUser(response.data))))
+    .then(() => dispatch(requireAuthorization({
       auth: AuthorizationStatus.AUTH,
       checkedAuth: true,
     })))
@@ -70,17 +78,17 @@ export const checkAuth = () => (dispatch, _getState, api) => (
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
-    .then((response) => dispatch(ActionCreator.saveUserData(dataMappingUser(response.data))))
-    .then(() => dispatch(ActionCreator.requireAuthorization({
+    .then((response) => dispatch(saveUserData(dataMappingUser(response.data))))
+    .then(() => dispatch(requireAuthorization({
       auth: AuthorizationStatus.AUTH,
       checkedAuth: true,
     })))
-    .then(() => dispatch(ActionCreator.redirectToRoute(_getState().history)))
+    .then(() => dispatch(redirectToRoute(_getState()[NameSpace.ROUTE].history)))
 );
 
 export const logout = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN_OUT)
-    .then(() => dispatch(ActionCreator.requireAuthorization({
+    .then(() => dispatch(requireAuthorization({
       auth: AuthorizationStatus.NO_AUTH,
       checkedAuth: true,
     })))
@@ -88,10 +96,10 @@ export const logout = () => (dispatch, _getState, api) => (
 
 export const getComments = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.COMMENTS}/${id}`)
-    .then(({data}) => dispatch(ActionCreator.saveComments(dataMappingComments(data))))
+    .then(({data}) => dispatch(saveComments(dataMappingComments(data))))
 );
 
 export const sendComment = ({comment, rating, offerId}) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.COMMENTS}/${offerId}`, {comment, rating})
-    .then(({data}) => dispatch(ActionCreator.submitReview(data)))
+    .then(({data}) => dispatch(submitReview(data)))
 );

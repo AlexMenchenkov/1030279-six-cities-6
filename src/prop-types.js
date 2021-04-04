@@ -69,14 +69,3 @@ export const propTypesReview = {
   rating: PropTypes.string.isRequired,
   fullDate: PropTypes.string.isRequired,
 };
-
-export const OffersType = {
-  APARTMENT: `Apartment`,
-  ROOM: `Private room`,
-  HOUSE: `House`,
-};
-
-export const propTypesMap = {
-  iconUrl: PropTypes.string.isRequired,
-  iconSize: PropTypes.array.isRequired,
-};
